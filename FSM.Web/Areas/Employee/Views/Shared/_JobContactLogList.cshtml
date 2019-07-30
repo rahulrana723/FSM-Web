@@ -1,0 +1,182 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerContractListViewModel
+@using GridMvc.Html
+
+<script>
+    var FSM={};
+    FSM.JobId = @Html.Raw(Json.Encode(Model.CustomerContactLog.JobId));
+    FSM.HasGridRecords='@Model.CustomerContactList.Count()'
+    FSM.PageSize='@Model.PageSize'
+</script>
+
+@Html.Grid(Model.CustomerContactList).SetRowCssClasses(
+    item => item.CustomerContactId == Guid.Empty ? string.Empty : "cssEditJobContactLog").Columns(
+    columns =>
+    {
+        columns.Add(model => model.CustomerContactId, true);
+        columns.Add(model => model.Type, true);
+        columns.Add(model => model.JobId, true);
+        columns.Add(model => model.SiteName).Titled("Site Address").SetWidth(200);
+
+        columns.Add(model => model.ViewJobid).Titled("Job Id");
+        columns.Add(model => model.LogDate).Format("{0:dd/MM/yyyy}").Titled("Log Date");
+        columns.Add(model => model.Note).Titled("Note").SetWidth(400).Sanitized(false).Encoded(false);
+        //columns.Add(model => model.ReContactDate).Format("{0:dd/MM/yyyy}").Titled("ReContact Date").SetWidth(0);
+        columns.Add(model => model.EnteredBy).Titled("Entered By");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+     .RenderValueAs(model => Html.ActionLink("Edit", "", "", null, new { @class = "btn btn-default edtJobcontactlog", href = "javascript:void(0)", JobId = model.JobId, customercontactid = model.CustomerContactId, Type = model.Type })).Filterable(false).Titled("Edit");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", null, new { @class = "btn btn-default deletecontactlog", onclick = "DeleteJobcontactLog('" + model.CustomerContactId + "','" + model.CustomerGeneralInfoId + "','" + model.Type + "');", href = "javascript:void(0)", customerGeneralinfoid = model.CustomerGeneralInfoId, @Customercontactid = model.CustomerContactId, Type = model.Type })).Filterable(false).Titled("Delete");
+
+    }
+    ).WithPaging(Model.PageSize).Sortable(true)
+<div style="float: right;">
+    <label>Page Size</label>
+    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+            {
+              new SelectListItem { Text="5",Value="5"},
+              new SelectListItem { Text = "10", Value = "10" },
+              new SelectListItem { Text = "15", Value = "15" },
+              new SelectListItem { Text = "20", Value = "20" },
+              new SelectListItem { Text = "25", Value = "25" },
+              new SelectListItem { Text = "30", Value = "30" }
+            }, new { @class = "form-control" })
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        if (FSM.Success == "ok") {
+            $("#ContactinfoErrorDiv").empty();
+            $("#ContactinfoErrorDiv").append("Record Saved Successfully!");
+            $('#ContactinfoErrorDiv').css('color', 'green');
+            $("#ContactinfoErrorDiv").css("display", "block");
+            $("#ContactinfoErrorDiv").hide(1500);
+            FSM.Success = null;
+        }
+
+        $('#ddPageSize').val(@Model.PageSize);
+        if (parseInt(FSM.HasGridRecords) > 0) {
+            if ($(".pagination").length > 0) {
+                $('#ddPageSize').parent().css('margin-top', '-72px');
+            }
+            else {
+                $('#ddPageSize').parent().css('margin-top', '8px');
+            }
+        }
+        else {
+            $('#ddPageSize').parent().css('margin-top', '0px');
+        }
+    });
+
+
+    $('#ddPageSize').on('change', function () {
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.PageSize;
+        }
+        $.get(common.SitePath + "/Employee/CustomerJob/JobContactLogList?page_size=" + page_size+"&JobId=@Model.CustomerContactLog.JobId", function (data) {
+            $('#divContactPartial').empty();
+            $('#divContactPartial').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+
+    });
+
+
+    $(document).on("click", ".closebtncontact", function () {
+        $("#modalContactlog").modal("hide");
+    });
+
+    $(".edtJobcontactlog").click(function () {
+        var JobGeneralinfoid = $(this).attr("JobId");
+        var customercontactid = $(this).attr("customercontactid");
+        var type=$(this).attr("Type");
+        var pagenum = $('.active span').text();
+        var Sitenam = $(this).parent().parent().children('td:first-child')[0].textContent;
+        if(type=="Reminder"){
+            $.ajax({
+                url: common.SitePath + "/Employee/CustomerJob/_JobReminderCreate",
+                data: { JobId: JobGeneralinfoid, CustomerReminderId: customercontactid, PageNum: pagenum, SiteName: Sitenam  },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $("#divRemPopup").html(data);
+                    $("#modalReminder").modal("show");
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+        else
+        {
+            $.ajax({
+                url: common.SitePath + "/Employee/CustomerJob/_CustomercontactAddEdit",
+                data: { JobId: JobGeneralinfoid, Customercontactid: customercontactid, PageNum: pagenum, SiteName: Sitenam },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $("#divShowPopup").html(data);
+                    $("#modalContactlog").modal("show");
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+        function SuccessLog(data) {
+        }
+    })
+
+
+    $(document).on('dblclick', '.cssEditJobContactLog', function () {
+        // getting customer id
+        var customercontactid = $(this).find('td:eq(0)').text();
+        var type = $(this).find('td:eq(1)').text();
+        var JobGeneralinfoid = $(this).find('td:eq(2)').text();
+        var Sitenam = $(this).find('td:eq(3)').text();
+        var pagenum = $('.active span').text();
+
+
+        if(type=="Reminder"){
+            $.ajax({
+                url: common.SitePath + "/Employee/CustomerJob/_JobReminderCreate",
+                data: { JobId: JobGeneralinfoid, Customercontactid: customercontactid, PageNum: pagenum, SiteName: Sitenam },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $("#divRemPopup").html(data);
+                    $("#modalReminder").modal("show");
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+        else{
+            $.ajax({
+                url: common.SitePath + "/Employee/CustomerJob/_CustomercontactAddEdit",
+                data: { JobId: JobGeneralinfoid, Customercontactid: customercontactid, PageNum: pagenum, SiteName: Sitenam },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $("#divShowPopup").html(data);
+                    $("#modalContactlog").modal("show");
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+       
+    });
+</script>

@@ -1,0 +1,57 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.OTRWStockViewmodel
+@*<script src="~/Areas/Customer/Scripts/CustomerContactLog.js"></script>*@
+<div class="modal fade" id="modalAssigntootrw" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Add/Edit Contact</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("_AssignOTRWStock","Stock", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "SuccessLog" }, new { @id = "contactform" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        <hr />
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.ID)
+                        <div class="form-group">
+                            @Html.Label("Stock Item", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(M => M.StockID, new SelectList(Model.StockItemList, "StockId", "StockName"), "", new { @class = "ddlstockname  " })
+                                @Html.ValidationMessageFor(model => model.StockID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.UnitMeasure, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.EditorFor(model => model.UnitMeasure, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.UnitMeasure, "", new { @id = "errorfname", @style = "top:0px;color:red" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Assign to OTRW", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                @Html.DropDownListFor(M => M.OTRWID, new SelectList(Model.OTRWEmployee, "StockId", "StockName"), "", new { @class = "ddlOtrwname  " })
+                                @Html.ValidationMessageFor(model => model.OTRWID, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-6 col-md-6">
+                                    <input type="submit" value="Save Contact" class="btn btn-success" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+

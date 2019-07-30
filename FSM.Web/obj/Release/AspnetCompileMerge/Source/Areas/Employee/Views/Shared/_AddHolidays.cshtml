@@ -1,0 +1,53 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.PublicHolidayViewModel
+<div class="modal fade" id="modalHoliday" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title modalholidaytitle">Add Leave</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("_AddHolidays", "Employee", new AjaxOptions() { HttpMethod = "POST" }, new { @id = "formholiday" }))
+                {
+                    @Html.HiddenFor(i => i.Id);
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal popUp_width">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2 text_bold" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @id = "startingdate", @class = "form-control startingdate", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Date, "", new { @id = "errorstartdate", @style = "top:0px;color:red" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2 text_bold" })
+                            <div class="col-md-7">
+                                @Html.TextAreaFor(M => M.Reason, new { @class = "form-control description desc-width textarea_height" })
+                                @Html.ValidationMessageFor(model => model.Reason, "", new { @id = "errorreason", @style = "top:0px;color:red" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-6">
+                                @if (Model.Id != Guid.Empty)
+                                {
+                                    <input type="submit" value="Update" class="btn btn-success chatBtns btnsubmit" onclick="return checkformvalidation();" />
+                                }
+                                else
+                                {
+                                    <input type="submit" value="Save" class="btn btn-success chatBtns btnsubmit" onclick="return checkformvalidation();" />
+                                }
+                                <input type="button" value="Cancel" class="btn black-btn" data-dismiss="modal" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Customer/Scripts/AddEditPublicHoliday.js"></script>
+

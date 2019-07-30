@@ -1,0 +1,88 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerTabPanelViewModel
+@{
+    ViewBag.Title = "AddCustomerInfo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.CustomerGeneralInfoId = @Html.Raw(Json.Encode(Model.CustomerGeneralInfoId));
+        FSM.ActiveTab = @Html.Raw(Json.Encode(Model.ActiveTab));
+        FSM.Success = @Html.Raw(Json.Encode(Model.Success));
+    </script>
+    <script src="~/Areas/Customer/Scripts/AddCustomerInfo.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC2-yRUpPgZfGT4yhS1kPSwqyVrWLCnvhY&sensor=false&amp;libraries=places"></script>
+    <script src="~/Scripts/jquery.geocomplete.min.js"></script>
+}
+
+@if (string.IsNullOrEmpty(Model.CustomerGeneralInfoId))
+{<h2> &nbsp;Add Customer Info</h2>
+}
+else if (Model.JobId != null)
+{
+    @Html.ActionLink("Back To Job", "SaveJobInfo", "CustomerJob", new
+{
+    @area = "Employee",
+    id = Model.JobId
+}, new { @class = "btn btn-default CreateJob_FrmCustomer" })
+    <h2>&nbsp;Customer:<span> @Model.CustomerName</span></h2>
+}
+else
+{
+    @Html.ActionLink("Create Job", "SaveJobInfo", "CustomerJob", new
+{
+    @area = "Employee",
+    CustomerId = Model.CustomerGeneralInfoId.ToString(),
+    CustomerName = Model.CustomerName
+}, new { @class = "btn btn-default CreateJob_FrmCustomer" })
+    <h2>&nbsp;Customer:<span> @Model.CustomerName</span></h2>
+}
+<div id="tabs" style="border:none;">
+    <ul>
+
+        @if (string.IsNullOrEmpty(Model.CustomerGeneralInfoId))
+        {
+            <li>@Html.ActionLink("General Info", "AddCustomer")</li>
+            <li>@Html.ActionLink("Sites (" + Model.SiteCount + ")", "ManageCustomerSites")</li>
+            <li>@Html.ActionLink("Contacts(" + Model.CustomerContactsCount + ")", "ViewCustomerContacts")</li>
+            <li>@Html.ActionLink("Billing Address (" + Model.SiteCount + ")", "ViewCustomerBillingAddress")</li>
+            <li>@Html.ActionLink("Contact Log", "AddCustomerContactLog")</li>
+            <li>@Html.ActionLink("Documents(" + Model.SitesDocumentCount + ")", "AddDocuments")</li>
+        }
+        else
+        {
+            <li>
+                @Html.ActionLink("General Info", "EditCustomer", new { id = Model.CustomerGeneralInfoId })
+            </li>
+            <li>
+                @Html.ActionLink("Sites (" + Model.SiteCount + ")", "ManageCustomerSites", new { CustomerGeneralInfoId = Model.CustomerGeneralInfoId, SiteCount = Model.SiteCount })
+            </li>
+            <li><a href='@Url.Action("ViewCustomerContacts", "Customer")?customerGeneralinfoid=@Model.CustomerGeneralInfoId&grid-page=@Model.PageNum'>Contacts(@Model.CustomerContactsCount)</a></li>
+            <li>
+                <a href='@Url.Action("ViewCustomerBillingAddress", "Customer")?customerGeneralinfoid=@Model.CustomerGeneralInfoId&grid-page=@Model.PageNum'>Billing Address(@Model.BillingCount)</a>
+            </li>
+            @*if (string.IsNullOrEmpty(Model.BillingAddressId))
+                {
+                    <li>@Html.ActionLink("Billing Address", "AddBillingAddress", new { CustomerGeneralInfoId = Model.CustomerGeneralInfoId })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Billing Address", "EditBillingAddress", new { CustomerGeneralInfoId = Model.CustomerGeneralInfoId.ToString(), BillingAddressId = Model.BillingAddressId })</li>
+                }*@
+            <li>
+                <a href='@Url.Action("ViewCustomerContactLog", "Customer")?customerGeneralinfoid=@Model.CustomerGeneralInfoId&grid-page=@Model.PageNum'>Contact Log</a>
+            </li>
+            <li>
+                <a href='@Url.Action("AddDocuments", "Customer")?customerGeneralinfoid=@Model.CustomerGeneralInfoId&grid-page=@Model.PageNum'>Documents(@Model.SitesDocumentCount)</a>
+            </li>
+            <li>
+                <a href='@Url.Action("JobHistory", "Customer")?customerGeneralinfoid=@Model.CustomerGeneralInfoId&grid-page=@Model.PageNum'>Job History</a>
+            </li>
+            <li>
+                <a href='@Url.Action("InvoiceHistory", "Customer")?customerGeneralinfoid=@Model.CustomerGeneralInfoId&grid-page=@Model.PageNum'>Invoice History</a>
+            </li>
+
+        }
+    </ul>
+
+</div>

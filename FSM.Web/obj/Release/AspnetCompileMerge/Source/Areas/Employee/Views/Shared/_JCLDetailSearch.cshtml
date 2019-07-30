@@ -1,0 +1,15 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JCLSearchViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PageSize)
+    <div class="col-sm-9">
+        @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @id = "searchkeyword", @class = "form-control", @placeholder = "Search Keyword" } })
+    </div>
+    <div class="col-sm-3">
+        <button type="submit" value="Search" class="btn btn-default">Search</button>
+    </div>
+}
+
+

@@ -1,0 +1,47 @@
+﻿Time: 14/03/2018 11:45:02 AM
+-----------------------------------------------------------
+Message: An error occurred while executing the command definition. See the inner exception for details.
+StackTrace:    at FSM.Infrastructure.Repository.iNvoiceRepository.UpdatePurchaseOrderStatus(Nullable`1 iD)
+   at FSM.Web.Areas.Employee.Controllers.PurchaseController.SyncPurchaseordermyob() in D:\Projects\FSM\FSM_M10\FSM.Web\Areas\Employee\Controllers\PurchaseController.cs:line 1306
+Source: FSM.Infrastructure
+TargetSite: Void UpdatePurchaseOrderStatus(System.Nullable`1[System.Guid])
+-----------------------------------------------------------
+
+Time: 14/03/2018 11:45:15 AM
+-----------------------------------------------------------
+Message: An error occurred while executing the command definition. See the inner exception for details.
+StackTrace:    at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at FSM.Web.Areas.Employee.Controllers.PurchaseController.SyncPurchaseordermyob() in D:\Projects\FSM\FSM_M10\FSM.Web\Areas\Employee\Controllers\PurchaseController.cs:line 1203
+Source: EntityFramework
+TargetSite: System.Data.Common.DbDataReader ExecuteStoreCommands(System.Data.Entity.Core.EntityClient.EntityCommand, System.Data.CommandBehavior)
+-----------------------------------------------------------
+
+Time: 14/03/2018 11:46:09 AM
+-----------------------------------------------------------
+Message: An error occurred while executing the command definition. See the inner exception for details.
+StackTrace:    at System.Data.Entity.Core.EntityClient.Internal.EntityCommandDefinition.ExecuteStoreCommands(EntityCommand entityCommand, CommandBehavior behavior)
+   at System.Data.Entity.Core.Objects.Internal.ObjectQueryExecutionPlan.Execute[TResultType](ObjectContext context, ObjectParameterCollection parameterValues)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__6()
+   at System.Data.Entity.Core.Objects.ObjectContext.ExecuteInTransaction[T](Func`1 func, IDbExecutionStrategy executionStrategy, Boolean startLocalTransaction, Boolean releaseConnectionOnSuccess)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<>c__DisplayClass7.<GetResults>b__5()
+   at System.Data.Entity.SqlServer.DefaultSqlExecutionStrategy.Execute[TResult](Func`1 operation)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.GetResults(Nullable`1 forMergeOption)
+   at System.Data.Entity.Core.Objects.ObjectQuery`1.<System.Collections.Generic.IEnumerable<T>.GetEnumerator>b__0()
+   at System.Data.Entity.Internal.LazyEnumerator`1.MoveNext()
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at FSM.Web.Areas.Employee.Controllers.PurchaseController.SyncPurchaseordermyob() in D:\Projects\FSM\FSM_M10\FSM.Web\Areas\Employee\Controllers\PurchaseController.cs:line 1268
+Source: EntityFramework
+TargetSite: System.Data.Common.DbDataReader ExecuteStoreCommands(System.Data.Entity.Core.EntityClient.EntityCommand, System.Data.CommandBehavior)
+-----------------------------------------------------------
+

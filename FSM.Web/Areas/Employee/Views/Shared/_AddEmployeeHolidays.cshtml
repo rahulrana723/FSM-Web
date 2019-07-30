@@ -1,0 +1,79 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.VacationViewModel
+<div class="modal fade" id="modalEmployeeHoliday" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title modalholidaytitle">Add Employee Leave</h4>
+            </div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("_AddEmployeeHolidays", "Employee", new AjaxOptions() { HttpMethod = "POST" }, new { @id = "formEmpholiday" }))
+                {
+                    @Html.HiddenFor(i => i.Id);
+                    @Html.HiddenFor(m => m.Status)
+                    @Html.HiddenFor(m => m.CreatedBy)
+                    @Html.HiddenFor(m => m.CreatedDate)
+
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal popUp_width">
+                        <div class="form-group">
+                            <label class="control-label col-md-2 text_bold">Employee Name</label>
+                            <div class="col-md-7">
+                                @Html.DropDownListFor(m => m.EmployeeId, Model.OTRWList, "Select OTRW User", new { @id = "tempAssignTo", @title = "Select OTRW User", @class = "ddljobslist form-control Create_Customer" })
+                                @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @id = "errorEmployee", @style = "top:0px;color:red" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StartDate, htmlAttributes: new { @class = "control-label col-md-2 text_bold" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @id = "HolidayStartDate", @class = "form-control startingdate", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.StartDate, "", new { @id = "errorstartdate", @style = "top:0px;color:red" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EndDate, htmlAttributes: new { @class = "control-label col-md-2 text_bold" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @id = "HolidayEndDate", @class = "form-control startingdate", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.EndDate, "", new { @id = "errorEndDate", @style = "top:0px;color:red" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LeaveType, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-7">
+                                @Html.EnumDropDownListFor(m => m.LeaveType, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.LeaveType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Hours, htmlAttributes: new { @class = "control-label col-md-2 text_bold" })
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.Hours, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Hours, "", new { @id = "errorHour", @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-7">
+                                @Html.TextBoxFor(model => model.Reason, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Reason, "", new { @id = "errorreason", @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-4 col-md-6">
+                                <input type="submit" value="Save" class="btn btn-success chatBtns btnsubmit" onclick="return checkformvalidation();" />
+                                <input type="button" value="Cancel" class="btn black-btn" data-dismiss="modal" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="~/Areas/Employee/Scripts/AddEmployeeHoliday.js"></script>
+
+

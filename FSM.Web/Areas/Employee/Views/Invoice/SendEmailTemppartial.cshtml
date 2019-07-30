@@ -1,0 +1,220 @@
+﻿
+@model FSM.Web.Areas.Employee.ViewModels.CustomerEmailSendViewModel
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css" />
+@*<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />*@
+<link href="~/Scripts/css/richtext.css" rel="stylesheet" />
+@*<link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900&subset=latin,latin-ext' rel='stylesheet' type='text/css'>*@
+<link href="~/Scripts/css/build.min.css" rel="stylesheet" />
+@*<link href="~/Scripts/css/fastselect.min.css" rel="stylesheet" />*@
+@*<script src="~/Areas/Employee/Scripts/fastselect.standalone.min.js"></script>*@
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>*@
+<link href="~/Content/css/selectize.css" rel="stylesheet" />
+<script src="~/Scripts/Selectize.js"></script>
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="select-box3">
+            <button type="button" class="btnsendemail btn btn-default" style="background: black;color: white;">Send</button>
+        </div>
+        <div class="form-group select-box2 text-right">
+            @Html.EnumDropDownListFor(model => model.EmailTemplates, "(Select Template)", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.EmailTemplates, "", new
+       {
+           @class = "text-danger",
+           @id = "TemplateError",
+           style = "margin-left: 23px;"
+       })
+            @Html.EnumDropDownListFor(model => model.FromEmail, "(From Email)", htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FromEmail, "", new { @class = "text-danger", @id = "" })
+        </div>
+        <div class="form-group select-box2 text-right">
+
+        </div>
+    </div>
+</div>
+<div class="form-outer">
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label> TO  </label>
+            <input type="text" id="select-tools" placeholder="Select email or enter recipients email and press Enter" />
+            @Html.ValidationMessageFor(m => m.To, "", new { @class = "text-danger", @id = "ToError", style = "margin-left: 66px;" })
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label> CC  </label>
+            <input type="text" id="select-cc" placeholder="Select email or enter recipients email and press Enter" />
+            @Html.ValidationMessageFor(m => m.CC, "", new { @class = "text-danger", @id = "CCError", style = "margin-left: 66px;" })
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label> Bcc  </label>
+            <input type="text" id="select-bcc" placeholder="Select email or enter recipients email and press Enter"/>
+            @Html.ValidationMessageFor(m => m.Bcc, "", new { @class = "text-danger", @id = "BCCError", style = "margin-left: 66px;" })
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            <label> Subject  </label>
+            @Html.TextBoxFor(model => model.Subject, new { @class = "form-control", placeholder = " " })
+        </div>
+    </div>
+</div>
+<div class="col-sm-12">
+    <div class="form-group">
+        @Html.TextAreaFor(m => m.TemplateSelected, new { @class = "content1 form-control", placeholder = " " })
+    </div>
+</div>
+<link href="~/Scripts/css/richtext.min.css" rel="stylesheet" />
+<script src="~/Scripts/RichText/jquery.richtext.js"></script>
+<script src="~/Scripts/RichText/jquery.richtext.min.js"></script>
+
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.content1').richText();
+        $('.content2').richText();
+    });
+    var store = [];
+
+    $.ajax({
+        url: '/Employee/Invoice/GetCustomerEmailId',
+        type: 'Post',
+        dataType: 'JSON',
+        data: { Customerid: '@Model.CustomerGeneralInfoId' },
+        success: function (data) {
+            store = data;
+            AddData(data);
+            AddDatacc(data);
+            AddDatabcc(data);
+        },
+        error: function () {
+        }
+    })
+
+    //For to recipients
+  
+    var $select = $('#select-tools').selectize({
+        theme: 'contacts',
+        plugins: ['remove_button'],
+        persist: false,
+        maxItems: null,
+        delimiter: ';',
+        valueField: 'Email',
+        labelField: 'Email',
+        searchField: ['Email'],
+        create: true,
+        options: []
+    });
+
+    //For Cc recipients
+    var $selectcc = $('#select-cc').selectize({
+        theme: 'contacts',
+        plugins: ['remove_button'],
+        persist: false,
+        maxItems: null,
+        delimiter: ';',
+        valueField: 'Email',
+        labelField: 'Email',
+        searchField: ['Email'],
+        create: true,
+        options: []
+    });
+
+
+
+    //For BCc recipients
+    var $selectbcc = $('#select-bcc').selectize({
+        theme: 'contacts',
+        plugins: ['remove_button'],
+        persist: false,
+        maxItems: null,
+        delimiter: ';',
+        valueField: 'Email',
+        labelField: 'Email',
+        searchField: ['Email'],
+        create: true,
+        options: []
+    });
+
+
+    var controlcc = $selectcc[0].selectize;
+    controlcc.clear();
+
+    var controlbcc = $selectbcc[0].selectize;
+    controlbcc.clear();
+
+    var control = $select[0].selectize;
+    control.clear();
+
+
+    function AddData(data) {
+        control.addOption(data);
+    }
+    function AddDatacc(data) {
+        controlcc.addOption(data);
+    }
+    function AddDatabcc(data) {
+        controlbcc.addOption(data);
+    }
+    //delete option press
+   
+    //$(document).on('click', '.remove', function (e) {
+    //    var s = $("#select-tools").val().split(',');
+    //    var control = $select[0].selectize;
+    //    // 1. Get the value
+    //    var emails = $(this).parent().clone().children().remove().end().text();
+
+
+    //    for (i = 0; i <store.length; i++) {
+    //        if (store[i]["Email"] == emails) {
+    //            var selectedValue = store[i]["Email"];
+    //            // 2. Remove the option
+    //            control.removeItem(selectedValue);
+    //        }
+    //    }
+
+    //    AddData(store);
+    //});
+
+    $("#select-tools-selectized").focus(function () 
+    {
+        var s = $("#select-tools").val().split(',');
+        if (s.length == 1) {
+            var control = $select[0].selectize;
+        }
+        AddData(store);
+    })
+
+    $("#select-bcc-selectized").focus(function () {
+        var s = $("#select-bcc").val().split(',');
+        if (s.length == 1) {
+            var controlcc = $selectbcc[0].selectize;
+        }
+        AddDatacc(store);
+    })
+
+    $("#select-cc-selectized").focus(function () {
+        var s = $("#select-cc").val().split(',');
+        if (s.length == 1) {
+            var controlbcc = $selectcc[0].selectize;
+        }
+        AddDatabcc(store);
+    })
+
+    $("#EmailTemplates").change(function () {
+        var InvoiceStatusUrl = common.SitePath + "/Employee/Invoice/GetTemplate";
+        var value = $(this).val();
+        $.get(InvoiceStatusUrl, { Templateid: value }, function (result) {
+
+            if (result.invoicestatus != "" && result.invoicestatus != 'undefined' && result.invoicestatus != 'null')
+                $('.richText-editor').html(result.invoicestatus);
+        })
+            .fail(function () {
+                alert("Some error occured please try after sometime");
+            });
+    });
+</script>

@@ -1,0 +1,63 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.CustomerSiteJobViewModel
+<div class="modal fade" id="modalAddSite" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Add New Site</h4>
+                <div class="text-validation"></div>
+            </div>
+            <div class="modal-body" style="overflow:auto;">
+                @Html.HiddenFor(model => model.CustomerGeneralInfoId,new {@id="CustGeneralId" })
+                <div class="row">
+                    <div class="form-group col-md-6" style="margin-top:13px">
+                        @Html.LabelFor(model => model.Unit)
+                        @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @id = "siteUnit", @class = "form-control" } })
+                    </div>
+                    <div class="form-group col-md-6" style="margin-top:13px"">
+                        @Html.LabelFor(model => model.Street)
+                        @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @id = "siteStreet", @class = "form-control" } })
+                    </div>
+                    </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.StreetName)
+                        @Html.EditorFor(model => model.StreetName, new { htmlAttributes = new { @id = "siteName", @class = "form-control" } })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.StreetType)
+                        @Html.EnumDropDownListFor(m => m.StreetType, "(Select)", htmlAttributes: new { @id = "siteType", @class = "form-control text-box single-line" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.Suburb)
+                        @Html.EditorFor(model => model.Suburb, new { htmlAttributes = new { @id = "siteSuburb", @class = "form-control" } })
+                    </div>
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.State)
+                        @Html.EditorFor(model => model.State, new { htmlAttributes = new { @id = "siteState", @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        @Html.LabelFor(model => model.PostalCode)
+                        @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @id = "siteCode", @class = "form-control" } })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="CustbtnTag">
+                    <input type="button" value="Add" id="messageSent" class="btn btn-success sitesaveBtns chatBtns" />
+                    <input type="button" value="Cancel" id="sitecancel" class="btn btn-default black-btn" />
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

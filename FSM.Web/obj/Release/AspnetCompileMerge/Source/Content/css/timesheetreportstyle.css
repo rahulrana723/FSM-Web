@@ -1,0 +1,101 @@
+﻿@charset "utf-8";
+/* CSS Document */
+@font-face {
+font-family:'Open Sans Light';src: url('../fonts/Open Sans Light.eot');src: url('../fonts/Open Sans Light.eot?#iefix') format('embedded-opentype'),  url('../fonts/Open Sans Light.woff2') format('woff2'),  url('../fonts/Open Sans Light.woff') format('woff'),  url('../fonts/Open Sans Light.svg#Open Sans Light') format('svg');font-weight: 300;font-style: normal;font-stretch: normal;unicode-range: U+0020-FFFD;}
+@font-face {font-family:'Open Sans Bold';src: url('../fonts/Open Sans Bold.eot');src: url('../fonts/Open Sans Bold.eot?#iefix') format('embedded-opentype'),  url('../fonts/Open Sans Bold.woff2') format('woff2'),  url('../fonts/Open Sans Bold.woff') format('woff'),  url('../fonts/Open Sans Bold.ttf') format('truetype'),  url('../fonts/Open Sans Bold.otf') format('opentype'),  url('../fonts/Open Sans Bold.svg#Open Sans Bold') format('svg');font-weight: 700;font-style: normal;font-stretch: normal;unicode-range: U+0020-FFFD;}
+@font-face {font-family:'Open Sans';src: url('../fonts/Open Sans.eot');src: url('../fonts/Open Sans.eot?#iefix') format('embedded-opentype'),  url('../fonts/Open Sans.woff2') format('woff2'),  url('../fonts/Open Sans.woff') format('woff'),  url('../fonts/Open Sans.ttf') format('truetype'),  url('../fonts/Open Sans.otf') format('opentype'),  url('../fonts/Open Sans.svg#Open Sans') format('svg');font-weight: 400;font-style: normal;font-stretch: normal;unicode-range: U+0020-FFFD;}
+@font-face {font-family:'Open Sans Semibold';src: url('../fonts/Open Sans Semibold.eot');src: url('../fonts/Open Sans Semibold.eot?#iefix') format('embedded-opentype'),  url('../fonts/Open Sans Semibold.woff2') format('woff2'),  url('../fonts/Open Sans Semibold.woff') format('woff'),  url('../fonts/Open Sans Semibold.ttf') format('truetype'),  url('../fonts/Open Sans Semibold.otf') format('opentype'),  url('../fonts/Open Sans Semibold.svg#Open Sans Semibold') format('svg');font-weight: 600;font-style: normal;font-stretch: normal;unicode-range: U+0020-FFFD;}
+
+ul, p, h1, h2, h3, h4, h5, h6 {margin:0;padding:0;}
+li{list-style:none;}
+body {font-family:'Open Sans';font-size: 14px; line-height: 25px; margin:0;}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+	vertical-align:top;
+}
+th, td {
+    padding: 15px;
+}
+.padding0{padding:0;}
+/********/
+.invoice_template table {
+  border: 1px solid;
+  width: 100%;
+}
+.text-right{
+	text-align:right;
+}
+
+.text-center{
+	text-align:center;
+}
+.payment_tab {
+  margin-bottom: 20px;
+}
+.text-right td, .text-right table {
+  border: 0 none;
+}
+td.border {
+  border-left: 1px solid;
+  padding: 20px;
+}
+.border_btm {
+  border-bottom: 1px solid;
+}
+.balance {
+  padding: 27px 20px;
+}
+.price_tab {
+  padding: 31px 20px;
+}
+.sale_tab {
+  padding-top: 36px;
+}
+/**** job time report ****/
+.report_left {
+  float: left;
+  padding: 20px;
+  width: 46%;
+  background:green;
+}
+.report_heading, .job_time_report, .report_template{
+  float: left;
+  width: 100%;
+}
+.job_head {
+  border-top: 1px solid #000000;
+  float: left;
+  text-align: center;
+  width: 100%;
+}
+.job_head h2 {
+  float: left;
+  font-size: 30px;
+  margin: 0;
+  padding: 30px 0;
+  width: 100%;
+}
+.report_template table{
+	width:100%;
+}
+.report_left:last-child {
+  border-left: 1px solid #cccccc;
+  padding-bottom: 36px;
+  text-align: right;
+  float:right;
+      width: 46%;
+      background:red;
+}
+.report_left h4 {
+  font-size: 18px;
+  padding-bottom: 5px;
+}
+
+
+
+
+
+
+
+

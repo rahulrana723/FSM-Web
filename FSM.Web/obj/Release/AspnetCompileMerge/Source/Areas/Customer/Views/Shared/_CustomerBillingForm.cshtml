@@ -1,0 +1,389 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerBillingAddressListViewModel
+
+<div id="BillingAddressErrorDiv" style="display:none;">
+</div>
+
+<style>
+    .setWidth {
+        width: 12em;
+    }
+</style>
+
+
+<script>
+    $("#poBoxAddress").keydown(function (e) {
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+            (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+            (e.keyCode >= 35 && e.keyCode <= 40)) {
+            return;
+        }
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+</script>
+
+@using (Html.BeginForm("AddBillingAddress", "Customer", new { @area = "Customer" }, FormMethod.Post, new { @id = "formBillingAddress" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal general_form border_margin">
+        @if (Model.HideBillingBtn != "true")
+        {
+            <input type="button" value="Add Customer Billing" class="btn btn-default AddNewSite btn-addbilling" id="addcustomerbilling" />
+        }
+
+        <h3>Customer Billing Detail</h3>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CustomerGeneralInfoId)
+        @Html.HiddenFor(model => model.BillingAddressId)
+        @Html.HiddenFor(model => model.customerBillingAddressViewModel.CreatedBy)
+        @Html.HiddenFor(model => model.customerBillingAddressViewModel.CreatedDate)
+        @Html.HiddenFor(model => model.customerBillingAddressViewModel.IsDelete)
+        <div class="Billing_details_outer">
+            <div>
+                <div class="col-md-12">
+                    <div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.CustomerTitle)
+                                <div>
+                                    @Html.EnumDropDownListFor(m => m.customerBillingAddressViewModel.CustomerTitle, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.CustomerTitle, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.FirstName)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.LastName)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.LastName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.PhoneNo1)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.PhoneNo1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.PhoneNo1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.PhoneNo2)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.PhoneNo2, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.PhoneNo2, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.PhoneNo3)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.PhoneNo3, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.PhoneNo3, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.EmailId)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.EmailId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.ContactPosition)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.ContactPosition, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.ContactPosition, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <div>
+                        @*<div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.customerBillingAddressViewModel.StrataPlan)
+                                    <div>
+                                        @Html.EditorFor(model => model.customerBillingAddressViewModel.StrataPlan, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.StrataPlan, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>*@
+                        @*<div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.customerBillingAddressViewModel.RealEstate)
+                                    <div>
+                                        @Html.EditorFor(model => model.customerBillingAddressViewModel.RealEstate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.RealEstate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.Spare1)
+                                <div>
+                                    @Html.TextAreaFor(model => model.customerBillingAddressViewModel.Spare1, new { @id = "spare1", @class = "form-control description desc-width textarea_height" })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.Spare1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.PO)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.PO, new { htmlAttributes = new { @id = "POBox" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.PO, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.IsDefault)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.IsDefault, new { htmlAttributes = new { } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.IsDefault, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                @*<div class="col-md-12">
+                        <div>
+                            <div class="col-md-3">
+                                <div class="form-group poBoxList">
+                                    @Html.LabelFor(model => model.customerBillingAddressViewModel.POAddress)
+                                    @Html.TextBoxFor(model => model.customerBillingAddressViewModel.POAddress, new { @id = "poBoxAddress", @class = "form-control description textarea_height setWidth" })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.POAddress, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>*@
+            </div>
+        </div>
+        <div class="Address_details_outer">
+            <div>
+                <div class="col-md-12">
+                    <div class="showHideBillingAddress">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.Unit)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.Unit, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.StreetNo)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.StreetNo, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.StreetNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.StreetName)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.StreetName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.StreetName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.customerBillingAddressViewModel.StreetType)
+                                    <div>
+                                        @Html.EnumDropDownListFor(m => m.customerBillingAddressViewModel.StreetType, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.StreetType, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>*@
+
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <div id="divsubrbstate">
+                        <div class="col-md-3">
+                            <div class="form-group poBoxList">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.POAddress)
+                                @Html.TextBoxFor(model => model.customerBillingAddressViewModel.POAddress, new { @id = "poBoxAddress", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.POAddress, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.Suburb)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.Suburb, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.Suburb, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.State)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.State, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.State, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.customerBillingAddressViewModel.PostalCode)
+                                <div>
+                                    @Html.EditorFor(model => model.customerBillingAddressViewModel.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.customerBillingAddressViewModel.PostalCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (Model.ModifiedDate != null)
+        {
+            <div class="row">
+                <div class="col-sm-4 ">
+                    <b>Last Updated By</b>
+                       </div>       
+                           <div class="col-sm-4 ">
+                               <div>
+                                  <b>UserName :-</b>
+                                    @Html.DisplayFor(model => model.UserName)
+                                    </div>
+                                   </div>
+                               <div class="col-sm-4 ">
+                                 <div>
+                                  <b>Date & Time :-</b>
+                                 @Html.DisplayFor(model => model.ModifiedDate)
+                                </div>
+                        </div>                              
+                 </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-sm-4 ">
+                    <b>Created By  </b>
+                </div>
+                    <div class="col-sm-4 ">
+                        <div>
+                            <b>UserName :-</b>
+                            @Html.DisplayFor(model => model.UserName)
+                        </div>
+                    </div>
+                    <div class="col-sm-4 ">
+                        <div>
+                            <b>Date & Time :-</b>
+                            @Html.DisplayFor(model => model.CreatedDate)
+                        </div>
+                  </div>
+            </div>
+        }
+        @Html.HiddenFor(m => m.CreatedBy)
+        @Html.HiddenFor(m => m.CreatedDate)
+        <div class="buttons  text-center">
+            <div class="col-md-offset-5 col-md-3">
+                <input type="button" value="Save" class="btn btn-default save" id="btnSaveBillingAddress" />
+                <a class="btn btn-default" href="@Url.Action("index","Customer", new { Area = "Customer" })">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+}
+@*<script src="~/Scripts/jquery.maskedinput-1.3.1.min_.js"></script>*@
+
+<script src="~/Areas/Customer/Scripts/AddBillingAddress.js"></script>
+
+<style>
+    .Billing_details_outer {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+    }
+
+        .Billing_details_outer:after {
+            position: absolute;
+            content: "Billing General Info";
+            top: -11px;
+            background: #fff;
+            width: 148px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            left: 27px;
+        }
+
+    .Address_details_outer {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+    }
+
+        .Address_details_outer:after {
+            position: absolute;
+            content: "Address Detail";
+            top: -11px;
+            background: #fff;
+            width: 116px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+            left: 27px;
+        }
+
+    .save {
+        background: #2a2d33 none repeat scroll 0 0 !important;
+        border-radius: 0;
+        box-shadow: none;
+        color: #fff !important;
+        font-size: 15px !important;
+        height: 30px;
+        margin: 0 15px 0 0;
+        padding: 3px 25px !important;
+    }
+</style>

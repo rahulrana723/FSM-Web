@@ -1,0 +1,115 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.ReportsViewModel
+
+@{
+    //  ViewBag.Title = "GenerateReports";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+
+        @using (Html.BeginForm("GenerateReports", "Employee", FormMethod.Post, new { @id = "generateReports", enctype = "multipart/form-data" }))
+        {
+            <div id="overlay" class="overlayloading">
+                <div class="overlayloadingimg">
+                    <br /><br /><br />
+                    <center>
+                        <img src="~/Content/Images/Loaderimg.gif" /><br /><p style="color:white">Sending mail.....</p>
+                    </center>
+                </div>
+            </div>
+            <div class="employee_table">
+                <div class="alert alert-success jobalert" style="display:none">
+                    <strong>Success!</strong> Mail sent successfully.
+                </div>
+                <div class="emp_table padding20">
+                    <div class="Create_invoice_form">
+                        <div class="list_heading">
+                            <h2>Reports</h2>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="general_form email_form">
+                                <div class="form email_form">
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Report Type: </label>
+                                                @Html.EnumDropDownListFor(m => m.ReportType, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.ReportType, "", new { @class = "text-danger", @id = "ToError" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row empdiv">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Employee: </label>
+                                                @Html.ListBoxFor(m => m.EmployeeIds, Model.EmployeeList, new { @title = "Select OTRW User", @class = "ddlmultiselect", multiple = "multiple" })
+                                                @Html.ValidationMessageFor(m => m.EmployeeId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*<div class="row showhidejob">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Select Jobs: </label>
+                                                @Html.ListBoxFor(m => m.JobIDs, Model.Joblist, new { @title = "Select Job", @class = "ddlmultiselectjob", multiple = "multiple" })
+                                                @Html.ValidationMessageFor(m => m.jobid, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>*@
+                                    @*</div>*@
+                                    <div class="row showhideoperations">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label>Select Duration: </label>
+                                                @Html.EnumDropDownListFor(m => m.Duration, "(Select Duration)", htmlAttributes: new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.Duration, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="showhidedate" >
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>Start Date </label>
+                                                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control mardate", @placeholder = "Start Date" } })
+                                                    @Html.ValidationMessageFor(m => m.StartDate, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label>End Date </label>
+                                                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control mardate", @placeholder = "End Date" } })
+                                                    @Html.ValidationMessageFor(m => m.EndDate, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary  black-btn">Generate Report</button>
+
+                                        </div>
+                                    </div>
+                                </div><!--buttons-->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script src="~/Areas/Employee/Scripts/Reports.js"></script>

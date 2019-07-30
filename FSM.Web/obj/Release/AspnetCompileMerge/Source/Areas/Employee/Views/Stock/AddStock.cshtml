@@ -1,0 +1,91 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.StockViewModel
+@{
+    ViewBag.Title = "AddStock";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        @using (Html.BeginForm("AddStock", "Stock", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="dashboard_center_block  paper-wrap bevel tlbr">
+                <div class="new_emp_tab">
+                    <div class="new_emp">
+                        <h3> ADD STOCK</h3>
+                        <div id="EmployeeBasicDetails" class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Label </label>
+                                        @Html.TextBoxFor(m => m.Label, new { @id = "", @class = "form-control", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.Label, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Material </label>
+                                        @Html.TextBoxFor(m => m.Material, new { @id = "", @class = "form-control", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.Material, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Unit Measure </label>
+                                        @Html.TextBoxFor(m => m.UnitMeasure, new { @id = "", @class = "form-control", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.UnitMeasure, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Price </label>
+                                        @Html.TextBoxFor(m => m.Price, new { @id = "", @class = "form-control", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Add Quantity </label>
+                                        @Html.TextBoxFor(m => m.Quantity, new { @id = "Quantity", @class = "form-control", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                                @*<div class="col-sm-3" style="display:none;">
+                                    <div class="form-group">
+                                        <label>Date </label>
+                                        @Html.TextBoxFor(m => m.Date, null, new { @class = "stockdate form-control", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>*@
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Description </label>
+                                        @Html.TextAreaFor(m => m.Description, new { @id = "", @class = "stockdate form-control adstock_textarea", placeholder = " ", @rows = "7" })
+                                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                              
+                            </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        <div class="clearfix"> </div>
+                        <div class="col-sm-5 col-sm-offset-3 text-center">
+                            <input type="submit" value="Add" class="btn btn-default black-btn" style="margin-left:36px" />
+                            <a class="btn black-btn btn-default stckcncl" href="@Url.Action("CancelStock","Stock", new { Area = "Employee" })">
+                                Cancel
+                            </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Areas/Employee/Scripts/AddStock.js"></script>
+
+
+

@@ -1,0 +1,117 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JCLListViewModel
+@using FSM.Web.Common;
+@using GridMvc.Html
+@{
+    ViewBag.Title = "EmployeeDetails";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<meta name="viewport" content="width=device-width" />
+<title>Sale Item Details</title>
+<section class="dashboard_section">
+    <div class="dashboard_right_block outer_padding">
+        <div class="list_heading">
+            <h2>Sale Items</h2>
+        </div>
+        <div class="employee_table paper-wrap bevel tlbr">
+            <div id="GeneralInfoMsgDiv" style="display:none;text-align:left;">
+            </div>
+            <div class="alert alert-success jobalert" style="display:none">
+                <strong>Success!</strong> Indicates a successful or positive action.
+            </div>
+            <div class="outer_box2 employee_gap">
+                <div>
+                    <div class="col-md-6 no-pad">
+                        <div class="employee-search ">
+                            @Html.Partial("_JCLDetailSearch", Model.jCLSearchViewModel)
+                        </div>
+                    </div>
+                    <div class="col-md-6 ">
+                        <div class="new_emp_tab top_gap">
+
+                            @Html.ActionLink("Add New Item", "AddJCL", "JCL", new { @area = "Employee", @class = "btn btn-default pull-right" })
+                        </div>
+                    </div>
+                    <div>
+                    </div>
+                </div>
+            </div><!--new_emp_tab-->
+
+            <div class="emp_table">
+                <div class="drop_head_tab">
+                    <div class="table-responsive">
+                        @Html.Grid(Model.jCLDetailListViewModel).SetRowCssClasses(
+    item => item.JCLId == Guid.Empty ? string.Empty : "cssEditJCL").Columns(
+    columns =>
+    {
+        columns.Add(model => model.JCLId, true);
+        columns.Add(model => model.ItemName).Titled("Name");
+        //columns.Add(model => model.BonusPerItem).Titled("Bonus Per Item");
+        columns.Add(model => model.DefaultQty).Titled("Quantity");
+        columns.Add(model => model.Price).Titled("Sale Price");
+        //columns.Add(model => model.BonusMinimum).Titled("Bonus Minimum");
+        columns.Add(model => model.Description).Titled("Description");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "EditJCL", new { JCLId = model.JCLId }, new { @class = "btn btn-default editbtngrid" })).Filterable(false).Titled("Edit");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+          .RenderValueAs(model => Html.ActionLink("Delete", "", new { }, new { @class = "deleteEmploye btn btn-default editbtngrid", href = "javascript:void(0)", onclick = "DeleteJCL('" + model.JCLId.ToString() + "');", @JCLId = model.JCLId })).Filterable(false).Titled("Delete");
+    }
+                           ).WithPaging(Model.jCLSearchViewModel.PageSize).Sortable(true)
+
+                        <div style="float: left;">
+                            <label class="recordCount">Total Record: @Model.jCLDetailListViewModel.Count()</label>
+                        </div>
+                        <div style="float: right;">
+                            <label>Page Size</label>
+                            @Html.DropDownList("ddPageSize", new List<SelectListItem>
+                           {
+                             new SelectListItem { Text="5",Value="5"},
+                             new SelectListItem { Text = "10", Value = "10" },
+                             new SelectListItem { Text = "15", Value = "15" },
+                             new SelectListItem { Text = "20", Value = "20" },
+                             new SelectListItem { Text = "25", Value = "25" },
+                             new SelectListItem { Text = "30", Value = "30" }
+                           }, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div><!--emp_table-->
+        </div>
+    </div><!--dashboard_right_block-->
+</section>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+@section scripts{
+
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("GETJCLList","JCL", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.jCLSearchViewModel.PageSize;
+        FSM.EditEmployee='@Url.Action("EditJCL", "JCL", new { @area = "Employee" })';
+        FSM.HasGridRecords='@Model.jCLDetailListViewModel.Count()';
+        var success='@TempData["Message"]';
+        if (success != "" && success != undefined)
+        {
+            FSM.Message=success;
+        }
+        else
+        {
+            FSM.Message="";
+        }
+    </script>
+}
+<script src="~/Areas/Employee/Scripts/JCLDetail.js"></script>
+
+
+
+
+
+
+
+

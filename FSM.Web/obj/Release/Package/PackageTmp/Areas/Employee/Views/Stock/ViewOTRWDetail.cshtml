@@ -1,0 +1,49 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.OTRWStockListViewmodel
+@using GridMvc.Html
+@using FSM.Web.Common;
+
+@{
+    ViewBag.Title = "ViewOTRWDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ViewOTRWDetail", new { @area = "Employee" })';
+        FSM.SelectedVal=@Model.OTRWStockSearchmodel.PageSize;
+    </script>
+}
+<div class="dashboard_right_block outer_padding">
+    @using (Html.BeginForm("ViewOTRWDetail", "Stock", new { @area = "Employee" }, FormMethod.Post, new { @id = "OTRWviewdetail" }))
+    {
+        <div class="">
+            <div class="new_emp_tab employee_table paper-wrap bevel tlbr">
+                <div class="new_emp">
+                    <h3><b>Label:</b> @Model.OTRWStockSearchmodel.StockLabel</h3>
+                    <div class="customer_head_tab" style="padding:0px">
+                        @Html.Partial("_OTRWStockSearch", Model.OTRWStockSearchmodel)
+                        <div class="clearfix"></div>
+                        <h4><b>Total Quantity:</b> @Model.TotalQuantity<br /><b>Available:</b> @Model.Availability</h4>
+                        @Html.Grid(Model.OTRWStockViewListmodel).Columns(
+ columns =>
+ {
+     columns.Add(model => model.Detail).Titled("Detail");
+     columns.Add(model => model.Type).Titled("Type");
+     columns.Add(model => model.Quantity).Titled("Quantity");
+ }
+ ).WithPaging(Model.OTRWStockSearchmodel.PageSize).Sortable(true)
+                    </div>
+                    <div class="text-center">
+                        <a class="btn btn-default new_cancel" href="@Url.Action("Index","Stock", new { Area = "Employee" })">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Areas/Employee/Scripts/OTRWAssignee.js"></script>
+

@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSM.Web", "FSM.Web\FSM.Web.csproj", "{5E4359C7-8675-49CA-BD5F-FBC05B498170}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSM.Core", "FSM.Core\FSM.Core.csproj", "{2D7BB6D6-1A85-4243-B8B0-131F68FE1EE5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSM.Infrastructure", "FSM.Infrastructure\FSM.Infrastructure.csproj", "{B08EEE65-2A15-4926-97E9-4442A1400267}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSM.WebAPI", "FSM.WebAPI\FSM.WebAPI.csproj", "{86EBFCE0-E3A7-4378-8AF9-00415149A9C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E4359C7-8675-49CA-BD5F-FBC05B498170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E4359C7-8675-49CA-BD5F-FBC05B498170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E4359C7-8675-49CA-BD5F-FBC05B498170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E4359C7-8675-49CA-BD5F-FBC05B498170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D7BB6D6-1A85-4243-B8B0-131F68FE1EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D7BB6D6-1A85-4243-B8B0-131F68FE1EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D7BB6D6-1A85-4243-B8B0-131F68FE1EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D7BB6D6-1A85-4243-B8B0-131F68FE1EE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B08EEE65-2A15-4926-97E9-4442A1400267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B08EEE65-2A15-4926-97E9-4442A1400267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B08EEE65-2A15-4926-97E9-4442A1400267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B08EEE65-2A15-4926-97E9-4442A1400267}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86EBFCE0-E3A7-4378-8AF9-00415149A9C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86EBFCE0-E3A7-4378-8AF9-00415149A9C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86EBFCE0-E3A7-4378-8AF9-00415149A9C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86EBFCE0-E3A7-4378-8AF9-00415149A9C0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://10.8.18.43:8080/tfs/dotnet
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = FSM.Web\\FSM.Web.csproj
+		SccProjectName1 = FSM.Web
+		SccLocalPath1 = FSM.Web
+		SccProjectUniqueName2 = FSM.Core\\FSM.Core.csproj
+		SccProjectName2 = FSM.Core
+		SccLocalPath2 = FSM.Core
+		SccProjectUniqueName3 = FSM.Infrastructure\\FSM.Infrastructure.csproj
+		SccProjectName3 = FSM.Infrastructure
+		SccLocalPath3 = FSM.Infrastructure
+		SccProjectUniqueName4 = FSM.WebAPI\\FSM.WebAPI.csproj
+		SccProjectName4 = FSM.WebAPI
+		SccLocalPath4 = FSM.WebAPI
+	EndGlobalSection
+EndGlobal

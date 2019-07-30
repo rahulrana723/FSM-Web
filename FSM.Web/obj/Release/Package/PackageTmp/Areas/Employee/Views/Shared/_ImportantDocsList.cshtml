@@ -1,0 +1,45 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.CustomerEmailSendListViewModel
+@using GridMvc.Html
+
+@Html.Grid(Model.displayImportantDocumentViewModel).Columns(
+    columns =>
+    {
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(o => Html.CheckBox("checked", false, new {@id="impDocId", @class = "checkedItem", @Impdocid = o.Id })).Filterable(false).Titled("Check");
+
+        columns.Add(model => model.FileName).Titled("Document Name");
+        //columns.Add(model => model.CreatedDate).Titled("Insert Date");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Download", "", null, new { @class = "btnImpdocdownload btn btn-default ", href = "javascript:void(0)", @Id = model.Id })).Filterable(false).Titled("Download");
+
+    }
+    )
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script>
+    $(document).on("click", ".btnImpdocdownload ", function () {
+        var id = $(this).attr("Id");
+        var pagenum = $('.active span').text();
+        $.ajax({
+            url: common.SitePath + "/Employee/Invoice/DownloadImportantDocsFile",
+            data: { Id: id },
+            type: 'Get',
+            async: false,
+            success: function (data) {
+                window.open(common.SitePath + data);
+            },
+            error: function () {
+                alert("something seems wrong");
+            }
+        });
+    })
+</script>
+
+
+

@@ -1,0 +1,68 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerConditionReportViewModel
+
+@{
+    ViewBag.Title = "EditConditionReport";
+}
+<script src="~/Areas/Customer/Scripts/EditConditionReport.js"></script>
+<div id="ConditionReportErrorDiv" style="display:none;">
+</div>
+
+@using (Html.BeginForm("EditConditionReport", "Customer", new { @area = "Customer" }, FormMethod.Post, new { @id = "formConditionReport" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="general_form">
+        @Html.HiddenFor(model => model.ConditionReportId)
+        @Html.HiddenFor(model => model.CustomerGeneralInfoId)
+            <h4>Edit Condition Report</h4>
+            <hr />
+        <div class="form">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                    @Html.LabelFor(model => model.RoofTilesSheets)
+                    @Html.EnumDropDownListFor(m => m.RoofTilesSheets, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RoofTilesSheets, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                    @Html.LabelFor(model => model.BargeCappings)
+                    @Html.EnumDropDownListFor(m => m.BargeCappings, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.BargeCappings, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.RidgeCappings)
+                @Html.EnumDropDownListFor(m => m.RidgeCappings, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RidgeCappings, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                    @Html.LabelFor(model => model.Valleys)
+                    @Html.EnumDropDownListFor(m => m.Valleys, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Valleys, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                    @Html.LabelFor(model => model.Flashings)
+                    @Html.EnumDropDownListFor(m => m.Flashings, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Flashings, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                    @Html.LabelFor(model => model.Gutters)
+                    @Html.EnumDropDownListFor(m => m.Gutters, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Gutters, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                    @Html.LabelFor(model => model.DownPipes)
+                    @Html.EnumDropDownListFor(m => m.DownPipes, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.DownPipes, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(m => m.CreatedBy)
+
+            @Html.HiddenFor(m => m.CreatedDate)
+            </div>
+        <div class="buttons text-center">
+            @*<input type="submit" value="Save" class="btn btn-default" />*@
+            <input id="btnEditConditionReport" class="btn btn-default" type="button" value="Update" />
+            <input id="btnCancelConditionReport" class="btn btn-default" type="button" value="Cancel" />
+        </div>
+        </div>
+
+        }
+
+        

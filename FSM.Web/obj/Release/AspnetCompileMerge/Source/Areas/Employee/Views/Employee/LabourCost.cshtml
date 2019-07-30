@@ -1,0 +1,382 @@
+﻿@model List<FSM.Web.Areas.Employee.ViewModels.LabourCostViewModel>
+@using GridMvc.Html
+@{
+    Layout = null;
+}
+<html>
+<head>
+    @*<script src="~/Scripts/jquery-1.12.4.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>
+        <meta name="viewport" content="width=device-width" />
+        <title>Export User TimeSheet</title>
+        <link rel="stylesheet" href="@Url.Content("~/Content/fonts/font-awesome.min.css")">
+        <link rel="stylesheet" href="@Url.Content("~/Content/css/style.css")">
+        <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Content/Site.css" rel="stylesheet" />
+            <link rel="shortcut icon" href="@Url.Content("~/Content/images/fsmfavicon.ico")" />*@
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <style>
+        ul, p, h1, h2, h3, h4, h5, h6 {
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        body {
+            font-family: 'Open Sans';
+            font-size: 14px;
+            line-height: 25px;
+            margin: 0;
+        }
+
+
+        .padding0 {
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Open Sans';
+            font-size: 14px;
+            line-height: 25px;
+            margin: 0;
+        }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            vertical-align: top;
+        }
+
+        th, td {
+            padding: 15px;
+        }
+
+        .padding0 {
+            padding: 0;
+        }
+        /********/
+        .invoice_template table {
+            border: 1px solid;
+            width: 100%;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .payment_tab {
+            margin-bottom: 20px;
+        }
+
+        .text-right td, .text-right table {
+            border: 0 none;
+        }
+
+        td.border {
+            border-left: 1px solid;
+            padding: 20px;
+        }
+
+        .border_btm {
+            border-bottom: 1px solid;
+        }
+
+        .balance {
+            padding: 27px 20px;
+        }
+
+        .price_tab {
+            padding: 31px 20px;
+        }
+
+        .sale_tab {
+            padding-top: 36px;
+        }
+        /**** job time report ****/
+        .report_left {
+            float: left;
+            padding: 20px;
+            width: 46%;
+        }
+
+        .report_heading, .job_time_report, .report_template {
+            float: left;
+            width: 100%;
+        }
+
+        .job_head {
+            border-top: 1px solid #000000;
+            float: left;
+            text-align: center;
+            width: 100%;
+        }
+
+            .job_head h2 {
+                float: left;
+                font-size: 30px;
+                margin: 0;
+                padding: 30px 0;
+                width: 100%;
+            }
+
+        .report_template table {
+            width: 100%;
+        }
+
+        .report_left:last-child {
+            border-left: 1px solid #cccccc;
+            padding-bottom: 36px;
+            text-align: right;
+            float: right;
+            width: 44%;
+        }
+
+        .report_left h4 {
+            font-size: 18px;
+            padding-bottom: 5px;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+    <div class="job_time_report">
+        <div class="report_heading">
+            <div class="report_left">
+                <a href="@Url.Action("Dashboard","Dashboard", new {@area="Admin" })"> <img alt="" src="~/Content/images/srg_logo_new.png"></a>
+
+
+
+
+
+            </div><!--report_left-->
+            <div class="report_left">
+                <h4>OPERATIONS</h4>
+                <p><strong>Ph: </strong> 0280205777 </p>
+                <p><strong>Email:</strong> Info@sydneyroofandgutter.com.au </p>
+                <h4>ACCOUNTS</h4>
+                <p><strong>Ph:</strong> 0424032965</p>
+                <p><strong>Email:</strong> accounts@sydneyroofandgutter.com.au </p>
+            </div><!--report_left-->
+
+        </div><!--report_heading-->
+        <div class="job_head">
+            <h2> Hour Summary </h2>
+
+        </div>
+        <div>  <b> Date: @DateTime.Now.Date.ToString("yyyy-MM-dd")</b></div>
+    </div><br />
+    <div></div>
+    <!--job_time_report-->
+    @*<header class="container-fluid">
+        <!-- LOGO SECTION -->
+        <div class="head_tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="head_logo" style="float:left">
+                            <a href="@Url.Action("Dashboard","Dashboard", new {@area="Admin" })"> <img alt="" src="~/Content/images/srg_logo_new.png"></a>
+                        </div><!-- head_logo -->
+                    </div>
+
+                </div>
+            </div><!--head_btm-->
+        </div><!--head_tab-->
+        </header>*@
+    @*<div class="clearfix"></div>
+        <div class="clearfix"></div>
+        <div>
+            @Html.LabelFor(m=>m.JobStartDate)
+            @Html.DisplayFor(m => m.JobStartDate)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.JobEndDate)
+            @Html.DisplayFor(m => m.JobEndDate)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.UserName)
+            @Html.DisplayFor(m => m.UserName)
+        </div>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+        <div class="clearfix"></div>
+            <div class="clearfix"></div>*@
+    <div class="report_template">
+        <div class="table-responsive">
+            @if (Model.Count() > 0)
+            {
+                <table class="table text-center">
+                    <thead>
+                        <tr>
+                            <th>EID</th>
+                            <th>Name</th>
+                            <th>Base Rate</th>
+                            <th>S_WC</th>
+                            <th>AL_PH</th>
+                            <th>TAFE</th>
+                            <th>Payroll</th>
+                            <th>Cont_MV_EQ_Cost</th>
+                            <th>Emp_MV_Cost</th>
+                            <th>Equip_Cost</th>
+                            <th>Emp_Mob_Ph_Cost</th>
+                            <th>GrossLabourCost</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var val in Model)
+                        {
+                            <tr class="success" style="page-break-inside: avoid;">
+                                <td>
+
+
+                                    <p>@val.EID</p>
+
+                                </td>
+                                <td>
+
+                                    <p>@val.Name</p>
+
+                                </td>
+                                <td>
+
+                                    @if (val.BaseRate.HasValue)
+                                    {
+                                        <p>@val.BaseRate</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+
+                                </td>
+                                <td>
+
+                                    @if (val.S_WC.HasValue)
+                                    {
+                                        <p>@val.S_WC</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+
+                                </td>
+                                <td>
+
+                                    @if (val.AL_PH.HasValue)
+                                    {
+                                        <p>@val.AL_PH</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+                                </td>
+                                <td>
+
+                                    @if (val.TAFE.HasValue)
+                                    {
+                                        <p>@val.TAFE </p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+
+                                </td>
+                                <td>
+
+                                    @if (val.Payroll.HasValue)
+                                    {
+                                        <p>@val.Payroll </p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+
+                                </td>
+
+                                <td>
+
+                                    @if (val.Cont_MV_EQ_Cost.HasValue)
+                                    {
+                                        <p>@val.Cont_MV_EQ_Cost </p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+
+                                </td>
+                                <td>
+
+                                    @if (val.Emp_MV_Cost.HasValue)
+                                    {
+                                        <p>@val.Emp_MV_Cost</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+
+                                </td>
+                                <td>
+
+                                    @if (val.Equip_Cost.HasValue)
+                                    {
+                                        <p>@val.Equip_Cost</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+
+                                </td>
+                                <td>
+
+                                    @if (val.Emp_Mob_Ph_Cost.HasValue)
+                                    {
+                                        <p>@val.Emp_Mob_Ph_Cost</p>
+                                    }
+                                    else
+                                    { <p>@("0.00")</p>}
+
+                                </td>
+                                <td>
+
+                                    @if (val.Emp_Mob_Ph_Cost.HasValue)
+                                    {
+                                        <p>@val.GrossLabourCost</p>
+                                    }
+                                    else
+                                    {
+                                        <p>@("0.00")</p>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-danger">
+                    <strong>!</strong>No Record found !
+                </div>
+            }
+        </div>
+    </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerReminderViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+    <title>Customer Reminder</title>
+    <!-- STYLESHEET FIrLE -->
+    @*<link href="css/font-awesome.min.css" type="text/css" rel="stylesheet" />*@
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link href="css/style.css" type="text/css" rel="stylesheet" />*@
+    <link href="~/Content/css/templatestyle.css" rel="stylesheet" />
+    <!--  SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>Reminder Export</title>
+</head>
+<body>
+    <div class="invoice_template">
+        <div class="table-responsive">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                          @Model.CustomerLastName
+                        </td>
+                        <td>Job No:@Model.JobNo</td>
+                        <td>Site Name:@Model.SiteName</td>
+                        <td>Log Date:@Model.LogDate</td>
+                        <td>ReContact Date:@Model.ReContactDate</td>
+                        <td>Note:@Model.Note</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div><!--table-responsive-->
+    </div><!--invoice-template-->
+</body>
+</html>

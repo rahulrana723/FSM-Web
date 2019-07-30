@@ -1,0 +1,21 @@
+btnAddstockitem -- for black buttons
+
+--------for green buttons----------
+ .btn.btn-primary.pull-right.add_new_job:hover {
+        background:none repeat scroll 0px 0px rgba(130, 188, 49, 1);
+        border: medium none;
+    }
+
+---------
+
+Goyal Deepak
+issue- 0128726
+1. Send mail notification issues.
+2. To email is required.
+3. Attachemt one extra row should be delted.
+4. navigaion issue, manage issue invoice screen.
+5. Search should be there on job and invoice.
+6. search should work in the status coloumn.
+7. area in created invoice
+
+

@@ -1,0 +1,89 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.DisplayJCLItemInvoiceListViewModel
+@{
+    ViewBag.Title = "JCL Invoice Info";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="dashboard_section">
+    <div class="dashboard_right_block outer_padding">
+        <div class="list_heading">
+            <h2>Manage JCL Invoice</h2>
+        </div>
+        @using (Html.BeginForm("ManageJCLItem", "Invoice", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="employee_table">
+                <div class="emp_table padding20">
+                    <div class="drop_head_tab">
+                        <div class="alert alert-success jobalert" style="display:none">
+                            <strong>Success!</strong> Indicates a successful or positive action.
+                        </div>
+                        <div class="Create_invoice_form">
+                            @Html.HiddenFor(m => m.displayJCLItemInvoiceViewModel.Id,new {@id="InvoiceJCLId" })
+                            @Html.HiddenFor(m => m.displayJCLItemInvoiceViewModel.InvoiceId,new {@id="invoiceiD" })
+                            @Html.HiddenFor(m => m.displayJCLItemInvoiceViewModel.PageSize)
+                            @Html.HiddenFor(m => m.displayJCLItemInvoiceViewModel.CreatedDate)
+                            @Html.HiddenFor(m => m.displayJCLItemInvoiceViewModel.CreatedBy)
+
+                            <div class="general_form no-border">
+                                <div class="row">
+                                    <div class="form-group col-sm-2">
+                                        <div class="form-group">
+                                            <label>Item Name</label>
+                                            @Html.DropDownListFor(model => model.displayJCLItemInvoiceViewModel.JCLId,Model.displayJCLItemInvoiceViewModel.ItemNameList,"(Select)", new {@id="itemName", @class = "form-control select_dropdown getjobunit" })
+                                            @Html.ValidationMessageFor(model => model.displayJCLItemInvoiceViewModel.JCLId, "", new { @id = "validate_jclitem", @style = "top:0px;color:red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <div class="form-group">
+                                            <label>Price </label>
+                                            @Html.TextBoxFor(m => m.displayJCLItemInvoiceViewModel.Price, new { @class = "form-control", placeholder = "", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(model => model.displayJCLItemInvoiceViewModel.Price, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <div class="form-group">
+                                            <label>Bonus Per Item </label>
+                                            @Html.TextBoxFor(m => m.displayJCLItemInvoiceViewModel.BonusPerItem, new { @class = "form-control", placeholder = "", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(model => model.displayJCLItemInvoiceViewModel.BonusPerItem, "", new { @id = "price-vaidate", @style = "top:0px;color:red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <div class="form-group">
+                                            <label>Default Qty </label>
+                                            @Html.TextBoxFor(m => m.displayJCLItemInvoiceViewModel.DefaultQty, new { @class = "form-control", placeholder = "", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(model => model.displayJCLItemInvoiceViewModel.DefaultQty, "", new { @id = "quantity-vaidate", @style = "top:0px;color:red" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-2">
+                                        <div class="buttons text-center">
+                                            <input type="submit" value="Save" class="btn btn-default" onclick="return ValidateJCLItem()" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+
+                            </div>
+                            <div id="dvShowStockList">
+                                @Html.Partial("_JCLItemInvoiceList", Model)
+                            </div>
+                            <div class="cancel_button_box">
+                                  <input id="btnBackForInfoInvoice" class="btn black-btn btn-default" type="button" value="Back" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+@section scripts{
+    <script src="~/Areas/Employee/Scripts/ManageJCLItem.js"></script>
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ManageJCLItem")';
+        FSM.SelectedVal=@Model.displayJCLItemInvoiceViewModel.PageSize;
+        FSM.HasGridRecords='@Model.DisplayJCLInvoiceList.Count()'
+        FSM.InvoiceId='@Model.displayJCLItemInvoiceViewModel.InvoiceId'
+    </script>
+}

@@ -1,0 +1,138 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.CustomerEmailSendListViewModel
+@{
+    ViewBag.Title = "Send SupportMail Email";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section Scripts
+{
+    <script>
+    </script>
+}
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+
+        @using (Html.BeginForm("SendCustomerEmail", "Invoice", FormMethod.Post, new { @id = "sendMailToCustomer", enctype = "multipart/form-data" }))
+        {
+            <div id="overlay" class="overlayloading">
+                <div class="overlayloadingimg">
+                    <br /><br /><br />
+                    <center>
+                        <img src="~/Content/Images/Loaderimg.gif" /><br /><p style="color:white">Sending mail.....</p>
+                    </center>
+                </div>
+            </div>
+            <div class="employee_table">
+                <div class="alert alert-success jobalert" style="display:none">
+                    <strong>Success!</strong> Mail sent successfully.
+                </div>
+                <div class="emp_table padding20">
+                    <div class="Create_invoice_form">
+                        <div class="list_heading">
+                            <h2>Send Support E-mail </h2>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="general_form email_form">
+                                <div class="form email_form">
+                                    @Html.HiddenFor(m => m.CustomerEmailsendviewModel.BillingEmail, new { id = "hdnemail" })
+                                    <div class="row" style="display:none">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>To </label>
+
+                                                @Html.TextBoxFor(m => m.CustomerEmailsendviewModel.To, new { @class = "form-control", @disabled = "disabled" })
+                                                @Html.ValidationMessageFor(m => m.CustomerEmailsendviewModel.To, "", new { @class = "text-danger", @id = "ToError" })
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3" style="display:none">
+                                            <div class="form-group">
+                                                <label>CC </label>
+                                                @Html.TextBoxFor(m => m.CustomerEmailsendviewModel.CC, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.CustomerEmailsendviewModel.CC, "", new { @class = "text-danger", @id = "CCError" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="display:none">
+                                            <div class="form-group">
+                                                <label>Bcc </label>
+                                                @Html.TextBoxFor(m => m.CustomerEmailsendviewModel.Bcc, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.CustomerEmailsendviewModel.Bcc, "", new { @class = "text-danger", @id = "BCCError" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3" style="display:none">
+                                            <div class="form-group">
+                                                <label>Subject </label>
+                                                @Html.TextBoxFor(m => m.CustomerEmailsendviewModel.Subject, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.CustomerEmailsendviewModel.Subject, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Severity </label>
+
+
+                                                @Html.DropDownList("ddlseverity", new List<SelectListItem>
+                                                                                          {
+                                                          new SelectListItem { Text = "--Select--", Value = "" },
+                                                         new SelectListItem { Text="Medium",Value="1"},
+                                                         new SelectListItem { Text = "Major", Value = "2" },
+                                                         new SelectListItem { Text = "Minor", Value = "3" },
+                                                          new SelectListItem { Text = "Critical", Value = "4" },
+                           }, new { @class = "form-control Severity" })
+                                                @Html.ValidationMessage( "", new { @class = "text-danger", @id = "Severityerror" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6" style="display:none">
+                                            <div class="form-group">
+                                                <label>Enter Email ID </label>
+                                                @Html.TextBoxFor(m => m.CustomerEmailsendviewModel.From, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.CustomerEmailsendviewModel.From, "", new { @class = "text-danger", @id = "emailerror" })
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label>Message  </label>
+                                                @Html.TextAreaFor(m => m.CustomerEmailsendviewModel.Message, new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(m => m.CustomerEmailsendviewModel.Message, "", new { @class = "text-danger", @id = "MessageError" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="">
+                                    <span class="browse_sendcustomer">
+                                        <label class="btn btn-default btn-file browse_btn">
+                                            Browse <input type="file" style="display: none;" id="fUpload" multiple="multiple" onchange="uploadFile_onChange(this);">
+                                        </label>
+                                    </span><div class="buttons align_btn">
+                                        <input id="SendEmail" type="button" class="btn btn-default hover_btn" value="Send" onclick="SendMailWithAttachment();" />
+                                        @*      @Html.ActionLink("Cancel", "Dashboard", "Dashboard", new { @class = "btn btn-default" })*@
+                                        @Html.ActionLink("Cancel", "Dashboard", "Dashboard", new { Area = "Admin" }, new { @class = "btn btn-default" })
+                                    </div>
+                                </div><!--buttons-->
+
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Areas/Employee/Scripts/Support.js"></script>

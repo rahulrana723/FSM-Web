@@ -1,0 +1,66 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.ApprovedQuoteListViewModel
+@using GridMvc.Html
+@{
+    ViewBag.Title = "Material";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section scripts{
+    <script>
+        var FSM = {};
+    </script>
+}
+
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Material </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div id="sheetSuccessMsg" style="display:none;text-align:left;color:forestgreen">
+           Record edit successfully!
+        </div>
+        <div class="customer_head_tab">
+            <div id="sheetKeywordDV" style="color:red;display:none;">
+                Should be less than or equal to 50 chars !
+            </div>
+            <div id="sheetStartDateDV" style="color:red;display:none;">
+                Invalid Start Date !
+            </div>
+            <div id="sheetEndDateDV" style="color:red;display:none;">
+                Invalid End Date !
+            </div>
+            <div class="search_timesheet_block">
+                <div class="search_timesheet">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            @Html.EditorFor(model => model.searchkeyword, new { htmlAttributes = new { @class = "form-control srchTimesheet", @placeholder = "Search Keyword" } })
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-4 text-right">
+                            <input id="searchTimeSheet" type="button" value="Search" class="search_btn black-btn " />
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+
+                    </div>
+                </div><!--search_customer-->
+
+
+            </div><!--search_customer-->
+            <div class="drop_head_tab">
+                <div class="clearfix"></div>
+
+                @Html.Partial("_MaterailList", Model);
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.12.4.js"></script>

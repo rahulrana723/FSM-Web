@@ -1,0 +1,23 @@
+﻿
+@model  FSM.Web.Areas.Customer.ViewModels.CustomerReminderVM
+
+<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+
+<div class="form-group">
+    @Html.Label("Contacts", htmlAttributes: new { @class = "control-label col-md-3" })
+    <div class="col-md-8">
+        @Html.ListBoxFor(model => model.ContactListIds, Model.ContactList, new { @id = "sitecontacts", @class = "ddlmultiselectsitecontacts", multiple = "multiple" })
+    </div>
+</div>
+
+
+<script>
+    $('.ddlmultiselectsitecontacts').multiselect({
+        maxHeight: 200,
+        nonSelectedText: '(select)',
+        includeSelectAllOption: true,
+        numberDisplayed: 1,
+    });
+</script>

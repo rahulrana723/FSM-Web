@@ -1,0 +1,36 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSearchViewModel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(m => m.PageSize)
+
+        <div class="clearfix"></div>
+        <div class="search_block">
+
+
+            <div class="col-sm-4">
+                @*@Html.Label("Name")*@
+                @Html.EditorFor(model => model.CustomerLastName, new { htmlAttributes = new { @class = "form-control white_bg", @placeholder = "Search Keyword" } })
+            </div>
+            <div class="col-sm-2">
+                @*@Html.LabelFor(model => model.CustomerType)*@
+                @Html.EnumDropDownListFor(model => model.CustomerType, "(Select Type)", htmlAttributes: new { @class = "form-control customer_gap" })
+            </div>
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <input type="submit" value="Search" class="search_btn black-btn cust-margin" />
+                </div>
+            </div>
+
+            <div class="col-sm-3">
+                <div class="add_customer">
+                    @Html.ActionLink("Add New Customer", "AddCustomerInfo", null, new { @class = "btn btn-default pull-right" })
+                     <a id="AddCustomerWizard" class="btn btn-default">Wizard</a>
+                </div><!--add_customer-->
+            </div>
+        </div><!--search_customer-->
+    </div>
+}
+

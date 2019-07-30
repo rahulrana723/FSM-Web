@@ -1,0 +1,14 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeDetailSearchViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-sm-9">
+        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "searchkeyword", @class = "form-control", @placeholder = "Search Keyword" } })
+    </div>
+    <div class="col-sm-3">
+        <button type="submit" value="Search" class="btn btn-default">Search</button>
+    </div>
+}
+
+

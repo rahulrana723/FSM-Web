@@ -1,0 +1,297 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.CustoemrInvoiceListViewmodel
+@{
+    Layout = null;
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>FSM-Email-Tempaltes</title>
+</head>
+<body style="margin:0;padding:0;">
+    <div style="page-break-after:always;">
+        <table align="center" width="100%">
+            <!--main_table_start-->
+            <tr>
+                <td>
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td align="left">
+                                <p style="font-family:calibri;font-size:16px; padding:0;color:#4f4f4f;">
+                                    14/5-7 Prosperity Parade<br />
+                                    Warriewood NSW 2102<br />
+                                    <i><b>PO Box 287, Crows Nest NSW 1585</b></i><br />
+                                    Licensed Roof Plumbers #241729C<br />
+
+                                    A.B.N. 87 677 002 504<br />
+                                </p>
+
+
+
+                                <a href="javascript:;" style="display:block;padding: 0;width:100%;">
+
+                                    <p style="display:inline-block;vertical-align:top;padding:0;margin:0;">
+                                        <img src="~/Content/images/fone.png" alt="Phone" title="phone" /><span style="vertical-align:top; font-family:calibri;font-size:16px;color:#4f4f4f;text-decoration:none;">02 8020 5777</span>
+                                    </p>
+                                </a>
+
+                                <a href="javascript:;" style="display:block;padding: 0;width:100%;">
+
+                                    <p style="display:inline-block;vertical-align:top;padding:0;margin:0;">
+                                        <img src="~/Content/images/envelope.png" alt="envelope" title="envelope" /><span style="vertical-align:top; font-family:calibri;font-size:16px;color:#4f4f4f;text-decoration:none;">info@sydneyroofandgutter.com.au</span>
+                                    </p>
+                                </a>
+
+                                <a href="javascript:;" style="display:block;padding: 0;width:100%;">
+
+                                    <p style="display:inline-block;vertical-align:top;padding:0;margin:0;">
+                                        <img src="~/Content/images/mouse.png" alt="mouse" title="mouse" /><span style="vertical-align:top; font-family:calibri;font-size:16px;color:#4f4f4f;text-decoration:none;">www.sydneyroofgutter.com.au </span>
+                                    </p>
+                                </a>
+
+
+
+
+                            </td>
+                            <td align="right" style="vertical-align:top;"><img src="~/Content/images/logo.jpg" alt="company-logo" title="company-logo" /></td>
+                        </tr>
+
+                    </table>
+                    <br />
+                    <table width="100%" cellpadding="10" cellspacing="0" >
+                        <tr bgcolor="#81bf4f">
+                            <td align="left;" style="font-size:18px;color:#fff;font-family:calibri;">QUOTE ONLY [#@Model.createInvoiceViewModel.InvoiceNo]</td>
+                            <td align="right" style="font-size:18px;color:#fff;font-family:calibri;">DATE: @DateTime.Now.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                    </table>
+                    <br />
+
+                    <table width="100%" cellpadding="4" cellspacing="0" border="0" align="center">
+                        <tr>
+                            <th style="border-bottom:1pt solid #383838;font-size:18px;color:#A0A0A0;font-family:Calibri;text-align:left;padding-bottom:5px;">BILL TO: </th>
+                            <th style="border-bottom:1pt solid #383838;color:#A0A0A0 ;font-size:18px;font-family:calibri;text-align:center;padding-bottom:5px;">SITE ADDRESS: </th>
+                            <th style="border-bottom:1pt solid #383838;font-size:18px;color:#A0A0A0;font-family:calibri;text-align:center;padding-bottom:5px;">YOUR REFERENCE: </th>
+                        </tr>
+                      
+                        <tr>
+                            
+                            <td style="font-size:15px;color:#4f4f4f;font-family:calibri;text-align:left;">
+                                @Model.createInvoiceViewModel.BillingStreetName </br>
+                                @Model.createInvoiceViewModel.BillingState </br>
+                                @Model.createInvoiceViewModel.BillingSuburb,@Model.createInvoiceViewModel.BillingPostalCode
+                            </td>
+                            <td style="font-size:15px;color:#4f4f4f;font-family:calibri;text-align:center;">
+                                @Model.createInvoiceViewModel.SiteStreetName <br />
+                                @Model.createInvoiceViewModel.SiteState </br>
+                                @Model.createInvoiceViewModel.SiteSuburb, @Model.createInvoiceViewModel.SitePostalCode
+                            </td>
+
+                            <td style="font-size:15px;color:#4f4f4f;font-family:calibri;text-align:center;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+        <br />
+        <table width="100%" cellpadding="10" cellspacing="0">
+            <tr style="background-color:#81bf4f">
+                <td align="left" style="font-size:18px;color:#fff;font-family:calibri;padding:10px;">DESCRIPTION</td>
+                <td align="right" style="font-size:18px;color:#fff;font-family:calibri;padding:10px;">TOTAL</td>
+            </tr>
+
+            <tbody>
+                @if (Model.JclMappingViewModel != null)
+            {
+                for (int i = 0; i < Model.JclMappingViewModel.JCLInfo.Count; i++)
+                {
+                        <tr style="margin-left:5px">
+                            <td align="left" style="font-size:18px;color:#40454f;font-family:calibri;border-bottom: 1px solid #8c8c8c">
+                                @Model.JclMappingViewModel.JCLInfo[i].Description
+                            </td>
+                            <td align="right" style="font-size:18px;color:#40454f;font-family:calibri;border-bottom: 1px solid #8c8c8c">
+                                $@Model.JclMappingViewModel.JCLInfo[i].TotalPrice
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td align="left" style="margin-left:3px; font-size:18px;color:#fff;font-family:calibri;">&nbsp;</td>
+                        <td align="right" style="margin-left:3px;font-size:18px;color:#fff;font-family:calibri;">&nbsp;</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br /><br />
+
+        <table width="100%" cellpadding="10" cellspacing="0" border="0">
+            <tr>
+                <td width="70%" align="left;" style="text-align:start;font-size:12px;color:#4f4f4f;font-family:calibri;font-size:15px;padding:0px">
+                    Quote Prepared by: [@Model.createInvoiceViewModel.PreparedBy]<br />
+                    <b>Please Note:</b> This quote is valid for 90 days from the quotation date. See last page for our terms and conditions.
+                </td>
+                <td width="30%" align="left" style="font-size:14px;color:#4f4f4f;font-family:calibri;padding:0px">
+                    <p style="border-bottom: 1px solid #8c8c8c">SUBTOTAL:&nbsp; &nbsp;<b>$@(Convert.ToDecimal(Model.createInvoiceViewModel.Price))</b></p>
+                    <p style="border-bottom: 1px solid #8c8c8c">GST (10%)&nbsp; &nbsp;<b>$@Model.createInvoiceViewModel.GST</b></p>
+                    <p style="border-bottom: 1px solid #8c8c8c">TOTAL Quote: <b>$@(Convert.ToDecimal(Model.createInvoiceViewModel.PriceWithGst)) </b></p>
+                </td>
+            </tr>
+
+        </table>
+
+        @*<table width="100%" cellpadding="10" cellspacing="0" border="1">
+                <thead>
+                    <tr bgcolor="#81c04e">
+                        <td align="left" style="font-size:18px;color:#fff;font-family:calibri">Payment Date</td>
+                        <td align="right" style="font-size:18px;color:#fff;font-family:calibri">Payement Method</td>
+                        <td align="right" style="font-size:18px;color:#fff;font-family:calibri">Amount</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.InvoicePaymentViewModel != null)
+                    {
+                        foreach (var item in Model.InvoicePaymentViewModel)
+                        {
+                            <tr>
+                                <td align="left" style="font-size:18px;font-family:calibri">
+                                    <p> @item.payment_Date</p>
+                                </td>
+
+                                <td align="right" style="font-size:18px;font-family:calibri">
+                                    <p>@item.payment_Method</p>
+                                </td>
+                                <td align="right" style="font-size:18px;font-family:calibri">
+                                    <p>$@item.PaymentAmount</p>
+                                </td>
+
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td align="left;" style="font-size:18px;color:#fff;font-family:calibri;">&nbsp;</td>
+                            <td align="right" style="font-size:18px;color:#fff;font-family:calibri;">&nbsp;</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>*@
+
+        <table width="100%" cellpadding="10" cellspacing="0" border="0">
+            <tr>
+                <td align="left;" style="font-size:12px;color:#4f4f4f;font-style:italic;font-family:calibri;">
+                    SIGNATURE OF CUSTOMER________________________________
+                </td>
+                <td align="right" style="font-size:12px;color:#4f4f4f;font-family:calibri;">
+                    &nbsp;
+                </td>
+            </tr>
+
+        </table>
+
+        <table width="100%" cellpadding="10" cellspacing="0" border="0">
+            <tr>
+                <td style="font-size:15px;color:#4f4f4f;font-family:calibri;">
+                    <b>HOW TO ACCEPT THIS QUOTE: : </b>
+
+                    <p style="font-size:15px;color:#4f4f4f;font-family:calibri;padding:0;">
+                        In order to accept this quote, please contact our office on 02 8020 5777 or email our office with your acceptance.
+
+                        <br /><br />All quotes higher than $500.00 are subject to a 10% deposit. Once you accept our quote, if a deposit is required, a request will be sent through with our terms and conditions of approval.
+
+                        <br /><br /> If you have paid a call out fee, this will be deducted off the final invoice.
+                    </p>
+                </td>
+            </tr>
+
+
+
+        </table>
+    </div>
+        <table width="100%" cellspacing="0" cellpadding="10" border="0">
+            <tbody>
+                <tr>
+                    <td style="font-size:15px;color:#4f4f4f;font-family:calibri;">
+                        <b>TERMS & CONDITIONS: </b><br /><br />
+
+                        <b>WH&S Requirements:</b><br /><br />
+
+                        <p style="font-size:15px;color:#4f4f4f;font-family:calibri;padding:0;">All work place health and safety requirements will be followed during work in relation to working safely at heights public safety. A safe work method statement for this job will be provided upon request</p>
+
+                        <p style="font-size:15px;color:#4f4f4f;font-family:calibri;padding:0;">Sydney Roof and Gutter have the right to refuse to work on a roof deemed unsafe.</p>
+                        <br />
+                        <b>PAYMENT: </b>
+                        <p style="font-size:15px;color:#4f4f4f;font-family:calibri;padding:0;">On completion of the work we require immediate payment of the balance outstanding. Please see below for methods of payment accepted. </p>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+
+        <table width="100%" cellpadding="10" cellspacing="0" border="1">
+            <tr>
+                <td style="font-size:15px;color:#4f4f4f;font-style:italic;font-family:calibri;">
+                    <b>Bank Transfer:</b><br />
+                    Sydney Roof and Gutter<br />
+                    BSB: 082.294<br />
+                    ACCOUNT: 59 598 1943<br />
+                    (use your Invoice # as reference)
+
+                </td>
+
+                <td style="font-size:15px;color:#4f4f4f;font-style:italic;font-family:calibri;">
+                    <b>Credit Card Payment:</b><br />
+                    Please call our office on <br />
+                    8020 5777 to pay by credit card.<br />
+                    We accept Visa and MasterCard.<br />
+                    Payments over $5000 will incur a 2% surcharge.
+
+                </td>
+
+
+                <td style="font-size:15px;color:#4f4f4f;font-style:italic;font-family:calibri;">
+                    <b>Payment by Cheque: </b><br />
+                    Please send your cheque to:  <br />
+                    PO Box 287<br />
+                    Crows Nest NSW 1585
+
+                </td>
+            </tr>
+
+        </table>
+
+        <table width="100%" cellpadding="10" cellspacing="0" border="0">
+
+            <tr>
+                <td>
+                    <p style="font-size:15px;color:#4f4f4f;font-family:calibri;padding:0;margin:0;">
+                        Our payment terms also apply to work completed as part of an insurance claim. All materials remain the property of Sydney Roof and Gutter until payment has been received in full. Sydney Roof and Gutter reserves the right to enter the premises where work has been performed and recover the materials if default is made on payment. All work performed by Sydney Roof and Gutter will be subject to the Securities of Payment Act NSW. Should you cancel the job prior to commencement for any reason, Sydney Roof & Gutter reserves the right to retain all or part of the deposit to compensate for time and expense devoted to the transaction.
+                        This invoice is subject to the Securities of Payment Act NSW.
+                    </p>
+
+                </td>
+            </tr>
+
+        </table>
+
+        <table width="100%" cellpadding="10" cellspacing="0" border="0">
+
+            <tr>
+                <td>
+                    <p style="font-size:15px;color:#4f4f4f;font-family:calibri;padding:0;margin:0;">
+                        <b>WARRANTY:  </b>
+                        <br />
+                        Sydney Roof & Gutter offers a 6 year warranty on all workmanship, pending payment of the job. Once we have received full payment, any further issues you have with the job completed will be repaired at no additional cost. We take pride in our high standard of workmanship and will ensure that any issues will be resolved as soon as possible.
+                    </p>
+
+                </td>
+            </tr>
+
+        </table>
+    
+</body>
+</html>
+

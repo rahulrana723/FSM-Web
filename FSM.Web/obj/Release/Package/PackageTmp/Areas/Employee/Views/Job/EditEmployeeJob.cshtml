@@ -1,0 +1,223 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeJobsViewModel
+@{
+    ViewBag.Title = "AddEmployeejobs";
+    // Layout = null;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Areas/Employee/Scripts/EmployeeJob.js"></script>
+<script src="~/Areas/Employee/Scripts/ViewEmployeeJob.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.JobId = '@Model.Id'
+    </script>
+}
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        @using (Html.BeginForm("EditEmployeeJob", "Job", FormMethod.Post, new { enctype = "multipart/form-data", @class = "addeditjob" }))
+        {
+            <div class="dashboard_center_block  paper-wrap bevel tlbr">
+                <h3 class="add_data"> EDIT JOB</h3>
+                @Html.HiddenFor(m => m.BookedBy)
+                @Html.HiddenFor(m => m.Id)
+                @Html.HiddenFor(m => m.CreatedBy)
+                @Html.HiddenFor(m => m.CreatedDate)
+                <div id="EmployeeBasicDetails" class="form">
+
+                    <div class="col-md-offset-10 col-md-2">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label>Job Id </label>
+                                @Html.HiddenFor(m => m.JobId)
+                                @Html.TextBoxFor(m => m.JobId, new { @class = "form-control Create_Customer", placeholder = " ", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(model => model.JobId, "", new { @class = " text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+
+                            <div class="form-group">
+                                <label>Job Type</label>
+                                @Html.HiddenFor(m => m.JobType)
+                                @if (Model.GetUserRoles[0] == "ACCOUNTS")
+                                {
+                                    @Html.EnumDropDownListFor(m => m.AccountJobType, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer " })
+                                }
+                                else
+                                {
+                                    if (Convert.ToInt32(Model.JobType) == 3)
+                                    {
+                                        @Html.EnumDropDownListFor(m => m.JobType, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer JobTypeemployee", @disabled = "disabled" })
+                                    }
+                                    else
+                                    {
+                                        @Html.EnumDropDownListFor(m => m.JobType, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer JobTypeemployee" })
+                                    }
+
+                                }
+                                @Html.ValidationMessageFor(model => model.JobType, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 jobslist" style="display:none">
+                            <div class="form-group">
+                                <label>Link Job </label>
+                                @Html.DropDownListFor(m => m.LinkedJobId, new SelectList(Model.JobList, "Jobid", "jobnumeric"), "(Select)", new { @class = "ddljobslist form-control Create_Customer" })
+                                @Html.ValidationMessageFor(model => model.LinkedJobId, "", new { @id = "Linkjoberror", @class = "", @style = "color:red;font-size:12px;" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>CO Last Name </label>
+                                <div class="ui-widget">
+                                    <div class="combobox_width">
+                                        @Html.DropDownListFor(M => M.CustomerGeneralInfoId, new SelectList(Model.CustomerCOLastName, "CustomerGeneralInfoId", "LastName"), "", new { @class = "ddlcustlastname  ", @id = "combobox", @placeholder = "Search Customer" })
+                                        @Html.ValidationMessageFor(model => model.CustomerGeneralInfoId, "", new { @id = "Customernameerror", @class = "errorspan" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Site <a href = "javascript:void(0)", id="btnSitedetail" SiteId="@Model.SiteId">(View Site Detail)</a> </label>
+                                @Html.HiddenFor(m => m.SiteId)
+                                @Html.HiddenFor(m => m.SupportjobSiteId)
+                                @Html.DropDownListFor(m => m.SiteId, new SelectList(Model.LstCustomerSiteDetail, "SitesId", "SiteName"), "(Select)", new { @class = "ddlsitedetail form-control" })
+                                @Html.ValidationMessageFor(model => model.SiteId, "", new { @id = "CustomerSiteerror", @class = "", @style = "color:red;font-size:12px;", })
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Status</label>
+                                @if (Model.GetUserRoles[0] == "ACCOUNTS")
+                                {
+                                    @Html.EnumDropDownListFor(m => m.Status, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.EnumDropDownListFor(m => m.Status, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer" })
+                                }
+                                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Date Booked</label>
+                                @Html.HiddenFor(m => m.BookedByName)
+                                @Html.TextBoxFor(m => m.DateBooked, "{0:d}", new { @class = "jobDateBooked form-control Create_Customer", placeholder = " ", @readonly = "readonly" })
+                                @Html.ValidationMessageFor(model => model.DateBooked, "", new { @class = "BookeddateError", style = "color:red;font-size:12px;" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Preferred Time</label>
+                                @Html.EnumDropDownListFor(m => m.PreferTime, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer" })
+                                @Html.ValidationMessageFor(model => model.PreferTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Estimated Hour</label>
+                                @Html.TextBoxFor(m => m.EstimatedHours, new { @class = "form-control Create_Customer", placeholder = " " })
+                                @Html.ValidationMessageFor(model => model.EstimatedHours, "", new { @class = " text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Assign to OTRW:</label>
+                                @if (Model.GetUserRoles[0] == "ACCOUNTS")
+                                {
+                                    @Html.DropDownListFor(M => M.AssignTo, new SelectList(Model.OTRWList, "EmployeeId", "EmployeeName"), "(select)",
+                                        new { @class = "form-control Create_Customer", @disabled = "disabled" })
+                                }
+                                else
+                                {
+                                    @Html.DropDownListFor(M => M.AssignTo, new SelectList(Model.OTRWList, "EmployeeId", "EmployeeName"), "(select)",
+                                        new { @class = "form-control Create_Customer" })
+                                }
+                                @Html.ValidationMessageFor(model => model.AssignTo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Created By:</label>
+                                @Html.TextBoxFor(m => m.BookedByName, new { @class = "form-control Create_Customer", placeholder = " ", @disabled = "disabled" })
+                                @Html.ValidationMessageFor(model => model.BookedByName, "", new { @class = " text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Add Documents</label>
+                                <input type="file" id="jobfileuploader" name="file" multiple />
+                                @Html.ActionLink("View Documents", "", "", new { @Jobid = Model.Id.ToString() }, new { @class = "btnviewdoc", href = "javascript:void(0)", Jobid = Model.Id.ToString() })
+                                @*@Html.TextBoxFor(m=>m.CreatedBy, new { type = "file" })*@
+                            </div>
+                        </div>
+                        @Html.HiddenFor(m => m.BookedBy)
+                    </div>
+                    <div class="form-group">
+                        <label>job Notes</label>
+                        @Html.TextAreaFor(m => m.JobNotes, new { @class = "form-control", placeholder = " " })
+                        @Html.ValidationMessageFor(model => model.JobNotes, "", new { @class = " text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <label>Operation Notes</label>
+                        @Html.TextAreaFor(m => m.OperationNotes)
+                        @Html.ValidationMessageFor(model => model.OperationNotes, "", new { @class = " text-danger" })
+                    </div>
+                    <div class="buttons text-center">
+                        <input id="btnaddjobs" class="btn btn-default" type="submit" value="Update" onclick="return checkvalidation();" />
+                        @Html.ActionLink("Assign stock", "stockinfo", "job", new { @Jobid = Model.Id.ToString() }, new { @class = "btn btn-default editbtngrid", Jobid = Model.Id.ToString() })
+                       @* <input id="btnaddPurchaseOrder" class="btn" type="button" value="Manage Purchase Order"  />*@
+                        @Html.ActionLink("Manage Purchase Order", "ViewJobspurchaseOrder", "job", new { @JobId = Model.Id.ToString() }, new { @class = "btn btn-default editbtngrid", Jobid = Model.Id.ToString() })
+                        @Html.ActionLink("Create Invoice", "CreateInvoice", "Invoice", new { @empjobid = Model.Id.ToString() }, new { @class = "btn btn-default editbtngrid", empjobid = Model.Id.ToString() })
+                         <a class="btn btn-default" href="@Url.Action("CanecelJob", "job", new { Area = "Employee" })">
+                            Cancel
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+    <!--Modal for Purchase order-->
+    
+
+    @*documents modal for documents related to job*@
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Job Documents</h4>
+                </div>
+                <div class="modal-body modaldoc">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<div id="divShowSiteDetaildiv"></div>
+<script src="~/Scripts/jquery-ui-1.12.1.js"></script>

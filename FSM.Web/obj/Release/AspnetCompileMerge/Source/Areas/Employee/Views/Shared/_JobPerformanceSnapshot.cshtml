@@ -1,0 +1,103 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JobsViewModel
+
+@Html.HiddenFor(m => m.Id,new {id="jobId" })
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.SaleIncome)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.SaleIncome, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.TotalCost)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.TotalCost, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.LabourIncome)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.LabourIncome, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.LIPHR)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.LIPHR, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.RevHours)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.RevHours, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.JSPOCost)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.JSPOCost, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.LabourCost)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.LabourCost, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.LCPHR)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.LCPHR, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.NRLHours)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.NRLHours, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.StockItemCost)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.StockItemCost, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.LabourProfit)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.LabourProfit, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.LPPHR)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.LPPHR, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.Hours)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.Hours, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            @Html.LabelFor(model => model.jobPerFormanceViewModel.SalesBonus)
+            @Html.EditorFor(m => m.jobPerFormanceViewModel.SalesBonus, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+    </div>
+</div>
+@*@Html.ActionLink("CALC TEST", "GetJobPerFormanceData", "CustomerJob", new { @Jobid = Model.Id.ToString() }, new { @class = "btn btn-default editbtngrid", Jobid = Model.Id.ToString() })*@
+
+<script>
+    
+
+</script>

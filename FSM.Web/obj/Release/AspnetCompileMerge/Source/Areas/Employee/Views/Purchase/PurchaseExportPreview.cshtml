@@ -1,0 +1,148 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JobPurChaseViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+    <title>Purchase Order Template</title>
+    <!-- STYLESHEET FIrLE -->
+    @*<link href="css/font-awesome.min.css" type="text/css" rel="stylesheet" />*@
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link href="css/style.css" type="text/css" rel="stylesheet" />*@
+    <link href="~/Content/css/templatestyle.css" rel="stylesheet" />
+    <!--  SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>PurchaseExport</title>
+</head>
+<body>
+    <div class="invoice_template">
+        <div class="table-responsive">
+            <table>
+                <tbody>
+                    <tr>
+                        <td align="center" colspan="2"><img src="/Content/images/srg_logo_new.png" alt=""></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="logo">
+                                <p>SYDNEY GUTTERCLEAN</p>
+                                <p>SYDNEY ANCHOR POINTS</p>
+                                <p>SYDNEY ROOF & GUTTER </p>
+                                <p>are divisions of DL & MG Thomas</p>
+                                <p>Licensed Roof Plimbers L# 241729C</p>
+                                <p>A.B. 87677002504</p>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="contact_tab">
+                                <p>14/5-7 Prosperity Parade</p>
+
+                                <p>Warriewood NSW 2102</p>
+                                <p>PO Box 287</p>
+                                <p>Crows Nest MSW 1585</p>
+                                <ul>
+                                    <li>P: 028020577</li>
+                                    <li>E: Info:sydneyroofandgutter.com.au</li>
+                                    <li>E: accounts@sydneyroofandgutter.com.au</li>
+                                    <li>W: www.sydneyroofandgutter.com.au</li>
+                                </ul>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="invoice_tab">
+
+                                <div class="invoice_inner">
+                                    <h4>Supplier</h4>
+                                    <p>
+                                        @Model.PurchaseOrderByJobViewModel.SupplierName
+                                        </br>
+                                    </p>
+                                </div><!--invoice_inner-->
+
+                                <div class="invoice_inner">
+                                    <h4>Total Cost </h4>
+                                    <p>
+                                        @Model.PurchaseOrderByJobViewModel.Cost
+                                        </br>
+                                    </p>
+                                </div><!--invoice_inner-->
+                            </div><!--invoice_tab-->
+                        </td>
+                        <td>
+                            <div class="invoice_tab">
+                                <div class="invoice_inner">
+                                    <h4>Description</h4>
+                                    <p>
+                                        @Model.PurchaseOrderByJobViewModel.Description
+                                        </br>
+                                    </p>
+                                </div><!--invoice_inner-->
+
+                            </div><!--invoice_tab-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Purchase Item</th>
+                        <th>Unit Measure</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var val in Model.PurchaseDataListviewModel)
+                    {
+                        <tr>
+                            <td>
+                                <div class="replace_tab">
+                                    <p>@val.PurchaseItem</p>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="price_tab">
+                                    <p>@val.UnitMeasure</p>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="price_tab">
+                                    <p>@val.Quantity</p>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="price_tab">
+                                    <p>$@val.Price</p>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div><!--table-responsive-->
+    </div><!--invoice-template-->
+</body>
+</html>
+
+<style>
+    .replace_tab {
+        padding: 0;
+        text-align: center;
+    }
+
+    .price_tab {
+        padding: 0;
+        text-align: center;
+    }
+</style>

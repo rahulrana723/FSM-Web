@@ -1,0 +1,32 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeejobSearchViewModel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(m => m.PageSize)
+
+        @*<div class="clearfix"></div>*@
+        <div class="col-sm-12">
+            <div class="search_customer_block stock_top_bg">
+                <div class="search_customer ">
+                    @Html.EditorFor(model => model.searchkeyword, new { htmlAttributes = new { @class = "form-control", @style = "display:inline" ,@placeholder=" Search Keyword"} })
+                    <div class="col-md-3">
+
+                        @Html.DropDownListFor(m => m.InvoiceStatus, new SelectList(
+                new List<SelectListItem>
+                {
+                new SelectListItem { Text = "(Select Invoice Status)", Value = ""},
+                new SelectListItem { Text = "Pending", Value = "0"},
+                new SelectListItem { Text = "Submitted", Value = "1"},
+                }, "Value", "Text"), new { @class = "form-control col-sm-4 ddlTypes" })
+
+                        @*@Html.EnumDropDownListFor(model => model.InvoiceStatus, htmlAttributes: new { @class = "form-control " })*@
+
+                    </div>
+                    <input type="submit" value="Search" class="search_btn black-btn search_pad" />
+                </div><!--search_customer-->
+            </div>
+        </div>
+    </div>
+}

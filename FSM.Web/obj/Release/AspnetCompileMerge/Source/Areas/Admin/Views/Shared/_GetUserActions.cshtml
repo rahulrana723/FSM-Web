@@ -1,0 +1,46 @@
+﻿@model FSM.Web.Areas.Admin.ViewModels.ManageRolesViewModel
+
+
+<div class="user_modules">
+    <b>User Actions</b> 
+</div>
+
+@if (Model.ActionsList != null)
+{
+    for (int i = 0; i < Model.ActionsList.Count(); i++)
+    {
+        if (i > 0)
+        {
+            if (Model.ActionsList[i - 1].ModuleName != Model.ActionsList[i].ModuleName)
+            {
+                @Html.CheckBox("cb_"+i, new {@class= "selectall gap_module",data_id= Model.ActionsList[i].ModuleId, data_name = Model.ActionsList[i].ModuleName })
+                @Html.Label(Model.ActionsList[i].ModuleName)<br />
+            }
+        }
+        else
+        {
+            @Html.CheckBox("cb_" + i, new { @class = "selectall gap_module", data_id = Model.ActionsList[i].ModuleId, data_name = Model.ActionsList[i].ModuleName })
+            @Html.Label(Model.ActionsList[i].ModuleName)<br />
+        }
+        <div class="permission-space">
+            @if (Model.ActionsList[i].IsSelected == true)
+            {
+            @Html.CheckBoxFor(m => Model.ActionsList[i].IsSelected, new { @class = "roleactions gap_module activeaction", @data_id = Model.ActionsList[i].Id, data_name = Model.ActionsList[i].ModuleName })
+            }
+            else
+            {
+            @Html.CheckBoxFor(m => Model.ActionsList[i].IsSelected, new { @class = "roleactions gap_module deactiveaction", @data_id = Model.ActionsList[i].Id, data_name = Model.ActionsList[i].ModuleName })
+            }
+
+            @Html.DisplayFor(m => Model.ActionsList[i].Action)
+            @Html.HiddenFor(m => Model.ActionsList[i].Id)
+            @Html.HiddenFor(m => Model.ActionsList[i].RoleId)
+
+            <br />
+        </div>
+    }
+}
+
+<script>
+    
+</script>

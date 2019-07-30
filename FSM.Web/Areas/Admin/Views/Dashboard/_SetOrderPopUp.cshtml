@@ -1,0 +1,50 @@
+﻿
+@model  FSM.Web.Areas.Employee.ViewModels.EmployeeDetailListViewModel
+@using GridMvc.Html
+
+<div class="modal fade" id="modalSetOrder" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:78%;margin-left:23%;">
+            <div class="modal-header">
+                <button type="button" id="btncrossOrder" class="close closebtn" data-dismiss="modal">close</button>
+
+                <h4 class="modal-title">Set Order</h4>
+            </div>
+            <div id="ErrorDv" style="display:none;color:red;padding: 5px 0px 0px 18px;"></div>
+            <div class="modal-body" style="height:380px;overflow: auto;">
+                <div class="emp_table">
+                    <div class="drop_head_tab">
+                        <div class="table-responsive">
+                            @Html.Grid(Model.EmployeeDetailList).Columns(
+    columns =>
+    {
+        columns.Add(model => model.EmployeeId, true);
+        columns.Add(model => model.UserName).Titled("User Name");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("^", "", new { }, new { @class = "arrowUp btn btn-default up", href = "javascript:void(0)", @EmployeeId = model.EmployeeId,@Order=model.OTRWOrder })).Filterable(false).Titled("Up");
+
+        columns.Add()
+       .Encoded(false)
+       .Sanitized(false)
+       .SetWidth(30)
+       .RenderValueAs(model => Html.ActionLink("V", "", new { }, new { @class = "arrowDown btn btn-default down", href = "javascript:void(0)", @EmployeeId = model.EmployeeId, @Order = model.OTRWOrder })).Filterable(false).Titled("Down");
+    }
+                           )
+
+                        </div>
+                    </div>
+                </div><!--emp_table-->
+
+            </div>
+            <div class="modal-footer">
+                <br />
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Admin/Scripts/_SetOrderPopUp.js"></script>
+<script src="~/Areas/Admin/Scripts/Dashboard.js"></script>

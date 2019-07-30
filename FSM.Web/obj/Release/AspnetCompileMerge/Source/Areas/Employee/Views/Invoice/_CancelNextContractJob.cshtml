@@ -1,0 +1,75 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.CancelJobScheduleViewModel
+
+<div class="modal fade" id="modalCancelContractJobPopUp" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Cancel Next Contract Job</h4>
+            </div>
+            <div class="modal-body popUp_width">
+                @Html.HiddenFor(m => m.JobId)
+                Reason to cancel contract
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SRASNeeded, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8">
+                        @Html.CheckBoxFor(model=>model.SRASNeeded)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PriceApprovalNeeded, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8">
+                        @Html.CheckBoxFor(model => model.PriceApprovalNeeded)
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DeselectContract, htmlAttributes: new { @class = "control-label col-md-3" })
+                    <div class="col-md-8">
+                        @Html.CheckBoxFor(model => model.DeselectContract)
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="">
+                    <div class="text-center">
+                        <input type="button" value="Save" id="cancelnextcontractjob" class="search_btn black-btn" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#cancelnextcontractjob').on('click', function () {
+        var jobId = $('#JobId').val();
+        var SRASNeeded = $('#SRASNeeded').is(":checked");
+        var PriceApprovalNeeded = $('#PriceApprovalNeeded').is(":checked");
+        var DeselectContract = $('#DeselectContract').is(":checked");
+
+        var contactlogNote = '';
+        if (SRASNeeded == true) {
+            contactlogNote = "SRAS Needed; ";
+        }
+        if (PriceApprovalNeeded == true) {
+            contactlogNote = contactlogNote + "Price Increase Approval Needed; ";
+        }
+        if (DeselectContract == true) {
+            contactlogNote = contactlogNote + "Deselect contract; ";
+        }
+
+        $.ajax({
+            url: common.SitePath + "/Employee/Invoice/_CancelNextContractJob",
+            data: { JobId: jobId, Reason: contactlogNote },
+            type: 'POST',
+            async: true,
+            success: function (data) {
+                $("#modalCancelContractJobPopUp").modal('hide');
+            },
+            error: function () {
+            }
+        });
+
+    });
+</script>

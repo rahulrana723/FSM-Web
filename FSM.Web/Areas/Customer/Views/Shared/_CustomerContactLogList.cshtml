@@ -1,0 +1,274 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerContractListViewModel
+@using GridMvc.Html
+@section scripts
+{
+    var FSM={};
+    FSM.CustomerGeneralInfoId = @Html.Raw(Json.Encode(Model.CustomerContactLog.CustomerGeneralInfoId));
+}
+@Html.Grid(Model.CustomerContactList).SetRowCssClasses(
+    item => item.CustomerContactId == Guid.Empty ? string.Empty : "cssEditContactLog").Columns(
+    columns =>
+    {
+        columns.Add(model => model.CustomerContactId, true);
+        columns.Add(model => model.Type, true);
+        columns.Add(model => model.CustomerGeneralInfoId, true);
+        columns.Add(model => model.SiteFileName).Titled("Site File Name").SetWidth(200);
+
+        columns.Add(model => model.ViewJobid).Titled("Job Id");
+        columns.Add(model => model.LogDate).Format("{0:dd/MM/yyyy}").Titled("Log Date");
+        columns.Add(model => model.Note).Titled("Note").SetWidth(400).Sanitized(false).Encoded(false);
+        //columns.Add(model => model.ReContactDate).Format("{0:dd/MM/yyyy}").Titled("ReContact Date").SetWidth(0);
+        columns.Add(model => model.EnteredBy).Titled("Entered By");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+     .RenderValueAs(model => Html.ActionLink("Edit", "", "", null, new { @class = "btn btn-default edtcontactlog", href = "javascript:void(0)", customerGeneralinfoid = model.CustomerGeneralInfoId, customercontactid = model.CustomerContactId,Type=model.Type })).Filterable(false).Titled("Edit");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", null, new { @class = "btn btn-default deletecontactlog", onclick = "DeletecontactLog('" + model.CustomerContactId + "','" + model.CustomerGeneralInfoId + "','" + model.Type + "');", href = "javascript:void(0)", customerGeneralinfoid = model.CustomerGeneralInfoId, @Customercontactid = model.CustomerContactId,Type=model.Type })).Filterable(false).Titled("Delete");
+
+    }
+    ).WithPaging(Model.PageSize).Sortable(true)
+
+<div style="float: right;">
+    <label>Page Size</label>
+    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+            {
+                new SelectListItem { Text="5",Value="5"},
+                new SelectListItem { Text = "10", Value = "10" },
+                new SelectListItem { Text = "15", Value = "15" },
+                new SelectListItem { Text = "20", Value = "20" },
+                new SelectListItem { Text = "25", Value = "25" },
+                new SelectListItem { Text = "30", Value = "30" }
+            }, new { @class = "form-control" })
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.form-control#ddPageSize').val(@Model.PageSize);
+        if ($(".pagination").length > 0) {
+            $('#ddPageSize').parent().css('margin-top', '-72px');
+        }
+        else {
+            $('#ddPageSize').parent().css('margin-top', '8px');
+        }
+    });
+    $('#ddPageSize').one('change', function () {
+        var page_size = $('#ddPageSize').val();
+        var keyword=$("#FirstName").val();
+        if (page_size==undefined) {
+            page_size=@Model.PageSize;
+        }
+        $.get(common.SitePath + "/Customer/Customer/ViewCustomerContactLogPartial?page_size=" + page_size+"&Keyword="+keyword+"&CustomerGeneralInfoId=@Model.CustomerContactLog.CustomerGeneralInfoId", function (data) {
+            $('#divContactPartial').empty();
+            $('#divContactPartial').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+
+    });
+
+    $(document).on("click", ".closebtncontact", function () {
+        $("#modalContactlog").modal("hide");
+    });
+
+    $(document).off('click', '.grid-pager .pagination a').on('click', '.grid-pager .pagination a', function (event) {
+        event.preventDefault();
+        var querystring = $(this).prop('href').split("?")[1];
+        var values = querystring.split("&");
+        var pagenumparam = '';
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.PageSize;
+        }
+
+        var name = $('#Name').val();
+
+        $.each(values, function (i, item) {
+            if (item.indexOf("grid-page") > -1) {
+                pagenumparam = item;
+            }
+        })
+
+        $.get(common.SitePath + "/Customer/Customer/ViewCustomerContactLogPartial?" + pagenumparam + "&page_size=" + page_size + "&Name=" + name + "&CustomerGeneralInfoId=@Model.CustomerContactLog.CustomerGeneralInfoId", function (data) {
+            $('#divContactPartial').empty();
+            $('#divContactPartial').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+    });
+
+    $(document).off('click', '.grid-header-title a').on('click', '.grid-header-title a', function (event) {
+        event.preventDefault();
+        var pagenum = $('li.active span').text();
+        var Name = $("#FirstName").val();
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.PageSize;
+        }
+
+        var elementparam = $(this).attr('href');
+
+        if (pagenum != undefined && pagenum != "") {
+            elementparam = elementparam + "&grid-page=" + pagenum;
+        }
+
+        if (page_size != undefined && page_size != "" && elementparam.indexOf("page_size") < 0) {
+            elementparam = elementparam + "&page_size=" + page_size;
+        }
+
+        if (elementparam.indexOf("CustomerGeneralInfoId")<0) {
+            elementparam=elementparam+"&CustomerGeneralInfoId=@Model.CustomerContactLog.CustomerGeneralInfoId";
+        }
+        elementparam=elementparam+"&Keyword="+Name;
+        var url = common.SitePath + "/Customer/Customer/ViewCustomerContactLogPartial" + elementparam;
+        $.get(url, function (data) {
+            $('#divContactPartial').empty();
+            $('#divContactPartial').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+     
+    });
+    $(".edtcontactlog").click(function () {
+        var customerGeneralinfoid = $(this).attr("customerGeneralinfoid");
+        var customercontactid = $(this).attr("customercontactid");
+        var type=$(this).attr("Type");
+        var pagenum = $('.active span').text();
+        var Sitenam = $(this).parent().parent().children('td:first-child')[0].textContent;
+        if(type=="Reminder"){
+            $.ajax({
+                url: common.SitePath + "/customer/Customer/_CustomerReminderCreate",
+                data: { CustomerGeneralinfoid: customerGeneralinfoid, Customercontactid: customercontactid, PageNum: pagenum, SiteName: Sitenam },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $("#divRemPopup").html(data);
+                    $("#modalReminder").modal("show");
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+        else{
+            $.ajax({
+                url: common.SitePath + "/customer/customer/_CustomercontactAddEdit",
+                data: { CustomerGeneralinfoid: customerGeneralinfoid, Customercontactid: customercontactid, PageNum: pagenum, SiteName: Sitenam },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $("#divShowPopup").html(data);
+                    $("#modalContactlog").modal("show");
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+        function SuccessLog(data) {
+        }
+    })
+
+
+    $(document).on('dblclick', '.cssEditContactLog', function () {
+        // getting customer id
+        var customercontactid = $(this).find('td:eq(0)').text();
+        var type = $(this).find('td:eq(1)').text();
+        var customerGeneralinfoid = $(this).find('td:eq(2)').text();
+        var Sitenam = $(this).find('td:eq(3)').text();
+        var pagenum = $('.active span').text();
+
+
+        if(type=="Reminder"){
+            $.ajax({
+                url: common.SitePath + "/customer/Customer/_CustomerReminderCreate",
+                data: { CustomerGeneralinfoid: customerGeneralinfoid, Customercontactid: customercontactid, PageNum: pagenum, SiteName: Sitenam },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $("#divRemPopup").html(data);
+                    $("#modalReminder").modal("show");
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+        else{
+            $.ajax({
+                url: common.SitePath + "/customer/customer/_CustomercontactAddEdit",
+                data: { CustomerGeneralinfoid: customerGeneralinfoid, Customercontactid: customercontactid, PageNum: pagenum, SiteName: Sitenam },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $("#divShowPopup").html(data);
+                    $("#modalContactlog").modal("show");
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+       
+    });
+
+    function DeletecontactLog(id,customerid,Type)
+    {
+        $(".commonpopup").modal('show');
+        $(".alertmsg").text("Are you sure to delete?");
+        $(".btnconfirm").attr("id", id);
+        $(".btnconfirm").attr("customerid", customerid);
+        $(".btnconfirm").attr("type", Type);
+        $(".modal-title").html("Delete contact log !");
+    }
+    $(document).on('click', ".btnconfirm", function () {
+        var contactid = $(this).attr("id");
+        var CustomerGeneralinfoid = $(this).attr("customerid");
+        var type = $(this).attr("type");
+        var pagenum = $('.active span').text();
+    
+
+        if(type=="Reminder"){
+            $.ajax({
+                url: common.SitePath + "/customer/customer/DeleteCustomerReminder",
+                data: { ReminderId: contactid, PageNum: pagenum },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $(".commonpopup").modal('hide');
+                    $(".jobalert").css("display", "block");
+                    $(".jobalert").html("<strong>Record Deleted Successfully!</strong>");
+                    $(".jobalert").delay(2000).fadeOut(function () {
+                        window.location.href = common.SitePath + '/Customer/Customer/AddCustomerInfo?id=' + CustomerGeneralinfoid + '&activetab=Contact&success=delete&pagenum=' + pagenum;
+                    });
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+        else{
+            $.ajax({
+                url: common.SitePath + "/customer/customer/DeleteCustomerContactLog",
+                data: { Customercontactid: contactid, PageNum: pagenum },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    $(".commonpopup").modal('hide');
+                    $(".jobalert").css("display", "block");
+                    $(".jobalert").html("<strong>Record Deleted Successfully!</strong>");
+                    $(".jobalert").delay(2000).fadeOut(function () {
+                        window.location.href = common.SitePath + '/Customer/Customer/AddCustomerInfo?id=' + CustomerGeneralinfoid + '&activetab=Contact&success=delete&pagenum=' + pagenum;
+                    });
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+       
+    })
+
+</script>

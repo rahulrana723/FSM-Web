@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B08EEE65-2A15-4926-97E9-4442A1400267}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FSM.Infrastructure</RootNamespace>
+    <AssemblyName>FSM.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FsmContext.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\AspNetUsersIsDeleteRepository.cs" />
+    <Compile Include="Repository\AssetManagementRepository.cs" />
+    <Compile Include="Repository\CompulsaryTaskRepository.cs" />
+    <Compile Include="Repository\ContactLogSiteContactsMappingRepository.cs" />
+    <Compile Include="Repository\CustomerJobReminderMappingRepository.cs" />
+    <Compile Include="Repository\EmployeeWorkTypeRepository.cs" />
+    <Compile Include="Repository\InvoiceAssignToMappingRepository.cs" />
+    <Compile Include="Repository\InvoicedJCLItemMappingRepository.cs" />
+    <Compile Include="Repository\InvoicePaymentRepository.cs" />
+    <Compile Include="Repository\JclExtraProduct_MappingRepository.cs" />
+    <Compile Include="Repository\JCLProducts_MappingRepository.cs" />
+    <Compile Include="Repository\JCLColor_MappingRepository.cs" />
+    <Compile Include="Repository\JCLItemInvoiceMappingRepository.cs" />
+    <Compile Include="Repository\JCLRepository.cs" />
+    <Compile Include="Repository\CustomerReminderRepository.cs" />
+    <Compile Include="Repository\JCLSize_MappingRepository.cs" />
+    <Compile Include="Repository\JobRiskAssessmentRepository.cs" />
+    <Compile Include="Repository\JobsReasonMappingRepository.cs" />
+    <Compile Include="Repository\JobTaskMappingRepository.cs" />
+    <Compile Include="Repository\LogRepository.cs" />
+    <Compile Include="Repository\RateCategoryRepository.cs" />
+    <Compile Include="Repository\Action_MasterRepository.cs" />
+    <Compile Include="Repository\AspNetRolesRepository.cs" />
+    <Compile Include="Repository\AspNetUserRolesRepository.cs" />
+    <Compile Include="Repository\AspNetUsersRepository.cs" />
+    <Compile Include="Repository\RateSubCategoryRepository.cs" />
+    <Compile Include="Repository\EmployeeDetailTempRepository.cs" />
+    <Compile Include="Repository\ImportantDocumentsRepository.cs" />
+    <Compile Include="Repository\iNvoiceItemsRepository.cs" />
+    <Compile Include="Repository\iNvoiceRepository.cs" />
+    <Compile Include="Repository\JobAssignToMappingRepository.cs" />
+    <Compile Include="Repository\ModuleActionMasterRepository.cs" />
+    <Compile Include="Repository\Module_MasterRepository.cs" />
+    <Compile Include="Repository\NotificationRepository.cs" />
+    <Compile Include="Repository\ParentAction_MasterRepository.cs" />
+    <Compile Include="Repository\RoastedOffRepository.cs" />
+    <Compile Include="Repository\RoastedOffWeekMappingRepository.cs" />
+    <Compile Include="Repository\RoleModuleActionMappingRepository.cs" />
+    <Compile Include="Repository\RoleModuleMappingRepository.cs" />
+    <Compile Include="Repository\RoleParentActionMappingRepository.cs" />
+    <Compile Include="Repository\ScheduleReminderRepository.cs" />
+    <Compile Include="Repository\UserDeviceTokenRepository.cs" />
+    <Compile Include="Repository\UserMessageRepository.cs" />
+    <Compile Include="Repository\PublicHolidayRepository.cs" />
+    <Compile Include="Repository\PurchaseOrderByStockRepository.cs" />
+    <Compile Include="Repository\PurchaseorderItemsStockRepository.cs" />
+    <Compile Include="Repository\OTRWSTockRepository.cs" />
+    <Compile Include="Repository\PurchaseorderjobRepository.cs" />
+    <Compile Include="Repository\PurchaseorderItemJobRepository.cs" />
+    <Compile Include="Repository\StockRepository.cs" />
+    <Compile Include="Repository\CustomerBillingAddressRepository.cs" />
+    <Compile Include="Repository\CustomerConditionReportRepository.cs" />
+    <Compile Include="Repository\CustomerContactLogRepository.cs" />
+    <Compile Include="Repository\CustomerContactsRepository.cs" />
+    <Compile Include="Repository\CustomerResidenceDetailRepository.cs" />
+    <Compile Include="Repository\CustomerSiteDetailRepository.cs" />
+    <Compile Include="Repository\CustomerSiteDocumentsRepository.cs" />
+    <Compile Include="Repository\EmployeeDetailRepository.cs" />
+    <Compile Include="Repository\CustomerGeneralInfoRepository.cs" />
+    <Compile Include="Repository\EmployeeJobDocumentRepository.cs" />
+    <Compile Include="Repository\EmployeeJobRepository.cs" />
+    <Compile Include="Repository\EmployeeRatesRepository.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Repository\JobStockRepository.cs" />
+    <Compile Include="Repository\SupplierRepository.cs" />
+    <Compile Include="Repository\SupportdojobMappingRepository.cs" />
+    <Compile Include="Repository\UserMessageThreadRepository.cs" />
+    <Compile Include="Repository\SupportJobRepository.cs" />
+    <Compile Include="Repository\UserTimeSheetRepository.cs" />
+    <Compile Include="Repository\VacationRepository.cs" />
+    <Compile Include="Repository\ViewEmployeeRatesRepository.cs" />
+    <Compile Include="Repository\WebNotificationRepository.cs" />
+    <Compile Include="Repository\WorkTypeRepository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FSM.Core\FSM.Core.csproj">
+      <Project>{2d7bb6d6-1a85-4243-b8b0-131f68fe1ee5}</Project>
+      <Name>FSM.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

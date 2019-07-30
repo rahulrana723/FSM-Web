@@ -1,0 +1,33 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.ViewEmployeeRatesSearchViewModel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(m => m.PageSize)
+        <div class="search_block jobs_margin">
+            <div class="form-group outer_customer col-sm-12">
+
+                <div class="row">
+                    @*@Html.HiddenFor(model => model.Keyword)*@
+                    <div class="col-md-4 texbox_margin">
+                        @Html.TextBoxFor(model => model.Keyword, new { @class = "form-control", placeholder = "Search Keyword" })
+                    </div>
+                    <div class="col-sm-4 ui-widget texbox_margin">
+                        <input type="submit" value="Search" class="search_btn black-btn" />
+                    </div>
+                    <div class="col-sm- ui-widget texbox_margin">
+                        <div class="add_Job">
+                            @Html.ActionLink("Add Rates", "AddEmployeeRates", "Employee", new { }, new { @class = "btn btn-default pull-right emp-rate  " })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+
+}
+
+

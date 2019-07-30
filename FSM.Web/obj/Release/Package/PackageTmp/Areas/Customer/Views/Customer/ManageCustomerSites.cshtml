@@ -1,0 +1,172 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSitesViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddCustomerSites</title>
+    <script src="~/Areas/Customer/Scripts/CustomerSite.js"></script>
+</head>
+<body>
+    <div id="dvCustForm" style="display:none;">
+        <div id="CustomerSitesErrorDiv" style="display:none;">
+        </div>
+        <div class="alert alert-success jobalert" style="display:none">
+            <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+        <div id="dvCustFormPartial">
+            @Html.Partial("_CustomerSiteForm", Model)
+        </div>
+    </div>
+    <div id="dvCustAddNew" style="display:none;">
+        
+        @Html.Partial("_CustomerSiteSearch")
+
+        @*grid panel*@
+        <div id="dvShowCustList">
+            <div id="delMsgDiv" style="display:none;color:green,">
+                Record deleted successfully !
+            </div>
+            <div class="alert alert-success jobalert" style="display:none">
+                <strong>Success!</strong> Indicates a successful or positive action.
+            </div>
+            <div class="drop_head_tab">
+                @Html.Partial("_CustomerSiteList", Model)
+                </div>
+            </div>
+    </div>
+</body>
+</html>
+<script>
+    
+    $(document).on('click','#addcustomersite',function () {
+        var HideAddCustomer=$(this).attr("data-hide");
+        $('#CustomerSitesErrorDiv').empty();
+        $.get(common.SitePath + "/Customer/Customer/ManageCustomerSitesAddPartial?CustomerGeneralInfoId=@Model.CustomerGeneralInfoId.ToString()"+"&HideAddCustomer="+HideAddCustomer, function (data) {
+
+
+            $('#dvCustForm').css('display', 'block');
+            $('#dvCustAddNew').css('display', 'none');
+
+            $('#dvCustFormPartial').empty();
+            $('#dvCustFormPartial').append(data);
+        });
+
+    });
+    $('#btnsitesearch').on('click', function () {
+        var name = $('#Name').val();
+        var streetname = $('#StreetName').val();
+        var Contactsearch=$('#Conatctsrch').val();
+        var Stratasearch=$('#stratasrch').val();
+        var page_size = $('#ddPageSize').val();
+        if($("#Contractdsrch").is(":checked")){
+            var contracted=true;
+        }
+        else
+        {
+            var contracted=false;
+        }
+
+        if (page_size==undefined) {
+            page_size=@Model.PageSize;
+        }
+
+
+        $.get(common.SitePath + "/Customer/Customer/CustomerSiteList?Name=" + name + "&StreetName=" + streetname+"&ConatctName="+Contactsearch+"&StrataManager="+Stratasearch+"&page_size="+page_size+"&Contracted="+contracted+"&CustomerGeneralInfoId=@Model.CustomerGeneralInfoId", function (data) {
+            $('#dvShowCustList').empty();
+            $('#dvShowCustList').append(data);
+        });
+
+    });
+
+    $(document).on("keypress", ".SiteSrchBox", function (e) {
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            $('#btnsitesearch').click();
+            return false;
+        }
+    });
+
+    $(document).ready(function () {
+        $('.form-control#ddPageSize').val(@Model.PageSize);
+        var FSM = {};
+        FSM.SiteCount=@Model.SiteCount;
+        FSM.SiteDetailId='@Model.SiteDetailId';
+
+        if (FSM.SiteCount==1) {
+            $.get(common.SitePath + "/Customer/Customer/ManageCustomerSitesPartial?SiteDetailId=" + FSM.SiteDetailId, function (data) {
+                $('#dvCustForm').css('display', 'block');
+                $('#dvCustAddNew').css('display', 'none');
+                $('#dvCustFormPartial').empty();
+                $('#dvCustFormPartial').append(data);
+            });
+        }
+        else {
+            $('#dvCustAddNew').css('display', 'block');
+            $('#dvCustForm').css('display', 'none');
+        }
+    });
+
+    $(document).on('click', '.grid-pager .pagination a', function (event) {
+        event.preventDefault();
+        var querystring = $(this).prop('href').split("?")[1];
+        var values = querystring.split("&");
+        var pagenumparam = '';
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.PageSize;
+        }
+
+        var name = $('#Name').val();
+        var streetname = $('#StreetName').val();
+
+        $.each(values, function (i, item) {
+            if (item.indexOf("grid-page") > -1) {
+                pagenumparam = item;
+            }
+        })
+
+        $.get(common.SitePath + "/Customer/Customer/CustomerSiteList?" + pagenumparam + "&page_size=" + page_size + "&Name=" + name + "&StreetName=" + streetname+"&CustomerGeneralInfoId=@Model.CustomerGeneralInfoId", function (data) {
+            $('#dvShowCustList').empty();
+            $('#dvShowCustList').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+
+    });
+
+    $(document).on('click', '.grid-header-title a', function (event) {
+        event.preventDefault();
+
+        var pagenum = $('#dvShowCustList li.active span').text();
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.PageSize;
+        }
+
+        var elementparam = $(this).attr('href');
+
+        if (pagenum != undefined && pagenum != "") {
+            elementparam = elementparam + "&grid-page=" + pagenum;
+        }
+
+        if (page_size != undefined && page_size != "" && elementparam.indexOf("page_size") < 0) {
+            elementparam = elementparam + "&page_size=" + page_size;
+        }
+
+        if (elementparam.indexOf("CustomerGeneralInfoId")<0) {
+            elementparam=elementparam+"&CustomerGeneralInfoId=@Model.CustomerGeneralInfoId";
+        }
+        var url = common.SitePath + "/Customer/Customer/CustomerSiteList" + elementparam;
+        $.get(url, function (data) {
+            $('#dvShowCustList').empty();
+            $('#dvShowCustList').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+    });
+</script>

@@ -1,0 +1,100 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.TimeSheetDataViewModel
+
+<script src="~/Areas/Employee/Scripts/UserTimeSheet.js"></script>
+@*<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />*@
+
+<div class="modal fade" id="modalReportTypePopUp" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Report Type</h4>
+            </div>
+            <div class="modal-body popUp_width">
+               
+                <div class="form-group">
+                    <label class="control-label col-md-3 text-right">Select Report Type</label>
+                    <div class="col-sm-7">
+                        @Html.EnumDropDownListFor(m => m.ReportType, "(Select Report Type)", new { @id = "reportType", @class = "form-control grey_bg", placeholder = "" })
+                        <div id="sheetReportTypeDVpopUp" style="color:red;display:none;">
+                            Please Select Report Type !
+                        </div>
+                     </div>
+                </div>
+                 <div class="form-group">
+                     <label class="control-label col-md-3 text-right">Search Keyword</label>
+                    <div class="col-sm-7">
+                        @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new {@id="keysrch", @class = "form-control srchTimesheet", @placeholder = "Search Keyword" } })
+                        <div id="sheetKeywordDVpopUp" style="color:red;display:none;">
+                            Should be less than or equal to 50 chars !
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 text-right">Select OTRW Users</label>
+                    <div class="col-sm-7">
+                        @Html.DropDownListFor(model => model.UserId, Model.Users, new {@id= "multiUserId", @title = "Select OTRW User", @class = "ddlmultiselect", multiple = "multiple" })
+                       
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.JobStartDate, htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                    <div class="col-sm-7">
+                        @Html.EditorFor(model => model.JobStartDate, new { htmlAttributes = new {@id="startDateSheet", @class = "form-control", @placeholder = "Start Date" } })
+                        <div id="sheetStartDateDVpopUp" style="color:red;display:none;">
+                            Invalid Start Date !
+                        </div>
+                     </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.JobEndDate, htmlAttributes: new { @class = "control-label col-md-3 text-right" })
+                    <div class="col-sm-7">
+                        @Html.EditorFor(model => model.JobEndDate, new { htmlAttributes = new { @id = "endDateSheet", @class = "form-control", @placeholder = "End Date" } })
+                        <div id="sheetEndDateDVpopUp" style="color:red;display:none;">
+                            Invalid End Date !
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="">
+                        <div class="text-center">
+                            <input type="button" value="Report" id="generatereport" class="search_btn black-btn" />
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+   
+
+    $("#messageSent").click(function () {
+        var textval = $("#UserMessageViewModel_Message").val().replace(/ /g, '').length;
+        if (textval === 0) {
+            return false;
+        }
+    });
+    $("#UserMessageViewModel_Message").keyup(function () {
+        var textval = $("#UserMessageViewModel_Message").val().replace(/ /g, '').length;
+        if (textval ===0) {
+            $('#messageSent').attr('disabled', true);
+        }
+        else {
+            $('#messageSent').attr('disabled', false);
+        }
+    })
+    $("#DeleteMessage").click(function () {
+        var messagediv = $(".MessageView b").text().length;
+        if (messagediv === 0) {
+            return false;
+        }
+    })
+    $("#btncross").click(function () {
+        location.reload();
+    });
+</script>
+

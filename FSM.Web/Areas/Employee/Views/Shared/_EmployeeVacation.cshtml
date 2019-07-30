@@ -1,0 +1,74 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeVacationModel
+@using GridMvc.Html
+
+@Html.Grid(Model.VacationList).SetRowCssClasses(
+    item => item.Id == Guid.Empty ? string.Empty : "cssEditEmpVacation").Columns(
+    columns =>
+    {
+        columns.Add(model => model.Id, true);
+        columns.Add(model => model.EmpId).Titled("Employee Id");
+        columns.Add(model => model.EmployeeDetail.UserName).Titled("Employee Name");
+        columns.Add(model => model.StartDate).Format("{0:dd-MM-yyyy}").Titled("Start Date");
+        columns.Add(model => model.EndDate).Format("{0:dd-MM-yyyy}").Titled("End Date");
+        columns.Add(model => model.DisplayLeaveType).Titled("Leave Type");
+        columns.Add(model => model.Reason);
+        columns.Add(model => model.DisplayStatus).Titled("Status");
+
+        columns.Add()
+         .Encoded(false)
+         .Sanitized(false)
+         .SetWidth(30)
+         .RenderValueAs(model => Html.ActionLink("Edit", "#", null, new
+         {
+             @class = "btn btn-default editbtngrid updateEmpVacationAdmin",
+             @data_id = model.Id.ToString(),
+             @style = "visibility:" + model.IsVisible + ";"
+         })).Filterable(false).Titled("Edit");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { Id = model.Id.ToString() }, new { @class = "btn btn-default", @type = "button", href = "javascript:void(0)", onclick = "DeleteEmployeeHoliday('" + model.Id.ToString() + "');" })).Filterable(false).Titled("Delete");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(o => CustomRenderingOfColumnApprove(o.Id.ToString(), o.DisplayStatus)).Titled("Approve");
+
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(o => CustomRenderingOfColumnReject(o.Id.ToString(), o.DisplayStatus)).Titled("Reject");
+
+    }
+    ).WithPaging(Model.PageSize).Sortable(true)
+
+
+@helper CustomRenderingOfColumnApprove(string Id, string status)
+{
+if (status == "Approved")
+{
+        <input id="btnApprove" class="btn btn-default editbtngrid" type="button" value="Approve" disabled="disabled" />
+}
+else
+{
+        @Html.ActionLink("Approve", " ", null, new { @class = "btn btn-default editbtngrid", @onclick = "ApproveVacation(event,'" + Id + "')", @href = "#" })
+}
+}
+
+@helper CustomRenderingOfColumnReject(string Id, string status)
+{
+if (status == "Not Approved")
+{
+        <input id="btnReject" class="btn btn-default editbtngrid" type="button" value="Reject" disabled="disabled" />
+}
+else
+{
+        @Html.ActionLink("Reject", " ", null, new { @class = "btn btn-default editbtngrid", @onclick = "RejectVacation(event,'" + Id + "')", @href = "#" })
+}
+}
+

@@ -1,0 +1,374 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TransmitSms</name>
+    </assembly>
+    <members>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetBalance">
+            <summary>
+            Gets the account balance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.SendSms(TransmitSms.Models.Sms.SendSmsRequest)">
+            <summary>
+            probably will be removed
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.SendSms(System.String,System.String[],System.String,System.Nullable{System.DateTime},System.Nullable{System.Int32},System.String,System.String,System.Int32,System.String,System.Boolean,System.String)">
+            <summary>
+            Sends SMS messages
+            </summary>
+            <param name="message">Message text. Required</param>
+            <param name="to">Number or set of up to 10,000 numbers to send the SMS to. 
+            Required if list_id is not set</param>
+            <param name="from">Set the originator</param>
+            <param name="sendAt">A time in the future to send the message</param>
+            <param name="listId">ID of one of your lists. Required if to is not set</param>
+            <param name="dlrCallback">A URL on your system which we can call to notify you when messages are delivered</param>
+            <param name="replyCallback">A URL on your system which we can send replies to</param>
+            <param name="validity">Specify the maximum time to attempt to deliver. In minutes, 0 (zero) implies no limit.</param>
+            <param name="repliesToEmail">Specify an email address to send responses to this message.</param>
+            <param name="fromShared">Force sending via shared reply number.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetSms(System.Int32)">
+            <summary>
+            Gets data about a sent message.
+            </summary>
+            <param name="smsId">Message ID. Required</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.CancelSms(System.Int32)">
+            <summary>
+            Cancels a scheduled sms.
+            </summary>
+            <param name="smsId">Message ID. Required</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetSmsResponses(TransmitSms.Models.Sms.SmsResponseRequest)">
+            <summary>
+            probably will be removed.
+            </summary>
+            <param name="smsRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetSmsResponses(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets SMS responses.
+            </summary>
+            <param name="messageId">Message ID. Required if keyword_id not set</param>
+            <param name="keywordId">Keyword ID. Required if message_id not set</param>
+            <param name="keyword">Keyword</param>
+            <param name="number">Filter results by response number. Required if keyword is set</param>
+            <param name="msisdn">Filter results by a particular mobile number</param>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetUserSmsResponses(TransmitSms.Models.Sms.SmsUserResponseRequest)">
+            <summary>
+            probably will be removed.
+            </summary>
+            <param name="smsRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetUserSmsResponses(System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets User SMS responses.
+            </summary>
+            <param name="start">Start Date.</param>
+            <param name="end">End Date.</param>   
+            <param name="keywords">Filter if keyword responses should be included. Can be: ‘only’ - only keyword responses will be included‘omit’ - only regular campaign responses will be included‘both’ - both keyword and campaign responses will be included (default)</param>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetSmsStats(TransmitSms.Models.Sms.SmsStatsRequest)">
+            <summary>
+            probably will be removed.
+            </summary>
+            <param name="SmsStatRequest"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetSmsStats(System.Int32)">
+            <summary>
+            Gets sent message stats.
+            </summary>
+            <param name="messageId">Message ID</param>
+            <param name="includeOptouts">Whether to include optouts.  Valid options are:
+            only - only get optouts
+            omit - do not get optouts
+            include - get all recipients including optouts (default)</param>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetSmsSent(System.Int32,TransmitSms.Models.OptoutsIncludeOptions,System.Int32,System.Int32,TransmitSms.Models.DeliveryIncludeOptions)">
+            <summary>
+            Gets sent messages.
+            </summary>
+            <param name="messageId">Message ID</param>
+            <param name="includeOptouts">Whether to include optouts.  Valid options are:
+            only - only get optouts
+            omit - do not get optouts
+            include - get all recipients including optouts (default)</param>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetList(System.Int32,TransmitSms.Models.MemberType,System.Int32,System.Int32)">
+            <summary>
+            Gets information about a list and its members.
+            </summary>
+            <param name="listId">List ID. Required</param>
+            <param name="members">Which types of members to return. Possible values:
+            active - only get active members (default)
+            inactive - only get inactive members
+            all - get active and inactive members
+            none - do not get any members, just metadata</param>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetLists(System.Int32,System.Int32)">
+            <summary>
+            Gets the metadata of your lists.
+            </summary>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.AddList(System.String,System.String[])">
+            <summary>
+            Creates a new list.
+            </summary>
+            <param name="listName">A unique name for the list. Required</param>
+            <param name="customFields">	A custom field name where n is an integer between 1 and 10.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.AddToList(TransmitSms.Models.Recipients.RecipientCustomFields)">
+            <summary>
+            Probably will be removed soon
+            </summary>
+            <param name="recipientToAdd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.AddToList(System.Int32,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Adds a member to a list.
+            </summary>
+            <param name="listId">ID of the list to add to. Required.</param>
+            <param name="msisdn">Mobile number of the member. Required</param>
+            <param name="firstName">First name of the member</param>
+            <param name="lastName">	Last name of the member</param>
+            <param name="customFields">Custom field value where n is an integer between 1 and 10. You can also use the names of the custom fields you have chosen for your list, e.g. field.birthday.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.AddFieldToList(TransmitSms.Models.Recipients.RecipientAddCustomFields)">
+            <summary>
+            Probably will be removed soon
+            </summary>
+            <param name="recipientToAdd"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.AddFieldToList(System.Int32,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Adds a custom field to a list.
+            </summary>
+            <param name="listId">ID of the list to add to. Required.</param>
+            <param name="customFields">Custom field value where n is an integer between 1 and 10. You can also use the names of the custom fields you have chosen for your list, e.g. field.birthday.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.DeleteFromList(System.Int32,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="listId">ID of the list to remove from. 
+            If set to zero the member will be removed from all lists.Required</param>		
+            <param name="msisdn">Mobile number of the member. Required</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.OptoutListMember(System.Int32,System.String)">
+            <summary>
+            Opt a user out of one list or all lists. Typically a user will opt out of your lists themselves
+            however if you offer alternative methods such as handling opt out requests via telephone support, 
+            this call might be useful for you.
+            </summary>
+            <param name="listId">ID of the list to opt the user out of. Set this to 0 (zero) to opt out of all of your lists. </param>
+            <param name="msisdn">Mobile number of the member to opt out</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.EditListMember(System.Int32,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            
+            </summary>
+            <param name="listId">ID of the list to add to. Required.</param>
+            <param name="msisdn">Mobile number of the member. Required</param>
+            <param name ="firstName">First name of the member</param>
+            <param name="lastName">	Last name of the member</param>
+            <param name="customFields">Custom field value where n is an integer between 1 and 10. You can also use the names of the custom fields you have chosen for your list, e.g. field.birthday.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetNumber(System.String)">
+            <summary>
+            Gets a response number.
+            </summary>
+            <param name="number">The response number to retrieve. Required</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetNumbers(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets a list of numbers.
+            </summary>
+            <param name="filter">Possible values are:
+            owned - retrieve your own response numbers (default)
+            available - retrieve response numbers available for purchase</param>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.LeaseNumber(System.String,System.String)">
+            <summary>
+            Leases a response number.
+            </summary>
+            <param name="number">The response number to lease. Omit this field to be given a random number. Use get-numbers to find out which numbers are currently available.</param>
+            <param name="forwardUrl">An optional URL on your system which we will send all received messages to</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetClient(System.Int32)">
+            <summary>
+            Gets a client.
+            </summary>
+            <param name="clientId">The ID of the client. Required</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetClients(System.Int32,System.Int32)">
+            <summary>
+            Gets a list of clients.
+            </summary>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.AddClient(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Double,System.Nullable{System.Double})">
+            <summary>
+            Adds a new client.
+            </summary>
+            <param name="name">Client company name. Required</param>
+            <param name="contact">Contact's name</param>
+            <param name="email">Client's email address. Required</param>
+            <param name="password">Client password. Required</param>
+            <param name="msisdn">Client phone number. Required</param>
+            <param name="timezone">A valid timezone, Australia/Sydney. Defaults to your own.</param>
+            <param name="clientPays">Set to true if the client will pay (the default) or false if you will pay.</param>
+            <param name="smsMargin">The number of cents to add to the base SMS price. A decimal value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.EditClient(System.Int32,System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.Double)">
+            <summary>
+            Edits a client.
+            </summary>
+            <param name="clientId">The ID of the client. Required</param>
+            <param name="name">Client company name. Required</param>
+            <param name="contact">Contact's name</param>
+            <param name="email">Client's email address. Required</param>
+            <param name="password">Client password. Required</param>
+            <param name="msisdn">Client phone number. Required</param>
+            <param name="timezone">A valid timezone, Australia/Sydney. Defaults to your own.</param>
+            <param name="clientPays">Set to true if the client will pay (the default) or false if you will pay.</param>
+            <param name="smsMargin">The number of cents to add to the base SMS price. A decimal value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetTransactions(System.String,System.DateTime,System.DateTime,System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            Get a list of transactions for a client.
+            </summary>
+            <param name="clientId">Only retrieve records for a particular client. Required</param>
+            <param name="start">A timestamp to start the report from. </param>
+            <param name="end">A timestamp to end the report at</param>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <param name="filter">Transaction type_ids to select (array of type ids)</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetTransaction(System.Int32)">
+            <summary>
+            Gets a transaction.
+            </summary>
+            <param name="id">Transaction ID. Required</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.AddEmail(System.String,System.Int32,System.String)">
+            <summary>
+            Registers an email address for Email to SMS.
+            </summary>
+            <param name="email">	Email address to register. You may also register a wild-card email 
+            which allows any user on the same domain to use Email to SMS.
+            Wild-card format: *@example.com
+            Required.</param>
+            <param name="maxSms">The maximum number of SMS messages to send from one email message 
+            sent from this email address.Possible values:
+            1 - up to 160 characters (default)
+            2 - up to 306 characters
+            3 - up to 459 characters
+            4 - up to 621 characters</param>
+            <param name="number">The response number to send from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.DeleteEmail(System.String)">
+            <summary>
+            Removes an email address from Email to SMS.
+            </summary>
+            <param name="email">Email address to remove. See add-email for an explanation of wild-card emails. Required</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.AddKeyword(System.String,System.String,System.String,System.Int32,System.String,System.String,System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Adds a keyword to your existing response number.
+            </summary>
+            <param name="keyword">The keyword. Required</param>
+            <param name="number">The response number you wish to add the keyword to. Required</param>
+            <param name="reference">Your own reference (up to 100 characters)</param>
+            <param name="listId">ID of a list to add respondents to</param>
+            <param name="welcomeMessage">SMS message to send to new members</param>
+            <param name="membersMessage">SMS message to existing members</param>
+            <param name="activate">	Whether to make the keyword active immediately.Possible values:
+            true - activate immediately (default)
+            false - create the keyword but do not activate</param>
+            <param name="forwardUrl">Send responses to a URL</param>
+            <param name="forwardEmail">Send responses to a set of email addresses</param>
+            <param name="forwardSms">Send responses to a set of msisdns</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.EditKeyword(System.String,System.String,System.String,System.Int32,System.String,System.String,System.Boolean,System.String,System.String,System.String)">
+            <summary>
+            Edits an existing keyword.
+            </summary>
+            <param name="keyword">The keyword. Required</param>
+            <param name="number">The response number you wish to add the keyword to. Required</param>
+            <param name="reference">Your own reference (up to 100 characters)</param>
+            <param name="listId">ID of a list to add respondents to</param>
+            <param name="welcomeMessage">SMS message to send to new members</param>
+            <param name="membersMessage">SMS message to existing members</param>
+            <param name="activate">	Whether to make the keyword active immediately.Possible values:
+            true - activate immediately (default)
+            false - create the keyword but do not activate</param>
+            <param name="forwardUrl">Send responses to a URL</param>
+            <param name="forwardEmail">Send responses to a set of email addresses</param>
+            <param name="forwardSms">Send responses to a set of msisdns</param>
+            <returns></returns>
+        </member>
+        <member name="M:TransmitSms.TransmitSmsWrapper.GetKeywords(System.String,System.Int32,System.Int32)">
+            <summary>
+            Gets a list of existing keywords.
+            </summary>
+            <param name="number">Filter the list by response number</param>
+            <param name="page">Page number, for pagination(1 by default)</param>
+            <param name="max">Maximum results returned per page(10 by default)</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

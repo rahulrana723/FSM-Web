@@ -1,0 +1,160 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.ViewEmployeeRatesViewModel
+@{
+    ViewBag.Title = "AddEmployeeRates";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section scripts{
+    <script src="~/Areas/Employee/Scripts/EmployeeRates.js"></script>
+}
+
+<meta name="viewport" content="width=device-width" />
+<title>AddEmployeeRates</title>
+
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        @using (Html.BeginForm())
+            {
+            <div class="dashboard_center_block  paper-wrap bevel tlbr">
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="new_emp_tab">
+                    <div class="new_emp">
+                        <h3> ADD EMPLOYEE RATES</h3>
+                        <div id="EmployeeBasicDetails" class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Rate Category</label>
+                                        @Html.DropDownListFor(M => M.CategoryId, new SelectList(Model.RateCategoryList, "Value", "Text"), "(Select)", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Rate SubCategory</label>
+                                        @Html.EditorFor(M => M.SubCategoryName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(M => M.SubCategoryName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label> Actual Rate</label>
+                                        @Html.EditorFor(model => model.ActualRate, new { htmlAttributes = new { @class = "form-control"} })
+                                        @Html.ValidationMessageFor(model => model.ActualRate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label> Base Rate</label>
+                                        @Html.EditorFor(model => model.BaseRate, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.BaseRate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label> S WC</label>
+                                            @Html.EditorFor(model => model.S_WC, new { htmlAttributes = new { @class = "form-control"} })
+                                            @Html.ValidationMessageFor(model => model.S_WC, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>AL PH</label>
+                                            @Html.EditorFor(model => model.AL_PH, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.AL_PH, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>TAFE</label>
+                                            @Html.EditorFor(model => model.TAFE, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.TAFE, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label>Payroll</label>
+                                            @Html.EditorFor(model => model.Payroll, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Payroll, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Payroll Inc Cost</label>
+                                        @Html.EditorFor(model => model.Payroll_Inc_Cost, new { htmlAttributes = new { @class = "form-control",@readonly="readonly" } })
+                                        @Html.ValidationMessageFor(model => model.Payroll_Inc_Cost, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Cont MV EQ Cost</label>
+                                        @Html.EditorFor(model => model.Cont_MV_EQ_Cost, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.Cont_MV_EQ_Cost, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Emp MV Cost</label>
+                                        @Html.EditorFor(model => model.Emp_MV_Cost, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Emp_MV_Cost, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Equip Cost</label>
+                                        @Html.EditorFor(model => model.Equip_Cost, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Equip_Cost, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Emp Mob Ph Cost</label>
+                                        @Html.EditorFor(model => model.Emp_Mob_Ph_Cost, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Emp_Mob_Ph_Cost, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Gross Labour Cost</label>
+                                        @Html.EditorFor(model => model.Gross_Labour_Cost, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.Gross_Labour_Cost, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>PERF B PAR</label>
+                                        @Html.EditorFor(model => model.PERF_B_PAR, new { htmlAttributes = new { @class = "form-control",@readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.PERF_B_PAR, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>GP Hour PAR</label>
+                                        @Html.EditorFor(model => model.GP_Hour_PAR, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.GP_Hour_PAR, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+
+                                <div class="clearfix"> </div>
+                            </div>
+                    </div><!--new_emp-->
+
+                    <button type="submit" class="btn btn-default create-rate black-btn">Create</button>
+                    @Html.ActionLink("Back", "ViewEmployeesRates", new { @admin = "Employee" }, new { @class = "btn btn-default create-rate black-btn" })
+                </div>
+            </div><!--dashboard_center_block-->
+        }
+    </div><!--dashboard_right_block-->
+</section>
+
+
+

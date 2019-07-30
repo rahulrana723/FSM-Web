@@ -1,0 +1,88 @@
+﻿@model  FSM.Web.Areas.Customer.ViewModels.CustomerReminderViewModel
+
+<style>
+    .cust {
+        display: none;
+    }
+
+    .chkstyle {
+        height: 30px;
+        width: 15px;
+    }
+</style>
+<script src="~/Areas/Customer/Scripts/CustomerContactLog.js"></script>
+<div class="modal fade" id="modalReminder" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closebtncontact" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Send Messages</h4><br />
+                <div class="saved-rem-msg" style="display:none;"></div>
+            </div>
+
+            @*<div class="alert alert-success jobalert" style="display:none">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                </div>*@
+            <div id="ContactLogErrorDv" style="display:none;padding: 5px 0px 0px 18px;"></div>
+            <div class="modal-body">
+                @using (Html.BeginForm("_JobReminderCreate", "CustomerJob", FormMethod.Post, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "SuccessLog" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.ReminderId,new {id="reminderId"})
+                    @Html.HiddenFor(m => m.CustomerGeneralInfoId)
+                    @Html.HiddenFor(m => m.CustomerId)
+                    @Html.HiddenFor(m => m.ReContactDate)
+                    @Html.HiddenFor(m => m.ReminderDate)
+                    @Html.HiddenFor(m => m.IsDelete)
+                    <div class="form-horizontal popUp_width">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.JobId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.JobNo, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MessageTypeId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EnumDropDownListFor(model => model.MessageTypeId, "Select", new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TemplateMessageId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EnumDropDownListFor(model => model.TemplateMessageId, "New Message", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group NoteField">
+                            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-3 " })
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.Note, new { @class = "form-control", @cols = 3, @rows = 5 })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.HasSMS, htmlAttributes: new { @class = "control-label col-md-3 " })
+                                @Html.CheckBoxFor(model => model.HasSMS, new { @class = "chkstyle" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.HasEmail, htmlAttributes: new { @class = "control-label col-md-3 " })
+                                @Html.CheckBoxFor(model => model.HasEmail, new { @class = "chkstyle" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.ActionLink("Save & Send", "", "", new { @id = "btnSaveSend", @class = "btn btn-success", href = "javascript:void(0)" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+

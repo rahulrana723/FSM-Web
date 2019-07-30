@@ -1,0 +1,60 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JobsViewModel
+
+<div class="form-group">
+    @*@Html.LabelFor(model => model.SiteId)*@
+    
+    @Html.DropDownListFor(m => m.tempSiteId, Model.SiteList, "(Select)", new { @class = "ddljobslist form-control Create_Customer" })
+</div>
+<script>
+    $('.ddljobslist').on('change', function () {
+        var SiteValue = $(".ddljobslist").val();
+        if (SiteValue != "") {
+            $.ajax({
+                url: common.SitePath + "/Employee/CustomerJob/CheckSiteNeedTwoPeople",
+                data: { SiteId: SiteValue },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    if (data === 1) {
+                        $(".ddlassign1").hide();
+                        $("#tempAssignTo").val("");
+                        $("#tempAssignTo2").multiselect('clearSelection');
+                        $(".ddlassign2").show();
+                        $(".OtrwReqDiv").show();
+                        //$('#tempAssignTo').attr('disabled', 'disabled');
+                    }
+                    else
+                    {
+                        $("#tempAssignTo2").multiselect('clearSelection');
+                        $(".multiselect").val("");
+                        $(".ddlassign2").hide();
+                        $("#OtrwReuired").val("0");
+                       // $(".OtrwReqDiv").hide();
+                        $(".ddlassign1").show();
+                        //$('.multiselect').attr('disabled', 'disabled');
+                    }
+                    var statusVal = $("#Status").val();
+                    if (statusVal == '5') {
+                        $('#tempAssignTo').removeAttr('disabled');
+                        $('.multiselect').removeAttr('disabled');
+                    }
+                    else {
+                        $('#tempAssignTo').attr('disabled', 'disabled');
+                        //$('.multiselect').attr('disabled', 'disabled');
+                        //$('#compulsaryddl').removeAttr('disabled');
+                    }
+                },
+
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+        else
+        {
+            $(".ddlassign2").hide();
+            $("#tempAssignTo2").val("");
+            $("#AssignOtrwLabel").text('Assign To OTRW');
+        }
+    })
+</script>

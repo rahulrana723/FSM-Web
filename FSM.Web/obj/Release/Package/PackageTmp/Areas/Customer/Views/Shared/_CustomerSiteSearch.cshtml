@@ -1,0 +1,79 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSitesViewModel
+<div class="formcontrol_outer">
+    <div class="row">
+
+        @*search box*@
+        <div class="col-md-9">
+            <div class="row">
+                <div class="col-md-5">
+                    @Html.TextBox("Name", "", new {@class = "form-control textbox SiteSrchBox", placeholder = "Search Keyword" })
+                </div>
+
+                @*<div class="col-md-3">
+                    @Html.DropDownListFor(model => model.CustomerSiteDetailViewModel.ContactId, Model.ContactList, "(Site Contact)", new {@id="Conatctsrch", @class = "form-control custsitedrop" })
+                </div>
+                <div class="col-md-3">
+                    @Html.DropDownListFor(model => model.CustomerSiteDetailViewModel.StrataManagerId, Model.StrataManagerList, "(Strata Manager)", new { @id = "stratasrch", @class = "form-control custsitedrop" })
+                </div>*@
+               
+                <div class="col-md-2">
+                    <input type="button" value="Search" class="btn btn-default search" id="btnsitesearch" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <input type="button" value="Add Customer Site" class="btn btn-default customer" id="addcustomersite" data-hide="true" />
+        </div>
+    </div>
+
+    <div class="col-sm-12 padding0">
+        <div class="search_customer">
+            <div class="checkbox mtop5">
+                <label>@Html.CheckBox("checked", false,new {id="Contractdsrch" })Contracted</label>
+                </div>
+        </div><!--search_customer-->
+    </div>
+</div>
+
+<style>
+
+    .formcontrol_outer {
+           background: #f4f4f4 none repeat scroll 0 0;
+    float: left;
+    padding: 20px;
+    width: 100%;
+        margin: 0 0 20px 0;
+    }
+    .textbox {
+        background: #f4f4f4 none repeat scroll 0 0;
+        border: 1px solid #a5a5a5;
+        border-radius: 0;
+        box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+        color: #444444;
+        height: 40px;
+        margin: 10px 0;
+        padding: 6px;
+    }
+.search {
+    display: inline-block;
+    background: #2a2d33 none repeat scroll 0 0 !important;
+    border-color: #3c3c3c !important;
+    color: #fff !important;
+    border-radius: 0;
+    padding: 9px 26px;
+    margin: 28px 0 0 0;
+    height:40px;
+}
+
+   .customer {
+           display: inline-block;
+    background: #93c749 none repeat scroll 0 0;
+    border-color: #93c749;
+    color: #ffffff;
+    margin: 27px 0 0 0;
+    border-radius: 0;
+    padding: 10px 25px;
+    }
+
+
+</style>

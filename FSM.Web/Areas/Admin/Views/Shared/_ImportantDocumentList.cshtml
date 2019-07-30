@@ -1,0 +1,49 @@
+﻿@model FSM.Web.Areas.Admin.ViewModels.ManageDocumentVM
+
+@if (Model.ImportantDocumentList.Count > 0)
+{
+    <table class="table table-striped grid-table table-bordered">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>File Name</th>
+                <th style="text-align:center;">View</th>
+                <th style="text-align:center;">Delete</th>
+            </tr>
+        </thead>
+      @if (Model.ImportantDocumentList.Count > 0)
+      {
+        <tbody>
+            @{
+                foreach (var item in Model.ImportantDocumentList)
+                {
+                    <tr>
+                        <td>@item.Description</td>
+                        <td>@item.FileName</td>
+                        <td style="text-align:center;">
+                            @Html.ActionLink("View", "", null, new
+                       {
+                           data_filepath = item.FilePath,
+                           @class = "impdoc-download btn btn-default editbtngrid"
+                       })
+                        </td>
+                        <td style="text-align:center;">
+                            @Html.ActionLink("Delete", "", null, new
+                       {
+                           data_fileid = item.Id,
+                           @class = "impdoc-delete btn btn-default editbtngrid"
+                       })
+                    </td>
+                </tr>
+                }
+            }
+        </tbody>
+       }
+    </table>
+
+  <div class="quickview-align">
+      @Html.ActionLink("Quick View", "ManageQuickView", "Setting", new { @area = "Admin" }, new { @class = "Managequickview btn-default btn-quickview" })
+  </div>
+  }
+   
+

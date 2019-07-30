@@ -1,0 +1,489 @@
+﻿@using Microsoft.AspNet.Identity
+@using FSM.Web.Common
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+    <!-- STYLESHEET FIrLE -->
+    @*<link rel="stylesheet" href="@Url.Content("~/Content/bootstrap.min.css")">*@
+    <link rel="stylesheet" href="@Url.Content("~/Content/fonts/font-awesome.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/style.css")">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/css/emoticons.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="@Url.Content("~/Content/images/fsmfavicon.ico")" />
+    @*@Styles.Render("~/Content/css")*@
+    @Scripts.Render("~/bundles/modernizr")
+    @Styles.Render("~/Content/cssjqryUi")
+    @Styles.Render("~/Content/GridmvcCSS")
+
+    <!--  SCRIPTS -->
+    @Scripts.Render("~/bundles/jquery")
+
+</head>
+<body id="dashboard">
+    <header>
+        <!-- LOGO SECTION -->
+        <div class="head_tab">
+
+
+            <div class="col-xs-12 col-sm-3 col-md-3">
+                <div class="head_logo">
+                    <a href="@Url.Action("Dashboard","Dashboard", new {@area="Admin" })"> <img alt="" height="40px" src="~/Content/images/srg_logo_new.png"></a>
+                </div><!-- head_logo -->
+            </div>
+            <div class="col-xs-12 col-sm-9 col-md-9">
+                <div class="head_right">
+                    @Html.Partial("_LoginPartial")
+                    @*<figure class="pull-right"><img src="~/Content/images/user2.png" alt=""></figure>
+                        <p class="text-right"><a href="#"><span>Robert Mill</span><span>Texas / South Region</span></a> </p>*@
+                </div><!--head_right-->
+            </div>
+
+
+        </div><!--head_tab-->
+    </header>
+    <section class="dashboard_section">
+        <button type="button" class="slide-toggle" style="display:none;"><i class="fa fa-align-justify" aria-hidden="true"></i></button>
+
+                <div class="dashboard_left_block dashboard_left_block2">
+
+                    <nav>
+                        @*<div class="nav-toggle dropdown"><a>Navigation</a></div>*@
+                        <ul id="leftmenu" style="display:block;">
+                            <li class="icon1">
+                                <a href="@Url.Action("Dashboard","Dashboard", new { Area = "Admin" ,Module = "Dashboard"})">
+                                    Dashboard
+                                </a>
+                                @if (ViewContext.Controller.IsActiveModule("Customers"))
+                                {
+                                <li class="icon2">
+                                    <a href="@Url.Action("Index", "Customer", new { Area = "Customer",Module="Customers" })">
+                                        Customers
+                                    </a>
+                                </li>
+                                }
+
+
+                                @if (ViewContext.Controller.IsActiveModule("Jobs"))
+                                {
+                                    <li class="icon7">
+                                        <a href="@Url.Action("ViewEmployeejobs", "Job", new { Area = "Employee", Module = "Jobs" })">
+                                            Jobs
+                                        </a>
+                                    </li>
+                                }
+
+                                @if (ViewContext.Controller.IsActiveModule("Invoices"))
+                                {
+                                    <li class="icon6">
+                                        <a href="@Url.Action("InvoiceList", "Invoice", new { Area = "Employee", Module = "Invoices" })">
+                                            Invoice/Quote
+                                        </a>
+                                    </li>
+                                }
+
+                                @if (ViewContext.Controller.IsActiveModule("Purchase Order"))
+                                {
+                                    <li class="icon5">
+                                        <a href="@Url.Action("ViewJobsPurchaseOrder", "Purchase", new { Area = "Employee", Module = "Purchase Order" })">
+                                            Purchase Order
+                                        </a>
+                                    </li>
+                                }
+
+                                @if (ViewContext.Controller.IsActiveModule("Stock"))
+                                {
+                                    <li class="dropdown icon10">
+                                        <a href="#">
+                                            Stock
+                                        </a>
+                                        <ul>
+                                            <li class="icon10">
+                                                <a href="@Url.Action("Index", "Stock", new { Area = "Employee", Module = "Stock" })">
+                                                    Stock
+                                                </a>
+                                            </li>
+
+                                            <li class="icon10">
+                                                <a href="@Url.Action("ViewAssetManagement", "AssetManagement", new { Area = "Employee", Module = "Asset" })">
+                                                    Asset Management
+                                                </a>
+                                            </li>
+                                            <li class="icon10">
+                                                <a href="@Url.Action("Index", "Material", new { Area = "Employee", Module = "Material" })">
+                                                    Material
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+
+                                @*<li><a href="#" data-toggle="modal" data-target="#linkmodal"><i><img src="~/Content/images/quotes-2.png" /></i> Quotes</a></li>
+                                    <li><a href="#" data-toggle="modal" data-target="#linkmodal"><i><img src="~/Content/images/purchase-order.png" /></i>  Purchase Order</a></li>*@
+                                @if (ViewContext.Controller.IsActiveModule("TimeSheet"))
+                                {
+                                    <li class="icon8">
+                                        <a href="@Url.Action("GetUserTimeSheetData", "Job", new { Area = "Employee", Module = "TimeSheet" })">
+                                            TimeSheet
+                                        </a>
+                                    </li>
+                                }
+                                <li class="dropdown icon15">
+                                    <a href="#">
+                                        Reports
+                                    </a>
+                                    <ul>
+
+                                        <li class="icon12">
+                                            <a href="@Url.Action("GenerateReports", "Employee", new { Area = "Employee", Module = "Reports" })">
+                                                Reports
+                                            </a>
+
+
+                                        </li>
+                                        @if (ViewContext.Controller.IsActiveModule("User Logs"))
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("ActivityLog", "Report", new { Area = "Employee", Module = "User Logs" })">
+                                                    User Logs
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                                @*<li class="dropdown icon9">
+                                        <a href="@Url.Action("GetVacations","Employee", new { Area = "Employee" })">
+                                            Manage Holidays
+                                        </a>
+                                        <ul>
+                                            <li>
+                                                <a href="@Url.Action("GetVacations","Employee", new { Area = "Employee" })">
+                                                    Employee Leave
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("GetPublicHoliday","Employee", new { Area = "Employee" })">
+                                                    Public Holidays
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>*@
+
+                                @*  <li><a href="#" data-toggle="modal" data-target="#linkmodal"><i><img src="~/Content/images/purchase-order.png" /></i>  Purchase Order</a></li>*@
+                                @*<li><a href="#" data-toggle="modal" data-target="#linkmodal"><i><img src="~/Content/images/Invoices.png" /></i>  Invoices</a></li>*@
+
+
+                                @*<li><a href="#" data-toggle="modal" data-target="#linkmodal"><i><img src="~/Content/images/schedule-2.png" /></i> Schedule</a></li>*@
+                                @*<li><a href="#" data-toggle="modal" data-target="#linkmodal"><i><img src="~/Content/images/task.png" /></i> Tasks</a></li>*@
+                                <li class="dropdown icon3">
+                                    @*<a><i><img src="~/Content/images/staff-2.png" /></i> Staff</a>*@
+
+                                    <a href="#">
+                                        Staff
+                                    </a>
+
+                                    <ul>
+                                        @if (ViewContext.Controller.IsActiveModule("Employee List"))
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("EmployeeDetails", "Employee", new { Area = "Employee", Module = "Employee List" })">
+                                                    Employee List
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (ViewContext.Controller.IsActiveModule("Manage Holidays") && ViewContext.Controller.GetUserRole() != "Admin")
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("ManageVacactions", "Employee", new { Area = "Employee", Module = "Manage Holidays" })">
+                                                    Manage Holidays
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (ViewContext.Controller.IsActiveModule("Employee Leave"))
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("GetVacations", "Employee", new { Area = "Employee", Module = "Employee Leave" })">
+                                                    Employee Leave
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (ViewContext.Controller.IsActiveModule("Public Holidays"))
+                                        {
+                                            <li>
+                                                <a href="@Url.Action("GetPublicHoliday", "Employee", new { Area = "Employee", Module = "Public Holidays" })">
+                                                    Public Holidays
+                                                </a>
+                                            </li>
+                                        }
+                                        @if (ViewContext.Controller.GetUserRole() == "Admin")
+                                        {
+                                            <li class="icon13">
+                                                <a href="@Url.Action("Index", "RoleManagement", new { Area = "Admin" })">
+                                                    Role Management
+                                                </a>
+                                            </li>
+                                        }
+
+
+                                        @*<li><a href="#" data-toggle="modal" data-target="#linkmodal">Employee List</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#linkmodal">JCL</a></li>
+                                            <li><a href="#"data-toggle="modal" data-target="#linkmodal">Vacations</a></li>
+                                            <li><a href="#" data-toggle="modal" data-target="#linkmodal">Time Sheet</a></li>*@
+                                    </ul>
+                                </li>
+
+
+                                <br />
+                                @if (ViewContext.Controller.IsActiveModule("Messages"))
+                                {
+                                    <li class="icon11">
+                                        <a href="@Url.Action("EmployeeMessageList", "Message", new { Area = "Employee", Module = "Messages" })">
+                                            Messages[<span class="msgcount"></span>]
+                                        </a>
+                                    </li>
+                                }
+
+                                @if (ViewContext.Controller.IsActiveModule("Settings"))
+                                {
+                                    <li class="dropdown icon14">
+                                        @*<a><i><img src="~/Content/images/staff-2.png" /></i> Staff</a>*@
+
+                                        <a href="#">
+                                            Settings
+                                        </a>
+
+                                        <ul>
+                                            <li>
+                                                <a href="@Url.Action("ManageDocument", "Setting", new {Module="Settings", Area = "Admin"})">
+                                                    Important Documents
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="@Url.Action("GETJCLList", "JCL", new { Area = "Employee", Module = "JCL" })">
+                                                    Sale Items
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+                                <li class="icon11">
+                                    <a href="@Url.Action("SendSupportMail", "Customer", new { Area = "Customer", Module = "Customers" })">
+                                        Support
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </nav>
+                @*<div class="search">
+                        <input type="text" placeholder="Search" class="form-control">
+                        <span><i class="fa fa-search" aria-hidden="true"></i></span>
+                        <p class="text-right"><a href="#" data-toggle="modal" data-target="#linkmodal">Advanced</a></p>
+
+                        <h5><a href="#" data-toggle="modal" data-target="#linkmodal"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>  </h5>
+                    </div>*@<!--search-->
+                <div class="search user_name">
+
+                    @*<h5><a href="#" data-toggle="modal" data-target="#linkmodal" class="currentuser"><i class="fa fa-user " aria-hidden="true"></i>&nbsp; @User.Identity.GetUserName()</a>  </h5>*@
+                </div><!--search user_name-->
+            </div><!--dashboard_left_block-->
+            @RenderBody()
+        </section>
+            <!-- bootstrap script -->
+            @* <script src="@Url.Content("~/Scripts/bootstrap.min.js")" type="text/javascript"></script>*@
+            @Scripts.Render("~/bundles/jqueryui")
+            @Scripts.Render("~/bundles/bootstrap")
+            <script src="~/Common/Common.js"></script>
+            <script src="~/Areas/Admin/Scripts/AdminLayout.js"></script>
+            <script src="~/Scripts/emoticons.js"></script>
+            @Scripts.Render("~/bundles/GridmvcJS")
+            <script>
+                $(document).ready(function () {
+                    var area = '@ViewContext.RouteData.DataTokens["area"]';
+                    var controller = '@ViewContext.RouteData.Values["controller"]';
+                    var action = '@ViewContext.RouteData.Values["action"]';
+                    var module = '@ViewContext.HttpContext.Request.QueryString["Module"]';
+                    module = module.replace(/ /g, "%20");
+
+                    // build url that matches anchor tag href
+                    if (action == "Dashboard") {
+                        action = "";
+                    }
+                    else if (area == "Customer" && controller == "Customer") {
+                        action = "";
+                        module = "Customers";
+                    }
+                    else if (area == "Employee" && controller == "Employee" && (action == "EmployeeDetails" ||
+                            action == "AddEmployee" || action == "EditEmployee" || action == "ViewEmployeesRates")) {
+                        action = "EmployeeDetails";
+                        module = "Employee%20List";
+                    }
+                    else if (area == "Employee" && controller == "Employee" && action == "ManageVacactions") {
+                        action = "ManageVacactions";
+                        module = "Manage%20Holidays";
+                    }
+                    else if (area == "Employee" && controller == "Employee" && action == "GetVacations") {
+                        action = "GetVacations";
+                        module = "Employee%20Holidays";
+                    }
+                    else if (area == "Employee" && controller == "Employee" && action == "GetPublicHoliday") {
+                        action = "GetPublicHoliday";
+                        module = "Public%20Holidays";
+                    }
+                    else if (area == "Employee" && controller == "Stock") {
+                        action = "";
+                        module = "Stock";
+                    }
+                    else if (area == "Employee" && controller == "Job" && action == "GetUserTimeSheetData") {
+                        module = "TimeSheet";
+                    }
+                    else if (area == "Employee" && (controller == "Job" || controller == "CustomerJob")) {
+                        controller = "Job";
+                        action = "ViewEmployeejobs";
+                        module = "Jobs";
+                    }
+                    else if (area == "Employee" && controller == "Invoice") {
+                        action = "InvoiceList";
+                        module = "Invoices";
+                    }
+                    else if (area == "Employee" && controller == "Purchase") {
+                        action = "ViewJobsPurchaseOrder";
+                        module = "Purchase%20Order";
+                    }
+                    else if (area == "Admin" && controller == "RoleManagement") {
+                        action = "Index";
+                    }
+
+                    var url = common.MenuPath + area + "/" + controller;
+                    if (action != "") {
+                        url = url + "/" + action;
+                    }
+
+                    if (module != '') {
+                        url = url + "?Module=" + module;
+                    }
+
+                    //$('#leftmenu li').removeClass("active"); // remove any 'active' class
+
+                    //$('ul#leftmenu li a[href="' + url + '"]').parent('li').addClass("active"); // adding 'active' class
+
+                    if (area == "Employee" && controller == "Employee") {
+                        $("ul#leftmenu li a:contains('Staff')").parent('li').addClass("active");
+                    }
+                    if (area == "Employee" && controller == "Report") {
+                        $("ul#leftmenu li a:contains('Reports')").parent('li').addClass("active");
+                    }
+                    if (area == "Admin" && controller == "Setting") {
+                        $("ul#leftmenu li a:contains('Setting')").parent('li').addClass("active");
+                    }
+
+                });
+
+            </script>
+            @RenderSection("scripts", required: false)
+
+            <!-- Modal -->
+            <div class="modal fade" id="linkmodal" role="dialog">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h2><p>Coming Soon..</p></h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade commonpopup" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm modal_width" role="document">
+                    <div class="modal-content border_radius">
+                        <div class="modal-header bgcolor_header" style="padding: 0px;">
+                            <button type="button" class="close_btn" data-dismiss="modal">&times;</button>
+                            <h5 class="modal-title delete_stock">Modal Header</h5>
+                        </div>
+                        <div class="modal-body viewemp_modal">
+                            <h5 class="alertmsg ">lorem ipsum dollar lorem ipsum dollar</h5>
+                            <div class="bottom_btn">
+                                <button type="button" class="btn btn-primary btnconfirm black-btn">Yes</button>
+                                <button type="button" class="btn btn-success btncancel black-btn" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade commonpopupformsg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm modal_width" role="document">
+                    <div class="modal-content border_radius">
+                        <div class="modal-header bgcolor_header" style="padding: 0px;">
+                            <button type="button" class="close_btn" data-dismiss="modal">&times;</button>
+                            <h5 class="modal-title delete_stock">Delete Customer</h5>
+                        </div>
+                        <div class="modal-body viewemp_modal">
+                            <h5 class="alertmsg ">lorem ipsum dollar lorem ipsum dollar</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade commonpopupforJobDocs" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm modal_width" role="document">
+                    <div class="modal-content border_radius">
+                        <div class="modal-header bgcolor_header" style="padding: 0px;">
+                            <button type="button" class="close_btn" data-dismiss="modal">&times;</button>
+                            <h5 class="modal-title delete_stock">Modal Header</h5>
+                        </div>
+                        <div class="modal-body viewemp_modal">
+                            <h5 class="alertmsg ">lorem ipsum dollar lorem ipsum dollar</h5>
+                            <div class="bottom_btn">
+                                <button type="button" class="btn btn-primary btndeleteconfirm black-btn">Yes</button>
+                                <button type="button" class="btn btn-success btncancel black-btn" data-dismiss="modal">No</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalNotifications" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close closebtn" data-dismiss="modal">close</button>
+                            <h4 class="modal-title">Notifications !</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="div-notification">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade modalWarningMsg" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                <div class="modal-dialog modal-sm modal_width" role="document">
+                    <div class="modal-content border_radius">
+                        <div class="modal-header bgcolor_header" style="padding: 0px;">
+                            <button type="button" class="close_btn" data-dismiss="modal">&times;</button>
+                            <h5 class="modal-title delete_stock">Modal Header</h5>
+                        </div>
+                        <div class="modal-body viewemp_modal">
+                            <h5 class="alertwarningmsg ">lorem ipsum dollar lorem ipsum dollar</h5>
+                            <div class="bottom_btn">
+                                <button type="button" class="btn btn-primary btnPopCLoseOk black-btn">Ok</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</body>
+</html>

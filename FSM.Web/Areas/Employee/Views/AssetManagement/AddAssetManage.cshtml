@@ -1,0 +1,62 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.AssetManageViewModel
+@{
+    ViewBag.Title = "AddAssetManage";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        @using (Html.BeginForm("AddAssetManage", "AssetManagement", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="dashboard_center_block  paper-wrap bevel tlbr">
+                <div class="new_emp_tab">
+                    <div class="new_emp">
+                        <h3> Add Asset</h3>
+                        <div id="EmployeeBasicDetails" class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Type </label>
+                                        @Html.EnumDropDownListFor(m => m.Type, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Identifier </label>
+                                        @Html.TextBoxFor(m => m.Identifier, new { @id = "", @class = "form-control", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.Identifier, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Notes</label>
+                                        @Html.TextBoxFor(m => m.Notes, new { @id = "", @class = "form-control", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Assigned To </label>
+                                        @Html.DropDownListFor(model => model.AssignedTo, Model.OTRWList, "Select OTRW User", new { @title = "Select OTRW User" , @class = "form-control Create_Customer" })
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="clearfix"> </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                        <div class="col-sm-5 col-sm-offset-3 text-center">
+                            <input type="submit" value="Add" class="btn btn-default black-btn" style="margin-left:36px" />
+                            <a class="btn black-btn btn-default stckcncl" href="@Url.Action("CancelAssetManage","AssetManagement", new { Area = "Employee" })">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+
+
+

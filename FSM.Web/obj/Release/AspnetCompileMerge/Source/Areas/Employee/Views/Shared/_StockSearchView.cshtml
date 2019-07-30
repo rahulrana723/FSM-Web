@@ -1,0 +1,35 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.StocksearchViewmodel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="outer_box2">
+        @Html.HiddenFor(m => m.PageSize)
+        <div class="form-group col-sm-3">
+
+        </div>
+        @*<div class="clearfix"></div>*@
+        <div class="search_customer_block stock_top_bg">
+            <div class="col-sm-4">
+                <div class="search_customer">
+                    @Html.EditorFor(model => model.searchkeyword, new { htmlAttributes = new { @class = "form-control", @style = "display:inline", @placeholder = " Search Keyword" } })
+                </div>
+
+            </div><!--search_customer-->
+            <div class="col-sm-2 text-left">
+                <input type="submit" value="Search" class="search_btn black-btn search_pad" />
+            </div>
+
+
+            <a type="button" class="btn btn-primary pull-right btnaddstock" href="@Url.Action("AddStock","Stock", new { Area = "Employee" })">
+                <i class="" aria-hidden="true"></i>
+                Add Stock
+            </a>
+            @*<a type="button" href="#" data-attr="inventory" class="btn btn-primary pull-right btnaddInventory">  Add To Inventory  </a>*@
+            <a type="button" href="#" data-attr="otrw" class="btn btn-primary add_stock pull-right btnAssignotrw"> Assign to OTRW  </a>
+            <a type="button" href="#" data-attr="otrw" class="btn btn-primary add_stock pull-right btnAssignJobs"> Assign to Job  </a>
+
+
+        </div>
+    </div>
+}

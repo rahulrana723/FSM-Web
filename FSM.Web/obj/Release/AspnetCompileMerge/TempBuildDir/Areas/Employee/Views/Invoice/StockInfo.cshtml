@@ -1,0 +1,93 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.DisplayJobStocksListViewModel
+@{
+    ViewBag.Title = "StockInfo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<section class="dashboard_section">
+    <div class="dashboard_right_block outer_padding">
+        <div class="list_heading">
+            <h2>Stock</h2>
+        </div>
+        <div class="alert alert-success jobalert" style="display:none">
+            <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+        @using (Html.BeginForm("StockInfo", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="employee_table">
+                <div class="emp_table padding20">
+                    <div class="drop_head_tab">
+                        <div class="Create_invoice_form">
+                            @Html.HiddenFor(m => m.DisplayJobStocksViewModel.ID)
+                            @Html.HiddenFor(m => m.DisplayJobStocksViewModel.JobId)
+                            @Html.HiddenFor(m => m.DisplayJobStocksViewModel.PageSize)
+                            @Html.Hidden("hdnAvailableQuantity")
+                            @Html.HiddenFor(m => m.DisplayJobStocksViewModel.AvailableQuantity)
+                            @Html.HiddenFor(m => m.DisplayJobStocksViewModel.CreatedDate)
+                            @Html.HiddenFor(m => m.DisplayJobStocksViewModel.CreatedBy)
+
+                            <div class="general_form">
+                                <h3>Add Stock</h3>
+
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>Item </label>
+                                            @Html.DropDownListFor(model => model.DisplayJobStocksViewModel.StockID, new SelectList(Model.DisplayJobStocksViewModel.stockDetail, "StockID", "Label"), "(Select)", new { @class = "form-control select_dropdown getjobunit" })
+                                            @Html.ValidationMessageFor(model => model.DisplayJobStocksViewModel.StockID, "", new { @id = "validate_stockitem", @style = "top:0px;color:red" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>Unit of Measure </label>
+                                            @Html.TextBoxFor(m => m.DisplayJobStocksViewModel.UnitMeasure, new { @class = "form-control", placeholder = "", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(model => model.DisplayJobStocksViewModel.UnitMeasure, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>Price </label>
+                                            @Html.TextBoxFor(m => m.DisplayJobStocksViewModel.Price, new { @class = "form-control", placeholder = "", @readonly = "readonly" })
+                                            @Html.ValidationMessageFor(model => model.DisplayJobStocksViewModel.Price, "", new { @id = "price-vaidate", @style = "top:0px;color:red" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <label>Quantity </label>
+                                            @Html.TextBoxFor(m => m.DisplayJobStocksViewModel.Quantity, new { @class = "form-control", placeholder = "" })
+                                            @Html.ValidationMessageFor(model => model.DisplayJobStocksViewModel.Quantity, "", new { @id = "quantity-vaidate", @style = "top:0px;color:red" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="buttons text-right">
+                                            <input type="submit" value="Save" class="btn btn-default" onclick="return ValidateQuantity()" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                               
+                            </div>
+                            <div id="dvShowStockList">
+                                @Html.Partial("_JobsStockList", Model)
+                            </div>
+                            <div class="cancel_button_box">
+                                <input id="btnBackForInvoice" class="btn black-btn btn-default" type="button" value="Back" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+@section scripts{
+    <script src="~/Areas/Employee/Scripts/StockInfo.js"></script>
+    <script>
+
+            var FSM = {};
+            FSM.URL = '@Url.Action("StockInfo", new { @area = "Job",@Jobid=Model.DisplayJobStocksViewModel.JobId})';
+            FSM.SelectedVal=@Model.DisplayJobStocksViewModel.PageSize;
+        FSM.HasGridRecords='@Model.DisplayJobStocksList.Count()'
+        FSM.InvoiceId='@ViewBag.InvoiceId'
+    </script>
+}

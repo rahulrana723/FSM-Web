@@ -1,0 +1,112 @@
+﻿
+@*@model IEnumerable<FSM.Web.Areas.Employee.ViewModels.UserTimeSheetViewModel>*@
+@model FSM.Web.Areas.Employee.ViewModels.TimeSheetDataViewModel
+@using GridMvc.Html
+
+<div class="clsTimesheetDv">
+
+@Html.Label("Travel hours:")
+@Html.DisplayFor(m => m.Travelling)
+
+
+@Html.Label("Worked hours:")
+@Html.DisplayFor(m => m.Job)
+
+@Html.Label("Total hours:")
+@Html.DisplayFor(m => m.TotalHrs)
+
+@Html.Label("Lunch time:")
+@Html.DisplayFor(m => m.Lunch)
+
+@Html.Label("Personal time:")
+@Html.DisplayFor(m => m.Personal)
+
+
+</div>
+
+<div id="timesheetDv">
+    @Html.Grid(Model.UserTimeSheetList).SetRowCssClasses(
+    item => item.Id == Guid.Empty ? string.Empty : "cssEditTimeSheet").Columns(
+    columns =>
+    {
+        columns.Add(model => model.Id, true);
+        columns.Add(model => model.UserId, true);
+        columns.Add(model => model.JobDate).Format("{0:dd/MM/yyyy}").Titled("Date");
+        columns.Add(model => model.JobNo).Titled("Job No");
+        columns.Add(model => model.Site).Css("site_width").Titled("Site");
+        columns.Add(model => model.CustomerLastName).Titled("Customer");
+        columns.Add(model => model.UserName).Titled("OTRW User");
+        columns.Add(model => model.StartTime).Format("{0:hh\\:mm\\:ss}").Titled("Start");
+        columns.Add(model => model.EndTime).Format("{0:hh\\:mm\\:ss}").Titled("Stop");
+        columns.Add(model => model.Reason).Titled("Reason");
+        columns.Add(model => model.TimeSpent).Format("{0:hh\\:mm\\:ss}").Titled("Time");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "", null, new { @class = "edttimesheet btn btn-default editbtngrid", onclick = "javascript:EditUserSheet(event,'" + model.Id + "','" + model.UserId + "');"})).Filterable(false).Titled("Action");
+
+    }
+    ).WithPaging(Model.PageSize).Sortable(true)
+    <div style="float: left;">
+        <label class="recordCount">Total Record: @Model.UserTimeSheetList.Count()</label>
+    </div>
+    <div name="pags" style="float: right;">
+        <label>Page Size</label>
+        @Html.DropDownList("ddPageSize", new List<SelectListItem>
+   {
+       new SelectListItem { Text="5",Value="5"},
+       new SelectListItem { Text = "10", Value = "10" },
+       new SelectListItem { Text = "15", Value = "15" },
+       new SelectListItem { Text = "20", Value = "20" },
+       new SelectListItem { Text = "25", Value = "25" },
+       new SelectListItem { Text = "30", Value = "30" }
+   }, new { @class = "form-control" })
+
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.form-control#ddPageSize').val(@Model.PageSize);
+        if($('.pagination').is(':visible')){
+            $('#ddPageSize').parent().css('margin-top', '-72px');
+        }
+        else {
+            $('#ddPageSize').parent().css('margin-top', '8px');
+        }
+    });
+
+    $('#ddPageSize').on('change', function () {
+    FSM.TimeSheetUrl = '@Url.Action("GetUserTimeSheetPartial", "Job", new { area = "Employee" })';
+    var pagesize = $('#ddPageSize').val();
+
+    var jobstartdate = $('#JobStartDate').val();
+    var jobenddate = $('#JobEndDate').val();
+    var keyword = $('#Keyword').val();
+    var userid = [];
+    $.each($("#UserId option:selected"), function () {
+        var id = $(this).val();
+        if (id != "") {
+            userid.push("''" + id + "''");
+        }
+        else {
+            userid.push("" + id + "");
+        }
+    });
+
+    var url = FSM.TimeSheetUrl + '?JobStartDate=' + jobstartdate + '&JobEndDate=' + jobenddate + '&UserId=' + userid + '&Keyword=' + keyword + '&PageSize=' + pagesize;
+
+    $.get(url, function (data) {
+        $('#timesheetDv').empty();
+        $(".clsTimesheetDv").remove();
+        $('#timesheetDv').append(data);
+    });
+
+
+});
+
+</script>

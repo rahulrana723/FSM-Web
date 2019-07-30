@@ -1,0 +1,56 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.InvoiceHistoryListViewModel
+@using GridMvc.Html
+
+@Html.HiddenFor(m => m.invoiceSearchViewModel.PageSize)
+@Html.HiddenFor(m => m.invoiceSearchViewModel.CustomerGeneralInfoId)
+@Html.Grid(Model.invoiceHistoryViewModel).Columns(
+    columns =>
+    {
+        columns.Add(model => model.JobNo).Titled("Job No");
+        columns.Add(model => model.InvoiceNo).Titled("Invoice No");
+        columns.Add(model => model.CustomerName).Titled("File Name");
+        columns.Add(model => model.Price).Titled("Amount");
+        columns.Add(model => model.AssignUser).Titled("Assign To");
+        columns.Add(model => model.CompletedDate).Titled("Completed Date");
+        columns.Add(model => model.SiteAddress).Titled("Site Address");
+        columns.Add(model => model.CreatedBy).Titled("Created By");
+    }
+    ).WithPaging(Model.invoiceSearchViewModel.PageSize).Sortable(true)
+<div style="float: right;">
+    <label>Page Size</label>
+    @Html.DropDownList("ddPageSize1", new List<SelectListItem>
+            {
+                new SelectListItem { Text="5",Value="5"},
+                new SelectListItem { Text = "10", Value = "10" },
+                new SelectListItem { Text = "15", Value = "15" },
+                new SelectListItem { Text = "20", Value = "20" },
+                new SelectListItem { Text = "25", Value = "25" },
+                new SelectListItem { Text = "30", Value = "30" }
+            }, new { @class = "form-control" })
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.form-control#ddPageSize1').val(@Model.invoiceSearchViewModel.PageSize);
+        if($('.pagination').is(':visible')){
+            $('#ddPageSize1').parent().css('margin-top', '-72px');
+        }
+        else {
+            $('#ddPageSize1').parent().css('margin-top', '8px');
+        }
+    });
+    
+    $('#ddPageSize1').on('change', function () {
+        var page_size = $('#ddPageSize1').val();
+        if (page_size==undefined) {
+            page_size=@Model.invoiceSearchViewModel.PageSize;
+        }
+        $.get(common.SitePath + "/Customer/Customer/InvoiceHistoryPartial?page_size=" + page_size+"&CustomerGeneralInfoId=@Model.invoiceSearchViewModel.CustomerGeneralInfoId", function (data) {
+            $('#divInvoiceList').empty();
+            $('#divInvoiceList').append(data);
+            $('#divInvoiceList').val(page_size);
+        });
+
+    });
+</script>
+

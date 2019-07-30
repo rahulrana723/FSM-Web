@@ -1,0 +1,75 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.ManageVacactionViewModel
+
+@{
+    ViewBag.Title = "Manage Vacactions";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.AddVacationUrl = '@Url.Action("AddNewVacation", new { @area = "Employee"})';
+        FSM.EditVacationUrl = '@Url.Action("EditVacation", new { @area = "Employee"})';
+        FSM.DeleteVacationUrl = '@Url.Action("DeleteVacation", new { @area = "Employee"})';
+        FSM.DefaultUrl = '@Url.Action("ManageVacactionsPartial", new { @area = "Employee"})';
+        FSM.PageSize = '@Model.PageSize';
+
+    </script>
+    @*<script src="~/Areas/Customer/Scripts/Index.js"></script>*@
+    <script src="~/Areas/Employee/Scripts/ManageVacations.js"></script>
+}
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Manage Holiday </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="customer_head_tab">
+            <div>
+                <div id="vacationMsgDiv" style="display:none;">
+                </div>
+                <div class="clearfix"></div>
+                <div class="search_block">
+                    <div class="row">
+                        <div class="form-group col-sm-3">
+                            @Html.TextBoxFor(m => m.SearchStartDate, new { @placeholder = "Start Date", @class = "form-control " } )
+                        </div>
+                        <div class="form-group col-sm-3">
+                            @Html.TextBoxFor(m => m.SearchEndDate, new { @placeholder = "End Date", @class = "form-control " })
+                            @*@Html.EnumDropDownListFor(model => model.CustomerType, "(Select Type)", htmlAttributes: new { @class = "form-control customer_gap" })*@
+                        </div>
+                        <div class="form-group col-sm-3">
+                            <input type="button" value="Search" class="search_btn black-btn searchvacation" />
+                        </div>
+
+                        <div class="form-group col-sm-3">
+                            <div class="add_empvction">
+                                @Html.ActionLink("Add New Holiday", "#", null, new { @class = "btn btn-default pull-right addEmpVacation" })
+                            </div><!--add_customer-->
+                        </div>
+                    </div>
+                </div><!--search_customer-->
+            </div>
+        </div>
+        <div class="drop_head_tab">
+            <div class="clearfix"></div>
+            <div id="manageVacationsDV">
+                @Html.Partial("_ManageVacationsGrid", Model)
+            </div>
+            <div style="float: right;">
+                <label>Page Size</label>
+                @Html.DropDownList("ddPageSize", new List<SelectListItem>
+   {
+       new SelectListItem { Text="5",Value="5"},
+       new SelectListItem { Text = "10", Value = "10" },
+       new SelectListItem { Text = "15", Value = "15" },
+       new SelectListItem { Text = "20", Value = "20" },
+       new SelectListItem { Text = "25", Value = "25" },
+       new SelectListItem { Text = "30", Value = "30" }
+   }, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="addVacationDv"></div>
+<div id="updateVacationDv"></div>

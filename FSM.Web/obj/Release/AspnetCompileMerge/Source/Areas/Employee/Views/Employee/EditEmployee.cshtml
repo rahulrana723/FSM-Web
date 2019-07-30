@@ -1,0 +1,741 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeDetailViewModel
+
+@{
+    ViewBag.Title = "EditEmployee";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.EditEmployeeROOT = '@Url.Content("~/EmployeeImages/TempImages/")';
+        FSM.EditEmployeeURL = '@Url.Action("UploadFiles", "Employee", new { @area = "Employee" })';
+        FSM.EditEmployeeImages = '@Url.Content("~/EmployeeImages/")';
+        FSM.AddEmployeeStatus = '@ViewBag.Status';
+        FSM.CurrentUserName = '@Model.UserName';
+        FSM.CurrentEmail = '@Model.Email';
+    </script>
+    <script src="~/Areas/Employee/Scripts/EditEmployee.js"></script>
+    <script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+    <link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+}
+<meta name="viewport" content="width=device-width" />
+<title>EditEmployee</title>
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        @using (Html.BeginForm("EditEmployee", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            <div class="dashboard_center_block">
+                @Html.AntiForgeryToken()
+                <div class="outer_section4">
+                    <div class="new_emp">
+                        <h3> EDIT EMPLOYEE DETAIL</h3>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.EmployeeId)
+                        @Html.HiddenFor(model => model.SignaturePicture)
+                        @Html.HiddenFor(model => model.ProfilePicture)
+                        @Html.HiddenFor(model => model.DrivingLicenseImg)
+                        @Html.HiddenFor(model => model.BankDetailDoc)
+                        @Html.HiddenFor(model => model.InsuranceDoc)
+                        @Html.HiddenFor(model => model.EID)
+                        @Html.HiddenFor(model => model.CreatedBy)
+                        @Html.HiddenFor(model => model.CreatedDate)
+                        @Html.HiddenFor(model => model.IsDelete)
+
+
+                        <div id="EmployeeBasicDetails" class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label>Username </label>
+                                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @id = "Username", @class = "form-control"} })
+                                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Password </label>
+                                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", style = "-webkit-text-security: disc;" } })
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Confirm Password </label>
+                                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control" ,style = "-webkit-text-security: disc;" } })
+                                    @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Email </label>
+                                    @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "EmpEmail form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label> First Name</label>
+                                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "Fname", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3">
+                                    <label> Last Name</label>
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Role </label>
+                                    @Html.DropDownListFor(m => m.Role, Model.RoleList, "(Select)", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-3">
+                                    <label>Mobile No.</label>
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control", placeholder = "" })
+                                    @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = " text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.WorkTypeId)
+                                        @Html.ListBoxFor(m => m.WorkTypeId, Model.WorkTypeList, new { @class = "ddlmultiselect", multiple = "multiple" })
+                                        @Html.ValidationMessageFor(m => m.WorkTypeId, "", new { @class = " text-danger" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 hourly-visible">
+                                    <label>Hourly Rate</label>
+                                    @Html.EditorFor(model => model.HourlyRate, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.HourlyRate, "", new { @class = "validate_red" })
+                                </div>
+                            </div>
+
+                            <div class="clearfix"> </div>
+                        </div>
+
+                        <div class="detail-box upper_gap">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.EditorFor(model => model.IsActive, new { htmlAttributes = new { @class = "" } })
+                                    Active
+                                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                                </label>
+                            </div>
+
+                            @*<div class="checkbox">
+                                    <label>
+                                        @Html.EditorFor(model => model.ApproveInvoice, new { htmlAttributes = new { @class = "" } })
+                                        Approve Invoice
+                                        @Html.ValidationMessageFor(model => model.ApproveInvoice, "", new { @class = "text-danger" })
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.EditorFor(model => model.ViewInvoice, new { htmlAttributes = new { @class = "" } })
+                                        View Invoice
+                                        @Html.ValidationMessageFor(model => model.ViewInvoice, "", new { @class = "" })
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.EditorFor(model => model.SendInvoice, new { htmlAttributes = new { @class = "" } })
+                                        Send Invoice
+                                        @Html.ValidationMessageFor(model => model.SendInvoice, "", new { @class = "text-danger" })
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.EditorFor(model => model.MakeInvoice, new { htmlAttributes = new { @class = "" } })
+                                        Make Invoice
+                                        @Html.ValidationMessageFor(model => model.MakeInvoice, "", new { @class = "text-danger" })
+                                    </label>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label>
+                                        @Html.EditorFor(model => model.MYOB, new { htmlAttributes = new { @class = "" } })
+                                        MYOB
+                                        @Html.ValidationMessageFor(model => model.MYOB, "", new { @class = "text-danger" })
+                                    </label>
+                                </div>*@
+                        </div>
+                        <div class="clearfix"> </div>
+                        <input type="button" id="Detailbutton" value="DETAILS" class="btn btn-default Detailbutton detail_btn">
+                    </div><!--new_emp-->
+                    <div class="new_emp" style="display:none">
+                        <h3>DETAILS</h3>
+                        <div class="detail-box week_tab">
+                            <div class="checkbox">
+                                <label>Monday Hrs:</label>
+                                @Html.EditorFor(model => model.MondayHrs, new { htmlAttributes = new { @class = "form-control validatehrs", @placeholder = "Hours" } })
+                                @Html.ValidationMessageFor(model => model.MondayHrs, "", new { @class = "validate_red" })
+                            </div>
+                            <div class="checkbox">
+                                <label>Tuesday Hrs:</label>
+                                @Html.EditorFor(model => model.TuesdayHrs, new { htmlAttributes = new { @class = "form-control validatehrs", @placeholder = "Hours" } })
+                                @Html.ValidationMessageFor(model => model.TuesdayHrs, "", new { @class = "validate_red" })
+                            </div>
+                            <div class="checkbox">
+                                <label>Wednesday Hrs:</label>
+                                @Html.EditorFor(model => model.WednesdayHrs, new { htmlAttributes = new { @class = "form-control validatehrs", @placeholder = "Hours" } })
+                                @Html.ValidationMessageFor(model => model.WednesdayHrs, "", new { @class = "validate_red" })
+                            </div>
+                            <div class="checkbox">
+                                <label>Thursday Hrs:</label>
+                                @Html.EditorFor(model => model.ThursdayHrs, new { htmlAttributes = new { @class = "form-control validatehrs", @placeholder = "Hours" } })
+                                @Html.ValidationMessageFor(model => model.ThursdayHrs, "", new { @class = "validate_red" })
+                            </div>
+                            <div class="checkbox">
+                                <label>Friday Hrs:</label>
+                                @Html.EditorFor(model => model.FridayHrs, new { htmlAttributes = new { @class = "form-control validatehrs", @placeholder = "Hours" } })
+                                @Html.ValidationMessageFor(model => model.FridayHrs, "", new { @class = "validate_red" })
+                            </div>
+                        </div>
+                        <div class="form">
+                            <div class="row bg_styling">
+                                <div class="col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.Employee)
+                                            Employee
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.Contractor)
+                                            Contractor
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3 Tfntogle" style="display:none;">
+                                    <label>TFN </label>
+                                    @Html.EditorFor(model => model.TFN, new { htmlAttributes = new { @class = "form-control", maxlength = 50 } })
+                                    @Html.ValidationMessageFor(model => model.TFN, "", new { @class = "validate_red" })
+                                </div>
+
+                                <div class="col-sm-3 Contracttogle" style="display:none;">
+                                    <label>Business name </label>
+                                    @Html.TextBoxFor(m => m.BusinessName, new { @class = "form-control", placeholder = "", maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.BusinessName, "", new { @class = " text-danger" })
+                                </div>
+                                <div class="col-sm-3 Contracttogle" style="display:none;">
+                                    <label>ABN </label>
+                                    @Html.TextBoxFor(m => m.ABN, new { @class = "form-control", placeholder = "", maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.ABN, "", new { @class = " text-danger" })
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Date Of Birth </label>
+                                        @Html.TextBoxFor(m => m.BirthDate, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = " ", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Start Date </label>
+                                        @Html.TextBoxFor(m => m.EmpStartDate, "{0:dd/MM/yyyy}", new { @class = "form-control addDatePickr", placeholder = " " })
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="clearfix"> </div>
+                        </div>
+
+                    </div><!--new_emp-->
+                @if (Model.GetUserRoles[0] == "Admin" || Model.GetUserRoles[0] == "OPERATIONS")
+                {
+                    <div class="new_emp" style="display:none">
+                        <h4>Rates</h4>
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Rate Category</label>
+                                        @Html.DropDownListFor(M => M.CategoryId, new SelectList(Model.RateCategoryList, "Value", "Text"), "(Select)", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Rate SubCategory</label>
+                                        @Html.DropDownListFor(M => M.SubCategoryId, new SelectList(Model.RateSubCategoryList, "Value", "Text"), "(Select)", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.SubCategoryId, "", new { @class = "text-danger CategoryVal" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label> Base Rate</label>
+                                        @Html.EditorFor(model => model.BaseRate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.BaseRate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label> Actual Rate</label>
+                                        @Html.EditorFor(model => model.ActualRate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                        @Html.ValidationMessageFor(model => model.ActualRate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label> Effective Date</label>
+                                        @Html.EditorFor(model => model.EffectiveDate, "{0:dd/MM/yyyy}", new { htmlAttributes = new { @class = "form-control addDatePickr" } })
+                                        @Html.ValidationMessageFor(model => model.EffectiveDate, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                   <!--new_emp-->
+                    <div class="new_emp" style="display:none">
+                        <h4>BANK ACCOUNT DETAILS</h4>
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label> BSB</label>
+                                    @Html.TextBoxFor(m => m.BankBSB, new { @class = "form-control", placeholder = " " })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label> Account</label>
+                                    @Html.TextBoxFor(m => m.BankAccount, new { @class = "form-control", placeholder = " " })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Account Name</label>
+                                    @Html.TextBoxFor(m => m.BankName, new { @class = "form-control", placeholder = "" })
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--new_emp-->
+                    <div class="new_emp" style="display:none">
+                        <h4>SUPERANNUATION DETAILS</h4>
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label>Fund Name</label>
+                                    @Html.TextBoxFor(m => m.FundName, new { @class = "form-control", placeholder = " " })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Member Number</label>
+                                    @Html.TextBoxFor(m => m.MemberNumber, new { @class = "form-control", placeholder = " " })
+                                </div>
+
+                            </div>
+                        </div>
+                    </div><!--new_emp-->
+                    <div class="new_emp" style="display:none">
+                        <h4>EMERGENCY CONTACT</h4>
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label> Emergency First name</label>
+                                    @Html.TextBoxFor(m => m.EmergencyFirstName, new { @id = "Fname", @class = "form-control", placeholder = " " })
+                                    @Html.ValidationMessageFor(model => model.EmergencyFirstName, "", new { @class = "EmpEmail text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label> Emergency Last Name</label>
+                                    @Html.TextBoxFor(m => m.EmergencyLastName, new { @class = "form-control", placeholder = " " })
+                                    @Html.ValidationMessageFor(model => model.EmergencyLastName, "", new { @class = "EmpEmail text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Emergency Mobile</label>
+                                    @Html.TextBoxFor(m => m.EmergencyMobile, new { @class = "form-control", placeholder = "" })
+                                    @Html.ValidationMessageFor(model => model.EmergencyMobile, "", new { @class = " text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Emergency Email</label>
+                                    @Html.TextBoxFor(m => m.EmergencyEmail, new { @class = "form-control", placeholder = "" })
+                                    @Html.ValidationMessageFor(model => model.EmergencyEmail, "", new { @class = " text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Relationship</label>
+                                        @Html.EnumDropDownListFor(model => model.EmergencyRelationship, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--new_emp-->
+                    <div class="new_emp" style="display:none">
+                        <h4>ADDRESS</h4>
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label>Unit</label>
+                                    @Html.EditorFor(model => model.HomeAddressUnit, new { htmlAttributes = new { @id = "homeunit", @class = "form-control", maxlength = 10 } })
+                                    @Html.ValidationMessageFor(model => model.HomeAddressUnit, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Street Number</label>
+                                    @Html.EditorFor(model => model.HomeAddressStreetNo, new { htmlAttributes = new { @id = "homestreetno", @class = "form-control", maxlength = 20 } })
+                                    @Html.ValidationMessageFor(model => model.HomeAddressStreetNo, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Street Name</label>
+                                    @Html.EditorFor(model => model.HomeAddressStreetName, new { htmlAttributes = new { @id = "homestreetname", @class = "form-control", maxlength = 50 } })
+                                    @Html.ValidationMessageFor(model => model.HomeAddressStreetName, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Street Type</label>
+                                    @Html.EnumDropDownListFor(model => model.HomeAddressStreetType, "(Select)", htmlAttributes: new { @id = "homestreettype", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.HomeAddressStreetType, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label>Suburb</label>
+                                    @Html.EditorFor(model => model.HomeAddressSuburb, new { htmlAttributes = new { @id = "homesuburb", @class = "form-control", maxlength = 50 } })
+                                    @Html.ValidationMessageFor(model => model.HomeAddressSuburb, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>State</label>
+                                    @Html.EditorFor(model => model.HomeAddressState, new { htmlAttributes = new { @id = "homestate", @class = "form-control", maxlength = 50 } })
+                                    @Html.ValidationMessageFor(model => model.HomeAddressState, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Postal code</label>
+                                    @Html.EditorFor(model => model.HomeAddressPostalCode, new { htmlAttributes = new { @id = "homepostcode", @class = "form-control homecode" } })
+                                    @Html.ValidationMessageFor(model => model.HomeAddressPostalCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+
+                    </div><!--new_emp -->
+                    <div class="clearfix"> </div>
+                    <div class="new_emp " style="display:none">
+                        <h4>VEHICLE & LICENSES</h4>
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <label>Drivers Licence Number</label>
+                                    @Html.TextBoxFor(m => m.VehicleChassisNo, new { @class = "form-control", placeholder = "", maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.VehicleChassisNo, "", new { @class = "text-danger" })
+                                </div>
+
+
+                                <div class="col-sm-3">
+                                    <label>Expiry Date</label>
+                                    @Html.TextBoxFor(m => m.VehicleManufactringYear, new { @class = "form-control", placeholder = "", maxlength = 4 })
+                                    @Html.ValidationMessageFor(model => model.VehicleManufactringYear, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Points</label>
+                                    @Html.TextBoxFor(m => m.VehicleModel, new { @class = "form-control", placeholder = "", maxlength = 50 })
+                                    @Html.ValidationMessageFor(model => model.VehicleModel, "", new { @class = "text-danger" })
+                                </div>
+
+                                <div class="col-sm-3">
+                                    <label>Date Checked</label>
+                                    @Html.TextBoxFor(m => m.VehicleDateChecked, "{0:dd/MM/yyyy}", new { @class = "form-control", placeholder = "" })
+                                    @Html.ValidationMessageFor(model => model.VehicleDateChecked, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div><!--new_emp -->
+                    <div class="clearfix"> </div>
+                    <div class="new_emp" style="display:none">
+                        <h4>TRAINING SECTION</h4>
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.HeightsSafetyTraining)
+                                            Heights Safety Training
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.TilelinkTraining)
+                                            Tile link Training
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.LadderlinkTraining)
+                                            Ladder link Training
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.FroglinkTraining)
+                                            Frog link Training
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.WHSWhiteCard)
+                                            WHS White Card
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(m => m.FirstAidTraining)
+                                            First Aid Training
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"> </div>
+                    </div><!--new_emp -->
+                    <div class="clearfix"> </div>
+                    <div class="new_emp vehiclediv" style="display:none">
+                        <h4>UPLOAD DOCUMENTS</h4>
+                        <div class="form">
+                            <div class="row">
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.UploadFiles)
+                                            @Html.EnumDropDownListFor(m => m.UploadFiles, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.UploadFiles, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 signaturefile" style="display:none">
+                                    <div class="form-group">
+                                        <div class="signature">
+                                            <p>Signature picture</p>
+                                            <div class="browse_pic">
+                                                Browse
+                                                @Html.TextBoxFor(m => m.SignatureDoc, new { type = "file", accept = "image/x-png,image/gif,image/jpeg" })
+                                                @Html.ValidationMessageFor(model => model.SignaturePicture, "", new { @class = "text-danger" })
+                                            </div>
+                                            <img src="~/Content/images/loader.gif" id="imguploader" style="display:none" />
+                                            <div id="divSignaturePic">
+                                                @if (!string.IsNullOrEmpty(Model.SignaturePicture))
+                                                {
+                                                <img src="@Url.Content("~/EmployeeImages/")@Model.SignaturePicture" alt="Alternate Text" width='74' height='74' />
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 profilefile" style="display:none">
+                                    <div class="form-group">
+                                        <div class="Profile">
+                                            <p>Profile picture</p>
+                                            <div class="browse_pic">
+                                                Browse
+                                                @Html.TextBoxFor(m => m.ProfileDoc, new { type = "file", accept = "image/x-png,image/gif,image/jpeg" })
+                                                @Html.ValidationMessageFor(model => model.ProfilePicture, "", new { @class = "text-danger" })
+                                            </div>
+                                            <div id="divProfilePic">
+                                                @if (!string.IsNullOrEmpty(Model.ProfilePicture))
+                                                {
+                                                <img src="@Url.Content("~/EmployeeImages/")@Model.ProfilePicture" alt="Alternate Text" width='74' height='74' />
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 drivingfile" style="display:none">
+                                    <div class="form-group">
+                                        <div class="signature">
+                                            <p>Driving License</p>
+                                            <div class="browse_pic">
+                                                Browse
+                                                @Html.TextBoxFor(m => m.DrivingLicense, new { type = "file", accept = "image/x-png,image/gif,image/jpeg" })
+                                            </div>
+                                            <div id="divDrivingLicenseImg">
+                                                @if (!string.IsNullOrEmpty(Model.DrivingLicenseImg))
+                                                {
+                                                <img src="@Url.Content("~/EmployeeImages/")@Model.DrivingLicenseImg" alt="Alternate Text" width='74' height='74' />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3 bankfile" style="display:none">
+                                    <div class="form-group">
+                                        <div class="signature">
+                                            <p>Bank Detail</p>
+                                            <div class="browse_pic">
+                                                Browse
+                                                @Html.TextBoxFor(m => m.BankDetail, new { type = "file", accept = "image/x-png,image/gif,image/jpeg" })
+                                            </div>
+                                            <div id="divBankDetailDoc">
+                                                @if (!string.IsNullOrEmpty(Model.BankDetailDoc))
+                                                {
+                                                <img src="@Url.Content("~/EmployeeImages/")@Model.BankDetailDoc" alt="Alternate Text" width='74' height='74' />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-3 insurancefile" style="display:none">
+                                    <div class="form-group">
+                                        <div class="signature">
+                                            <p>Insurance</p>
+                                            <div class="browse_pic">
+                                                Browse
+                                                @Html.TextBoxFor(m => m.Insurance, new { type = "file", accept = "image/x-png,image/gif,image/jpeg" })
+                                            </div>
+                                            <div id="divInsurance">
+                                                @if (!string.IsNullOrEmpty(Model.InsuranceDoc))
+                                                {
+                                                <img src="@Url.Content("~/EmployeeImages/")@Model.InsuranceDoc" alt="Alternate Text" width='74' height='74' />
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix"> </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="general_form ">
+                                    <h3>Attachments</h3>
+                                    <div class="table-responsive">
+                                        <table id="list_files" class="table table-striped table-bordered">
+                                            @{Html.RenderPartial("_UploadEmployeeDocumentsList", Model);}
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!--new_emp -->
+                    @if (Model.ModifiedDate != null)
+                    {
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <b>Last Updated By </b>
+                            </div>
+                            <div class="col-sm-4">
+                                <div>
+                                    <b>UserName :-</b>
+                                    @Html.DisplayFor(model => model.ModifyUserName)
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div>
+                                    <b>Date & Time :-</b>
+                                    @Html.DisplayFor(model => model.ModifiedDate)
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <b>Created By :- </b>
+                            </div>
+                            <div class="col-sm-4">
+                                <div>
+                                    <b>UserName :-</b>
+                                    @Html.DisplayFor(model => model.ModifyUserName)
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div>
+                                    <b>Date & Time :-</b>
+                                    @Html.DisplayFor(model => model.CreatedDate)
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <button type="submit" class="btn btn-default employee-add black-btn">Update</button>
+                    <input type="button" value="Cancel" class="btn btn-default black-btn" onclick="@("window.location.href='" + @Url.Action("EmployeeDetails", "Employee",new { @area = "Employee" }) + "'");" />
+                </div>
+               
+            </div>
+            }
+    </div>
+</section>
+<script>
+    $(document).ready(function () {
+        //driver license
+        var driving = $("#DrivingLicenseImg").val();
+        driving = driving.replace(/\\/g, '/');
+        var drivingSRC = "@Url.Content("~/EmployeeImages/")" + driving + "";
+        var indexdriving = driving.lastIndexOf('/');
+        var showdrivingName = driving.substring(indexdriving + 1);
+
+        //insurance
+        var insuranceDoc = $("#InsuranceDoc").val();
+        insuranceDoc = insuranceDoc.replace(/\\/g, '/');
+        var insuranceSRC = "@Url.Content("~/EmployeeImages/")" + insuranceDoc + "";
+        var indexinsurance = insuranceDoc.lastIndexOf('/');
+        var showinsuranceName = driving.substring(indexinsurance + 1);
+
+        //bank detail
+        var bankDetail = $("#BankDetailDoc").val();
+        bankDetail = bankDetail.replace(/\\/g, '/');
+        var bankSRC = "@Url.Content("~/EmployeeImages/")" + bankDetail + "";
+        var indexbank = bankDetail.lastIndexOf('/');
+        var showbankName = bankDetail.substring(indexbank + 1);
+
+        //profile images
+        var profile = '@Model.ProfilePicture';
+        var profileSRC = "@Url.Content("~/EmployeeImages/")@Model.ProfilePicture";
+
+        //signature images
+        var signature = '@Model.SignaturePicture';
+        var signSRC = "@Url.Content("~/EmployeeImages/")@Model.SignaturePicture";
+
+
+        //bind documents with table
+        if (signature != '') {
+            $("#list_files").append("<tr><td>" + "Signature Picture" + "</td><td>" + signature + "</td><td>" + "<img src='" + signSRC + "' width='74' height='74'/>" + "</td></tr>");
+        }
+        if (profile != '') {
+            $("#list_files").append("<tr><td>" + "Profile Picture" + "</td><td>" + profile + "</td><td>" + "<img src='" + profileSRC + "' width='74' height='74'/>" + "</td></tr>");
+        }
+        if (driving != '') {
+            $("#list_files").append("<tr><td>" + "Driving License" + "</td><td>" + showdrivingName + "</td><td>" + "<img src='" + drivingSRC + "' width='74' height='74'/>" + "</td></tr>");
+        }
+        if (bankDetail != '') {
+            $("#list_files").append("<tr><td>" + "Bank Detail" + "</td><td>" + showbankName + "</td><td>" + "<img src='" + bankSRC + "' width='74' height='74'/>" + "</td></tr>");
+        }
+        if (insuranceDoc != '') {
+            $("#list_files").append("<tr><td>" + "Insurance" + "</td><td>" + showinsuranceName + "</td><td>" + "<img src='" + insuranceSRC + "' width='74' height='74'/>" + "</td></tr>");
+        }
+    });
+</script>
+
+
+

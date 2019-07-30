@@ -1,0 +1,59 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerContractListViewModel
+
+@{
+    ViewBag.Title = "ViewCustomerContactLog";
+    Layout = null;
+
+}
+<script src="~/Areas/Employee/Scripts/InvoiceJobContractLog.js"></script>
+
+<div id="ContactinfoErrorDiv" style="display:none;">
+</div>
+<div class="alert alert-success jobalert" style="display:none">
+    <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        <div class="employee_table paper-wrap bevel tlbr">
+            <div class="new_emp_tab outer_box">
+                <div class="col-md-12 no-pad">
+                    @Html.Partial("_ContactLogSearch", Model.ContactLog, new ViewDataDictionary())
+                </div>
+                <div class="emp_table">
+                    <div class="add_customer">
+                        @Html.ActionLink("Send Messages", "", "", new { @jobid = Model.CustomerContactLog.JobId }, new { @class = "btnaddRem btn btn-success pull-right", href = "javascript:void(0)", jobid = Model.CustomerContactLog.JobId })
+                        @Html.ActionLink("Add New Log", "", "", new {@JobId = Model.CustomerContactLog.JobId, @customercontactid = Guid.Empty}, new {@class = "btnaddlog btn btn-success pull-right", href = "javascript:void(0)", JobId = Model.CustomerContactLog.JobId, customercontactid = Guid.Empty})
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive" id="divContactPartial">
+
+                @Html.Partial("_InvoiceJobContactLogList", Model)
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<div id="divRemPopup"></div>
+<div id="divShowPopup"></div>
+
+<script>
+    $(".btnaddRem").click(function () {
+        var jobid = $(this).attr("jobid");
+        $.ajax({
+            url: common.SitePath + "/Employee/Invoice/_InvoiceReminderCreate",
+            data: { JobId: jobid },
+            type: 'Get',
+            async: false,
+            success: function (data) {
+                $("#divRemPopup").html(data);
+                $("#modalReminder").modal("show");
+            },
+            error: function () {
+                alert("something seems wrong");
+            }
+        });
+    });
+</script>

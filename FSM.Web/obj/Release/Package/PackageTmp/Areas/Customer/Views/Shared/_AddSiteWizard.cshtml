@@ -1,0 +1,197 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSiteDetailViewModel
+
+
+
+<div class="modal" id="AddSiteWizard" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-wizard">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Add Site</h4>
+            </div>
+            <div id="CustomerSitesErrorDiv" style="display:none;">
+            </div>
+            <div class="modal-body Quick_Line">
+                @using (Html.BeginForm("AddNewSiteWizard", "Customer", new { @area = "Customer" }, FormMethod.Post, new { @id = "formSiteDetail" }))
+                {
+                    <div class="form-horizontal general_form">
+                        @Html.HiddenFor(m => m.SiteDetailId,new { @class = "SiteDetailId" })
+                        @*<h3>Customer Site Detail</h3>*@
+                        @*<div id="CustomerSitesErrorDiv" style="display:none;">
+                            </div>*@
+                                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.CustomerGeneralInfoId, new { @class = "Customerinfoid" })
+                        <input id="geocomplete" class="form-control" type="text" placeholder="Type in an address" value="" />
+                        <div class="site_details_outer">
+
+                            <div class="address_label SiteAddress_details_outer">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Unit, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div>
+                                                        @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Street, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div>
+                                                        @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+                                                        @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.StreetName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div>
+                                                        @Html.EditorFor(model => model.StreetName, new { htmlAttributes = new { @class = "form-control",  @readonly = "readonly" } })
+                                                        @Html.ValidationMessageFor(model => model.StreetName, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @*<div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.StreetType, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div>
+                                                        @Html.EnumDropDownListFor(model => model.StreetType, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.StreetType, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Suburb, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div>
+                                                        @Html.EditorFor(model => model.Suburb, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                        @Html.ValidationMessageFor(model => model.Suburb, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div>
+                                                        @Html.EditorFor(model => model.State, new { htmlAttributes = new { @class = "form-control" , @readonly = "readonly" } })
+                                                        @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.PostalCode, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div>
+                                                        @Html.TextBoxFor(model => model.PostalCode, new { @class = "form-control", @maxlength = "4"  , @readonly = "readonly" })
+                                                        @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.SiteFileName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                <div>
+                                                    @Html.EditorFor(model => model.SiteFileName, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.SiteFileName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => Model.PrefTimeOfDay, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                <div>
+                                                    @Html.EnumDropDownListFor(model => model.PrefTimeOfDay, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.PrefTimeOfDay, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.StrataPlan, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                <div>
+                                                    @Html.EditorFor(model => model.StrataPlan, new { htmlAttributes = new { @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.StrataPlan, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @*<div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Contracted, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    <div>
+                                                        @Html.EnumDropDownListFor(model => model.Contracted, "(Select)", htmlAttributes: new { @id = "siteContracted", @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.Contracted, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        @*<div class="col-md-3 priceShow" style="display:none;">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.ScheduledPrice, htmlAttributes: new { @class = "control-label col-md-12 " })
+                                                    <div>
+                                                        @Html.EditorFor(model => model.ScheduledPrice, new { htmlAttributes = new { @id = "schdulePrice", @class = "form-control" } })
+                                                        @Html.ValidationMessageFor(model => model.ScheduledPrice, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        @*<div class="col-md-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.Notes, htmlAttributes: new { @class = "control-label col-md-12 " })
+                                                    <div>
+                                                        @Html.TextAreaFor(model => model.Notes, new { @class = "form-control description textarea_height" })
+                                                        @Html.ValidationMessageFor(model => model.Notes, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>*@
+                                        @*<div class="col-sm-3">
+                                                <div class="checkbox">
+                                                    @Html.EditorFor(model => model.BlackListed, new { htmlAttributes = new { @id = "BlackListed" } })
+                                                    @Html.LabelFor(model => model.BlackListed)
+                                                    @Html.ValidationMessageFor(model => model.BlackListed, "", new { @class = "text-danger" })
+                                                </div>
+
+                                                <div class="form-group blacklist">
+                                                    @Html.TextAreaFor(model => model.BlackListReason, new { @id = "BlackListReason", @class = "form-control description textarea_height" })
+                                                    @Html.ValidationMessageFor(model => model.BlackListReason, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>*@
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <div class="buttons  text-center">
+                        <div class="col-md-offset-3 col-md-5">
+                            <input type="button" value="Next" class="btn btn-default save" id="savecustomersite" />
+                            <input type="button" value="Back" class="btn btn-default save" id="backSaveCustomerSite" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer footerLine_Rmv">
+            </div>
+        </div>
+    </div>
+</div>
+

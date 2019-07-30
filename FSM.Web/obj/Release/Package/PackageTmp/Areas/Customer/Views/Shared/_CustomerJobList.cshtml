@@ -1,0 +1,59 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeJobListViewModel
+@using GridMvc.Html
+
+@Html.HiddenFor(m => m.Employeejobsearchmodel.PageSize)
+@Html.HiddenFor(m => m.Employeejobsearchmodel.CustomerGeneralInfoId)
+@Html.Grid(Model.EmployeeJoblist).SetRowCssClasses(
+           item => item.Id == Guid.Empty ? string.Empty : "cssEditJob").Columns(
+    columns =>
+    {
+        columns.Add(model => model.Id, true);
+        columns.Add(model => model.JobNo).Titled("Job No");
+        columns.Add(model => model.InvoiceDetails).Titled("Invoice Details"); 
+        columns.Add(model => model.CompletionDate).Titled("Completion Date");
+        columns.Add(model => model.Status).Titled("Status");
+        columns.Add(model => model.DateBooked).Format("{0:dd/MM/yyyy}").Titled("Start Date");
+        columns.Add(model => model.ContactName).Titled("Contact");
+        columns.Add(model => model.AssignUser).Titled("Assigned To");
+        columns.Add(model => model.SiteAddress).Titled("Site Address");
+        columns.Add(model => model.BookedByName).Titled("Created By");
+
+    }
+    ).WithPaging(Model.Employeejobsearchmodel.PageSize).Sortable(true)
+<div style="float: right;">
+    <label>Page Size</label>
+    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+            {
+                new SelectListItem { Text="5",Value="5"},
+                new SelectListItem { Text = "10", Value = "10" },
+                new SelectListItem { Text = "15", Value = "15" },
+                new SelectListItem { Text = "20", Value = "20" },
+                new SelectListItem { Text = "25", Value = "25" },
+                new SelectListItem { Text = "30", Value = "30" }
+            }, new { @class = "form-control" })
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.form-control#ddPageSize').val(@Model.Employeejobsearchmodel.PageSize);
+        if($('.pagination').is(':visible')){
+                $('#ddPageSize').parent().css('margin-top', '-72px');
+            }
+            else {
+                $('#ddPageSize').parent().css('margin-top', '8px');
+            }
+    });
+
+    $('#ddPageSize').on('change', function () {
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.Employeejobsearchmodel.PageSize;
+        }
+        $.get(common.SitePath + "/Customer/Customer/JobHistoryPartial?page_size=" + page_size+"&CustomerGeneralInfoId=@Model.Employeejobsearchmodel.CustomerGeneralInfoId", function (data) {
+            $('#divjobList').empty();
+            $('#divjobList').append(data);
+            $('#divjobList').val(page_size);
+        });
+    });
+</script>
+

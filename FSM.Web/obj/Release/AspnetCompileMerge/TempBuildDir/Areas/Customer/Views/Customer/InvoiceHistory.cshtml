@@ -1,0 +1,36 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.InvoiceHistoryListViewModel
+@using GridMvc.Html
+@using FSM.Web.Common;
+@{
+    ViewBag.Title = "Invoice History";
+}
+
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("JobHistory","Customer", new { @area = "Customer"})';
+        FSM.SelectedVal=@Html.Raw(Json.Encode(Model.invoiceSearchViewModel.PageSize));
+        FSM.GeneralInfoId=@Html.Raw(Json.Encode(Model.invoiceSearchViewModel.CustomerGeneralInfoId));
+    </script>
+<script src="~/Areas/Customer/Scripts/InvoiceHistory.js"></script>
+
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+
+        <div class="new_emp_tab outer_box">
+            <div class="form-group form_width" style="float:left">
+                <div class="col-md-12">
+                    <div class="customer_head_tab">
+                        @Html.Partial("_CustomerInvoiceHistoryInfoSearch", Model, new ViewDataDictionary())
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="drop_head_tab" id="divInvoiceList">
+            <div class="clearfix"></div>
+            @Html.Partial("_CustomerInvoiceList", Model)
+        </div>
+    </div>
+</section>
+
+

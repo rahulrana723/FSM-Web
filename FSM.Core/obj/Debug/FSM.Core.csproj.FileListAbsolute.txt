@@ -1,0 +1,53 @@
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\FSM.Core.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\FSM.Core.pdb
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.Mvc.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.Razor.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.Razor.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.Mvc.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.Razor.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.Razor.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\obj\Debug\FSM.Core.csprojResolveAssemblyReference.cache
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\obj\Debug\FSM.Core.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\obj\Debug\FSM.Core.pdb
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\obj\Debug\FSM.Core.csproj.CoreCompileInputs.cache
+D:\projects\FSM_Onion\FSM_M2\FSM.Core\obj\Debug\FSM.Core.csproj.CopyComplete
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\FSM.Core.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\FSM.Core.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\obj\Debug\FSM.Core.csproj.CoreCompileInputs.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\obj\Debug\FSM.Core.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\obj\Debug\FSM.Core.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.Mvc.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.Razor.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.Mvc.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.Razor.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Core\obj\Debug\FSM.Core.csproj.CopyComplete
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\FSM.Core.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\FSM.Core.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\obj\Debug\FSM.Core.csproj.CoreCompileInputs.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\obj\Debug\FSM.Core.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\obj\Debug\FSM.Core.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.Mvc.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.Razor.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.WebPages.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.Mvc.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.Razor.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.WebPages.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\obj\Debug\FSM.Core.csproj.CopyComplete
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Core\obj\Debug\FSM.Core.csprojAssemblyReference.cache

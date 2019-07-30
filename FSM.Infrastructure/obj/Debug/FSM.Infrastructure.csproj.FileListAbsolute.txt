@@ -1,0 +1,42 @@
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.dll.config
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.pdb
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\EntityFramework.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Core.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Core.pdb
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\EntityFramework.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csprojResolveAssemblyReference.cache
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.pdb
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csproj.CoreCompileInputs.cache
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csproj.CopyComplete
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.dll.config
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\EntityFramework.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Core.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\FSM.Core.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\EntityFramework.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csprojAssemblyReference.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csproj.CopyComplete
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.dll.config
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\FSM.Infrastructure.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\EntityFramework.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\EntityFramework.SqlServer.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\FSM.Core.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\FSM.Core.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\EntityFramework.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Debug\EntityFramework.SqlServer.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csprojAssemblyReference.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.csproj.CopyComplete
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Debug\FSM.Infrastructure.pdb

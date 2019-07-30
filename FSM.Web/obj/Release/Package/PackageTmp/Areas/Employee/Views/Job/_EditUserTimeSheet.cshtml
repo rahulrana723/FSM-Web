@@ -1,0 +1,75 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.UserTimeSheetViewModel
+
+<div class="modal fade" id="modalTimeSheet" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width: 105%;">
+            <div class="modal-header">
+                <button type="button" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Edit User TimeSheet</h4>
+            </div>
+            <div id="SheetErrorDv" style="display:none;padding: 5px 0px 0px 18px;">
+
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("_EditUserTimeSheet", "Job", new { @area = "Employee" }, FormMethod.Post, new { @id = "formEditTimeSheet" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal popUp_width">
+                        @*<h4>UserTimeSheetViewModel</h4>
+                            <hr />*@
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.HiddenFor(model => model.UserId)
+                        @Html.HiddenFor(model => model.JobDate)
+                        @Html.HiddenFor(model => model.Reason)
+                        @Html.HiddenFor(model => model.TimeSpent)
+                        @Html.HiddenFor(model => model.IsRunning)
+                        @Html.HiddenFor(model => model.pagenum)
+                        @Html.HiddenFor(model => model.jobstartdateSearch)
+                        @Html.HiddenFor(model => model.jobenddateSearch)
+                        @Html.HiddenFor(model => model.useridSearch)
+                        @Html.HiddenFor(model => model.Keyword)
+                        @Html.HiddenFor(model => model.PageSize)
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Select Job No</label>
+                            <div class="col-md-7">
+                                @Html.DropDownListFor(model => model.JobId, new SelectList(Model.employeeJobTimeSheetDetail, "EmployeeJobid", "Description"), new { @class = "form-control ddljobid grey_bg" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StartTime, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EndTime, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ReasonToUpdate, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-7">
+                                @Html.EditorFor(model => model.ReasonToUpdate, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ReasonToUpdate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-5 col-md-10">
+                                <input type="button" value="Save" onclick="javascript:SaveTimeSheet();" class="btn black-btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

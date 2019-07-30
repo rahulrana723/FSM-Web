@@ -1,0 +1,53 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.InvoiceHistoryListViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.invoiceSearchViewModel.PageSize, new { @id = "ddpageSize" })
+    @Html.HiddenFor(m => m.invoiceSearchViewModel.CustomerGeneralInfoId, new { @id = "custGeneralInfoId" })
+    <div class="col-md-6 no-pad">
+        <div class="row">
+            <div class="col-md-9 texbox_margin">
+                @Html.EditorFor(model => model.invoiceSearchViewModel.searchkeyword, new { htmlAttributes = new { @id = "srchBoxInvoice", @class = "form-control form_textbox contacts_serch entersrch", placeholder = "Search Keyword" } })
+            </div>
+            <div class="col-sm-3">
+                <button id="InvoiceSrch" class="search_btn btn black-btn" type="button" value="Search">Search</button>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $("#InvoiceSrch").click(function () {
+           var customerGeneralinfoid = $("#custGeneralInfoId").val();
+           var Name = $("#srchBoxInvoice").val();
+           var pagenum = $("#ddpageSize").val();
+
+           $.ajax({
+               url: common.SitePath + "/customer/customer/InvoiceHistory",
+               data: { CustomerGeneralinfoid: customerGeneralinfoid, Keyword: Name, PageNum: pagenum },
+               type: 'POST',
+               async: false,
+               success: function (data) {
+                   $("#divInvoiceList").empty();
+                   $("#divInvoiceList").append(data);
+
+               },
+               error: function () {
+                   alert("something seems wrong");
+               }
+           })
+
+       })
+
+       $(document).on("keypress", ".entersrch", function (e) {
+           var key = e.which;
+           if (key == 13)  // the enter key code
+           {
+               $('#InvoiceSrch').click();
+               return false;
+           }
+       });
+
+</script>
+

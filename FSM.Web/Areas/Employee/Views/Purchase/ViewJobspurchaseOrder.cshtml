@@ -1,0 +1,114 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.PurchaseOrderjobListviewModel
+@using GridMvc.Html
+@{
+    ViewBag.Title = "ViewjobsPurchaseOrder";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ViewjobsPurchaseOrder", "Purchase", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.Purchasejobsearchorderviewmodel.PageSize;
+        FSM.EditPurchase='@Url.Action("AddEditJobPurchaseOrder", "Purchase", new { @area = "Employee" })';
+        FSM.HasGridRecords='@Model.PurchaseorderjobViewmodel.Count()'
+        var success='@TempData["Message"]';
+        if (success != "" && success != undefined && success != 0)
+        {
+            FSM.Message=success;
+        }
+        else
+        {
+            FSM.Message="";
+        }
+        if (FSM.Message != "" && FSM.Message != 0) {
+            $(".jobalert").css("display", "block");
+            if (FSM.Message == "1") {
+                $(".jobalert").html("<strong>Record added Successfully!</strong>");
+            }
+            else if (FSM.Message == "2") {
+                $(".jobalert").html("<strong>Record Updated Successfully!</strong>");
+            }
+            else if (FSM.Message == "3") {
+                $(".jobalert").html("<strong>Record Deleted Successfully!</strong>");
+            }
+            $(".jobalert").delay(2000).fadeOut();
+        }
+    </script>
+}
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Purchase Order </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="drop_head_tab">
+            <div class="bd-example stock_right">
+                <div class="alert alert-success jobalert" style="display:none">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                </div>
+                <div class="search_Purchaseorder">
+                    @Html.Partial("_PurchaseOrderSearchViewForPurchase", Model.Purchasejobsearchorderviewmodel)
+                </div>
+            </div>
+          @Html.Grid(Model.PurchaseorderjobViewmodel).SetRowCssClasses(
+    item => item.ID == Guid.Empty ? string.Empty : "cssEditPurchase").Columns(
+    columns =>
+    {
+        columns.Add(model => model.ID, true);
+        columns.Add(model => model.PurchaseOrderNoformated).Titled("Purchase Order No");
+        columns.Add(model => model.JobNo).Titled("Job No");
+        columns.Add(model => model.InvoiceNo).Titled("Invoice No");
+        columns.Add(model => model.Description).Titled("Description");
+        columns.Add(model => model.Cost).Titled("Cost");
+        columns.Add(model => model.SupplierName).Titled("Supplier");
+        columns.Add(model => model.IsApprove).Titled("Is Approved");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "AddEditJobPurchaseOrder", "Purchase", new { Purchaseorderid = model.ID.ToString() }, new { @class = "btn btn-default" })).Filterable(false).Titled("Edit");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+         .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { purchaseId = model.ID.ToString() }, new { @class = "btn btn-default", @type = "button", href = "javascript:void(0)", onclick = "DeleteJobpurchaseOrder('" + model.ID.ToString() + "');" })).Filterable(false).Titled("Delete");
+    }).WithPaging(Model.Purchasejobsearchorderviewmodel.PageSize).Sortable(true)
+            <div style="float: left;">
+                <label class="recordCount">Total Record: @Model.PurchaseorderjobViewmodel.Count()</label>
+            </div>
+            <div style="float: right;">
+                <label>Page Size</label>
+                @Html.DropDownList("ddPageSize", new List<SelectListItem>
+         {
+           new SelectListItem { Text="5",Value="5"},
+           new SelectListItem { Text = "10", Value = "10" },
+           new SelectListItem { Text = "15", Value = "15" },
+           new SelectListItem { Text = "20", Value = "20" },
+           new SelectListItem { Text = "25", Value = "25" },
+           new SelectListItem { Text = "30", Value = "30" }
+         }, new { @class = "form-control" })
+            </div>
+        </div>
+        </div><!--emp_table-->
+
+    </div>
+<script src="~/Areas/Employee/Scripts/PurchaseOrderJobListing.js"></script>
+<script>
+    $(document).ready(function () {
+        debugger
+        $('.btnSynctomyob').on('click', function () {
+            $('#btnSynctomyob').text("Syncing Purchase orders...");
+        Url = '@Url.Action("SyncmyobPurchase", "Purchase", new { area = "Employee" })';
+            $.get(Url, function (data) {
+                $(".jobalert").css("display", "block");
+                $(".jobalert").html("<strong>Syncing Purchase order .It will update all Purchase orders soon.....!</strong>");
+                $(".jobalert").fadeOut(2000, function () {
+                    $(this).html("");
+                });
+             //   window.location.href = "https://secure.myob.com/oauth2/account/authorize?client_id=enpstq27p2t9fq32aj4bkfx9&redirect_uri=http://localhost:54245/Employee/Purchase/SyncmyobPurchase&response_type=code&scope=CompanyFile";
+                window.location.href = "https://secure.myob.com/oauth2/account/authorize?client_id=enpstq27p2t9fq32aj4bkfx9&redirect_uri=http://www.srag-portal.com/Employee/Purchase/SyncmyobPurchase&response_type=code&scope=CompanyFile";
+            });
+        });
+    });
+
+</script>

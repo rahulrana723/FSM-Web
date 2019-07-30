@@ -1,0 +1,112 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeDetailListViewModel
+@using FSM.Web.Common;
+@using GridMvc.Html
+@{
+    ViewBag.Title = "EmployeeMessageList";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<meta name="viewport" content="width=device-width" />
+<title>EmployeeMessageList</title>
+<section class="dashboard_section">
+    <div class="dashboard_right_block outer_padding">
+        <div class="list_heading">
+            <h2>Messages</h2>
+        </div>
+        <div class="employee_table paper-wrap bevel tlbr">
+            <div class="outer_box2">
+                <div class="employee_table">
+                    <div class="msg-search form_width List_Width" style="float:left">
+                        @Html.Partial("_EmployeeMessageSearch", Model.EmployeeDetailInfo)
+                        <div class="clearfix"></div>
+                    </div>
+                </div><!--employee_table-->
+            </div><!--col-sm-12-->
+            <div class="emp_table">
+                <div class="drop_head_tab">
+                    <div class="table-responsive">
+                        @Html.Grid(Model.EmployeeDetailList).Columns(
+                           columns =>
+                           {
+                               columns.Add(model => model.LastDateSent).Titled("Date Received/Sent").SetWidth(230).Sanitized(false).Encoded(false)
+                               .RenderValueAs(model => DateRenderingOfColumn(new HtmlString(model.LastDateSent), model.EmployeeId)).Filterable(false);
+                               columns.Add(model => model.Name).Titled("From/To").SetWidth(400).Sanitized(false).Encoded(false)
+                               .RenderValueAs(model => NameRenderingOfColumn(new HtmlString(model.Name), model.EmployeeId)).Filterable(false);
+                               columns.Add(model => model.Message).Titled("Message").SetWidth(2000).Sanitized(false).Encoded(false)
+                               .RenderValueAs(model => CustomRenderingOfColumn(new HtmlString(model.Message), model.UnReadMsg, model.EmployeeId)).Filterable(false);
+                               //.RenderValueAs(o => Html.ActionLink(o.Message, "", "",
+                               // new { @class = "Chatbtngrid", href = "javascript:void(0)", @EmployeeId = o.EmployeeId }).ToHtmlString());
+                               //columns.Add()
+                               //.Encoded(false)
+                               //.Sanitized(false)
+                               //.RenderValueAs(model => CustomRenderingOfColumn(model.UnReadMsg, model.EmployeeId)).Filterable(false).Titled("Action");
+                           }
+                           ).WithPaging(Model.EmployeeDetailInfo.PageSize).Sortable(true)
+                        <div style="float: left;">
+                            <label class="recordCount">Total Record: @Model.EmployeeDetailList.Count()</label>
+                        </div>
+                        <div style="float: right;">
+
+                            <label>Page Size</label>
+                            @Html.DropDownList("ddPageSize", new List<SelectListItem>
+                           {
+                             new SelectListItem { Text="5",Value="5"},
+                             new SelectListItem { Text = "10", Value = "10" },
+                             new SelectListItem { Text = "15", Value = "15" },
+                             new SelectListItem { Text = "20", Value = "20" },
+                             new SelectListItem { Text = "25", Value = "25" },
+                             new SelectListItem { Text = "30", Value = "30" }
+                           }, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!--row-->
+        @helper DateRenderingOfColumn(HtmlString LastDateSent, Guid EmployeeId)
+        {
+         <div Class="Chatbtngrid" EmployeeId="@EmployeeId">@LastDateSent</div>
+       }
+       @helper NameRenderingOfColumn(HtmlString Name, Guid EmployeeId)
+       {
+        <div Class="Chatbtngrid" EmployeeId="@EmployeeId">@Name</div>
+       }
+      @helper CustomRenderingOfColumn(HtmlString message, int? UnReadMsg, Guid EmployeeId)
+      {
+        if (UnReadMsg > 0)
+        {
+              <div  Class="Chatbtngrid" EmployeeId="@EmployeeId"><a style="color:dodgerblue">@message (@UnReadMsg)</a></div>
+            //@Html.ActionLink(""+message+"(" + UnReadMsg + ")", "", new { EmployeeId = EmployeeId }, new { @class = "Chatbtngrid @*msgColor*@", href = "javascript:void(0)", @EmployeeId = EmployeeId });
+        }
+        else
+        {
+                <div  Class="Chatbtngrid" EmployeeId="@EmployeeId">@message</div>
+            // @Html.ActionLink(""+ message + "", "", new { EmployeeId = EmployeeId }, new { @class = "Chatbtngrid", href = "javascript:void(0)", @EmployeeId = EmployeeId });
+        }
+      }
+    </div><!--dashboard_right_block-->
+
+
+</section>
+<div id="ViewMessagePopUp"></div>
+<div id="divShowPopup"></div>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+@section scripts{
+
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("EmployeeMessageList", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.EmployeeDetailInfo.PageSize;
+        FSM.HasGridRecords='@Model.EmployeeDetailList.Count()'
+    </script>
+}
+<script src="~/Areas/Employee/Scripts/EmployeeMessageList.js"></script>
+<script src="~/Areas/Employee/Scripts/_EmployeeMessageChat.Js"></script>
+
+
+
+
+
+
+
+
+
+

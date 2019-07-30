@@ -1,0 +1,73 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerContactLogViewModel
+@{
+    ViewBag.Title = "AddEditCustmerContactLog";
+}
+<script src="~/Areas/Customer/Scripts/CustomerContactLog.js"></script>
+<h2>AddEditCustmerContactLog</h2>
+@using (Html.BeginForm())
+
+{
+    <div class="dashboard_center_block  paper-wrap bevel tlbr">
+        @Html.AntiForgeryToken()
+
+        <div class="new_emp_tab">
+            <div class="new_emp">
+                <h3> Add New ContactLog</h3>
+                <div class="form">
+
+                    @Html.HiddenFor(m => m.CustomerGeneralInfoId)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.JobId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.JobId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.JobId, "", new { @class = "text-danger" })
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LogDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LogDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LogDate, "", new { @class = "text-danger" })
+
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ReContactDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ReContactDate, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ReContactDate, "", new { @class = "text-danger" })
+
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+
+                                    <input type="submit" value="Save" class="btn btn-default" />
+
+                                    <input type="reset" value="Cancel" class="btn btn-default" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

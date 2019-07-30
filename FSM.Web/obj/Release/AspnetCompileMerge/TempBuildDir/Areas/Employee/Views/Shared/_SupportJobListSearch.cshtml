@@ -1,0 +1,28 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.SupportJobSearchViewModel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(m => m.PageSize)
+        @Html.HiddenFor(i => i.SupportJobid, new { @class = "supportid" });
+        @*<div class="clearfix"></div>*@
+        <div class="search_customer_block stock_top_bg">
+            <div class="form-group outer_customer col-sm-12">
+                <div class="row">
+                    <div class="col-md-3 texbox_margin">
+                        @Html.EditorFor(model => model.searchkeyword, new { htmlAttributes = new { @class = "form-control", @style = "display:inline", @placeholder = " Search Keyword" } })
+                        </div>
+                    <div class="col-md-3 texbox_margin">
+                        @Html.EnumDropDownListFor(model => model.JobType, "(Select Job Type)", htmlAttributes: new { @class = "form-control " })
+                        </div>
+                    <div class="col-sm-2 texbox_margin">
+                        <input type="submit" value="Search" class="search_btn black-btn search_pad" />
+                        </div>
+                    </div>
+            </div><!--search_customer-->
+        </div>
+    </div>
+    <div class="clearfix"></div>
+}
+

@@ -1,0 +1,89 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeRoastedOffListViewModel
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "AddRoastedOff";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.HasGridRecords = '@Model.RoastedOffCoreListViewModel.Count()'
+        FSM.EmpRoastedUrl = '@Url.Action("ViewRoastedOff", "Employee", new {area= "Employee" })';
+        FSM.RoastedUrl = '@Url.Action("ViewRoastedOffPartial", "Employee", new {area= "Employee" })';
+        FSM.EditRoastedUrl ='@Url.Action("_AddRoastedOff", "Employee",new { @area = "Employee"})';
+        FSM.SortColumn = '';
+        FSM.SortDir = '';
+        FSM.PageSize = '@Html.Raw(Model.PageSize)';
+        var success = '@TempData["Message"]';
+        if (success != "" && success != undefined) {
+            FSM.Message = success;
+        }
+        else {
+            FSM.Message = "";
+        }
+    </script>
+    <script src="~/Areas/Employee/Scripts/ViewRoastedOff.js"></script>
+}
+
+
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Rostered On/Off</h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div id="vacationDv" style="display:none;text-align: left;margin-bottom:10px;">
+        </div>
+
+        <div class="alert alert-success jobalert" style="display:none;">
+            <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+        <div class="customer_head_tab col-sm-12">
+            <div class="search_block">
+                <div class="form-group col-sm-4">
+                    @Html.EditorFor(model => model.SearchKeyword, new { htmlAttributes = new { @class = "form-control srch_vacations", @placeholder = "Search Keyword" } })
+                </div>
+                <div class="form-group col-sm-2">
+                    <div class="checkbox">
+                        <input type="button" id="searchRoasted" value="Search" class="search_btn black-btn cust-margin" />
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div>
+                        <input type="button" class="btn btn-primary add_stock pull-right btnAssignotrw btnRoasted" value="Add Rostered On/Off" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="drop_head_tab">
+            <div class="clearfix"></div>
+            <div id="dvShowEmpRoasted">
+                @Html.Partial("_EmployeeRoastedOffList", Model)
+            </div>
+
+            <div style="float: left;">
+                <label class="recordCount">Total Record: @Model.RoastedOffCoreListViewModel.Count()</label>
+            </div>
+            <div style="float: right;">
+                <label>Page Size</label>
+                @Html.DropDownList("ddPageSize", new List<SelectListItem>
+   {
+       new SelectListItem { Text="5",Value="5"},
+       new SelectListItem { Text = "10", Value = "10" },
+       new SelectListItem { Text = "15", Value = "15" },
+       new SelectListItem { Text = "20", Value = "20" },
+       new SelectListItem { Text = "25", Value = "25" },
+       new SelectListItem { Text = "30", Value = "30" }
+   }, new { @class = "form-control" })
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="updateRoastedOffDv"></div>
+
+
+
+

@@ -1,0 +1,1362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5E4359C7-8675-49CA-BD5F-FBC05B498170}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FSM.Web</RootNamespace>
+    <AssemblyName>FSM.Web</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GridMvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Mvc.4.0.1\lib\net45\Microsoft.Practices.Unity.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6d32ff45e0ccc69f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.4.0.1\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MYOB.AccountRight.SDK, Version=2016.2.99.0, Culture=neutral, PublicKeyToken=f83481fd544f6c95, processorArchitecture=MSIL">
+      <HintPath>..\packages\MYOB.AccountRight.API.SDK.2016.2.99\lib\net45\MYOB.AccountRight.SDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Push Notification, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Ref\Push Notification.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Android, Version=2.2.1.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Ref\PushSharp.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Apple, Version=2.2.1.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Ref\PushSharp.Apple.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Ref\PushSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net46\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rotativa, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.1.6.4\lib\net40\Rotativa.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="TransmitSms, Version=2.0.25.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\TransmitSms.2.0.25.0\lib\net35\TransmitSms.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="App_Start\UnityMvcActivator.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
+    <Compile Include="Areas\Admin\Controllers\RoleManagementController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SettingController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Action_MasterViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\AspNetRolesViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\AssignJobViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\DashboardjobInfoViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\DashboardViewModels.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ImportantDocumentVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ManageDocumentVM.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ManageRolesViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\Module_MasterViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ParentAction_MasterViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\RescheduleViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\RoleManagementSearchViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\RoleManagementViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\JobScheduleViewModel.cs" />
+    <Compile Include="Areas\Customer\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\Customer\CustomerAreaRegistration.cs" />
+    <Compile Include="Areas\Customer\ViewModels\BillingSearchViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\ContactLogSearchModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\ContactsSearchViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerBillingAddressListViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerBillingAddressViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerConditionReportViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerContactExport.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerContactLogViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerContactsListViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerContactsViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerContractListViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerGeneralInfoViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerListViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerReminderJobMapping.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerReminderViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerReminderVM.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerResidenceDetailViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerSearchViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerSiteCountViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerSiteDetailViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerSiteDocumentsListViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerSitesDocumentsViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerSitesViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\CustomerTabPanelViewModel.cs" />
+    <Compile Include="Areas\Customer\ViewModels\DisplaySitesViewModel.cs" />
+    <Compile Include="Areas\Employee\Controllers\EmployeeController.cs" />
+    <Compile Include="Areas\Employee\Controllers\MaterialController.cs" />
+    <Compile Include="Areas\Employee\ViewModels\CancelJobScheduleViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\ContractJobScheduleViewModel.cs" />
+    <Compile Include="Areas\Employee\Controllers\ReportController.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeRoastedOffListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeRoastedOffViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\LabourCostPerHourViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\ReportsViewModel.cs" />
+    <Compile Include="Areas\Employee\Controllers\AssetManagementController.cs" />
+    <Compile Include="Areas\Employee\ViewModels\AssetManagementListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\AssetManagementSearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\AssetManageViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\DisplayinvoiceJCLITemModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\DisplayInvoicePaymentsViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\DisplayJCLItemInvoiceListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\DisplayJCLItemInvoiceViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\InvoiceAssignToMappingViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\InvoiceJCLItemListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\LogListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\LogSearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\LogViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\SalesBonusViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\TimeSheetReportDataViewModel.cs" />
+    <Compile Include="bin\SiteAddressViewModel.cs" />
+    <Compile Include="Areas\Employee\Controllers\CustomerJobController.cs" />
+    <Compile Include="Areas\Employee\Controllers\JCLController.cs" />
+    <Compile Include="Areas\Employee\Controllers\MessageController.cs" />
+    <Compile Include="Areas\Employee\Controllers\PurchaseController.cs" />
+    <Compile Include="Areas\Employee\Controllers\InvoiceController.cs" />
+    <Compile Include="Areas\Employee\Controllers\StockController.cs" />
+    <Compile Include="Areas\Employee\EmployeeAreaRegistration.cs" />
+    <Compile Include="Areas\Employee\Controllers\JobController.cs" />
+    <Compile Include="Areas\Employee\ViewModels\CustoemrInvoiceListViewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\CustomerSiteJobViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmpDetailListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeNameIdViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\GetJobViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\HolidaySearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeVacationModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\ImportantDocumentViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\InvoiceHistoryListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\InvoiceHistoryviewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\InvoiceSearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\InvoiceTabPanelViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JCLDetailListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JCLDetailViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JCLListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JCLSearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JobAssignToMappingViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JobDocumentList.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JobDocViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JobPurChaseViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JobsViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\JobTabPanelViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\ManageVacactionViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\MessageListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PublicHoidaysListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PublicHolidayViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseOrderByJobviewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseorderItemJobViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\CreateInvoiceViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\CustomerEmailSendListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\CustomerEmailSendViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\CustomerSiteDetailListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\DisplayJobStocksViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\DisplayJobStocksListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeDetailSearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeDetailViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeDetailListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeInvoiceListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeJobDocumentViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeJobListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeejobSearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeJobsViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\EmployeeRatesViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\InvoiceListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\OTRWStockListViewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\OTRWStocksearchviewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\OTRWStockViewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurcahseOrderListviewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseDataViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseOrderByStockViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseOrderITemByStockViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseOrderjobListviewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseOrderjobsearchviewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseorderSearchViewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\PurchaseDatajobviewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\StockListViewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\StockPurChaseViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\StocksearchViewmodel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\StockViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\SupportdojobMappingViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\SupportJobSearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\SupportJobViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\SupportListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\TimeSheetDataViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\UserMessageThreadviewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\UserMessageViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\UserTimeSheetViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\UploadedInvoiceFile.cs" />
+    <Compile Include="Areas\Employee\ViewModels\SupplierViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\VacationViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\ViewEmployeeRatesListViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\ViewEmployeeRatesSearchViewModel.cs" />
+    <Compile Include="Areas\Employee\ViewModels\ViewEmployeeRatesViewModel.cs" />
+    <Compile Include="Common\BaseController.cs" />
+    <Compile Include="Common\CommonMapper.cs" />
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Common\FMSRoleManagement.cs" />
+    <Compile Include="Common\FSMHandleErrorAttribute.cs" />
+    <Compile Include="Common\FSMSessionExpiresAttribute.cs" />
+    <Compile Include="Common\GeoCode.cs" />
+    <Compile Include="Common\Helper.cs" />
+    <Compile Include="Common\NoCache.cs" />
+    <Compile Include="Common\PushN.cs" />
+    <Compile Include="Common\RolePermissionsAttribute.cs" />
+    <Compile Include="Common\SendEmail.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="FSMConstant\Constant.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Scripts\AdminLayout.js" />
+    <Content Include="Areas\Admin\Scripts\Dashboard.js" />
+    <Content Include="Areas\Admin\Scripts\ManageDocument.js" />
+    <Content Include="Areas\Admin\Scripts\RoleManagement.js" />
+    <Content Include="Areas\Admin\Scripts\TrackerUserPopUp.js" />
+    <Content Include="Areas\Admin\Scripts\_DashboardReminder.js" />
+    <Content Include="Areas\Admin\Scripts\_SetOrderPopUp.js" />
+    <Content Include="Areas\Customer\Scripts\AddBillingAddress.js" />
+    <Content Include="Areas\Customer\Scripts\AddConditionReport.js" />
+    <Content Include="Areas\Customer\Scripts\AddCustomerInfo.js" />
+    <Content Include="Areas\Customer\Scripts\AddCustomerSiteDetail.js" />
+    <Content Include="Areas\Customer\Scripts\AddDocuments.js" />
+    <Content Include="Areas\Customer\Scripts\AddEditPublicHoliday.js" />
+    <Content Include="Areas\Customer\Scripts\AddResidenceDetail.js" />
+    <Content Include="Areas\Customer\Scripts\BillingAddress.js" />
+    <Content Include="Areas\Customer\Scripts\ContractLog.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerBillingList.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerContactLog.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerSite.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerSiteDetail.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerSiteDocument.js" />
+    <Content Include="Areas\Customer\Scripts\CustomerSitelist.js" />
+    <Content Include="Areas\Customer\Scripts\EditBillingAddress.js" />
+    <Content Include="Areas\Customer\Scripts\EditConditionReport.js" />
+    <Content Include="Areas\Customer\Scripts\EditCustomerSiteDetail.js" />
+    <Content Include="Areas\Customer\Scripts\EditResidenceDetail.js" />
+    <Content Include="Areas\Customer\Scripts\Index.js" />
+    <Content Include="Areas\Customer\Scripts\InvoiceHistory.js" />
+    <Content Include="Areas\Customer\Scripts\JobHistory.js" />
+    <Content Include="Areas\Customer\Scripts\ViewCustomerContacts.js" />
+    <Content Include="Areas\Customer\Scripts\_AddCustomerWizard.js" />
+    <Content Include="Areas\Customer\Scripts\_CustomerReminder.js" />
+    <Content Include="Areas\Customer\Views\Customer\ViewCustomerContactLog.cshtml" />
+    <Content Include="Areas\Employee\Scripts\ActivityLog.js" />
+    <Content Include="Areas\Employee\Scripts\AddEditJobPurchase.Js" />
+    <Content Include="Areas\Employee\Scripts\AddEditPurchase.js" />
+    <Content Include="Areas\Employee\Scripts\AddEditPurchaseorderjob.js" />
+    <Content Include="Areas\Employee\Scripts\AddEmployeeHoliday.js" />
+    <Content Include="Areas\Employee\Scripts\AddJCL.js" />
+    <Content Include="Areas\Employee\Scripts\AddJobDocuments.js" />
+    <Content Include="Areas\Employee\Scripts\AddJobInvoicePurchaseOrder.js" />
+    <Content Include="Areas\Employee\Scripts\AddJobPurchaseOrder.js" />
+    <Content Include="Areas\Employee\Scripts\AddJob.js" />
+    <Content Include="Areas\Employee\Scripts\AddNewEmployee.js" />
+    <Content Include="Areas\Employee\Scripts\AddStock.js" />
+    <Content Include="Areas\Employee\Scripts\CustomerContacts.js" />
+    <Content Include="Areas\Employee\Scripts\CustomerjobInfoList.Js" />
+    <Content Include="Areas\Employee\Scripts\EditEmployee.js" />
+    <Content Include="Areas\Employee\Scripts\EditInvoiceJob.js" />
+    <Content Include="Areas\Employee\Scripts\EditJobInvoicePurchaseOrder.js" />
+    <Content Include="Areas\Employee\Scripts\EditJobPurchaseOrder.Js" />
+    <Content Include="Areas\Employee\Scripts\EmployeeDetail.js" />
+    <Content Include="Areas\Employee\Scripts\EmployeeJob.js" />
+    <Content Include="Areas\Employee\Scripts\EmployeeMessageList.Js" />
+    <Content Include="Areas\Employee\Scripts\EmployeeRates.js" />
+    <Content Include="Areas\Customer\Scripts\Customer.js" />
+    <Content Include="Areas\Employee\Scripts\ExtendJob.js" />
+    <Content Include="Areas\Employee\Scripts\fastselect.min.js" />
+    <Content Include="Areas\Employee\Scripts\fastselect.standalone.min.js" />
+    <Content Include="Areas\Employee\Scripts\HolidayListing.js" />
+    <Content Include="Areas\Employee\Scripts\EmployeeVacations.js" />
+    <Content Include="Areas\Employee\Scripts\Invoice.js" />
+    <Content Include="Areas\Employee\Scripts\InvoiceCustomerContacts.js" />
+    <Content Include="Areas\Employee\Scripts\InvoiceJobContractLog.js" />
+    <Content Include="Areas\Employee\Scripts\InvoiceList.Js" />
+    <Content Include="Areas\Employee\Scripts\JCLDetail.js" />
+    <Content Include="Areas\Employee\Scripts\JobContractLog.Js" />
+    <Content Include="Areas\Employee\Scripts\JobDocuments.js" />
+    <Content Include="Areas\Employee\Scripts\ManageJCLItem.js" />
+    <Content Include="Areas\Employee\Scripts\ManagejobInvoice.js" />
+    <Content Include="Areas\Employee\Scripts\ManageStockInfo.js" />
+    <Content Include="Areas\Employee\Scripts\ManageVacations.js" />
+    <Content Include="Areas\Employee\Scripts\OTRWAssignee.js" />
+    <Content Include="Areas\Employee\Scripts\PurchaseOrderJobListing.js" />
+    <Content Include="Areas\Employee\Scripts\PurchaseOrderlisting.js" />
+    <Content Include="Areas\Employee\Scripts\Reports.js" />
+    <Content Include="Areas\Employee\Scripts\RoastedOff.js" />
+    <Content Include="Areas\Employee\Scripts\SendInvoiceEmail.js" />
+    <Content Include="Areas\Employee\Scripts\SendMailPopup.js" />
+    <Content Include="Areas\Employee\Scripts\StockListing.js" />
+    <Content Include="Areas\Employee\Scripts\StockInfo.js" />
+    <Content Include="Areas\Employee\Scripts\Support.js" />
+    <Content Include="Areas\Employee\Scripts\SupportJobList.Js" />
+    <Content Include="Areas\Employee\Scripts\UserTimeSheet.js" />
+    <Content Include="Areas\Employee\Scripts\ViewAssetManagement.js" />
+    <Content Include="Areas\Employee\Scripts\ViewEmployeeJob.js" />
+    <Content Include="Areas\Employee\Scripts\ViewEmployeerate.Js" />
+    <Content Include="Areas\Employee\Scripts\ViewInvoiceContacts.js" />
+    <Content Include="Areas\Employee\Scripts\ViewJobContacts.js" />
+    <Content Include="Areas\Employee\Scripts\ViewjobsInvoicePurchaseOrder.js" />
+    <Content Include="Areas\Employee\Scripts\ViewJobSites.js" />
+    <Content Include="Areas\Employee\Scripts\ViewjobsPurchaseOrder.js" />
+    <Content Include="Areas\Employee\Scripts\ViewRoastedOff.js" />
+    <Content Include="Areas\Employee\Scripts\_AddNewCustomer.js" />
+    <Content Include="Areas\Employee\Scripts\_AddNewCustomerSite.js" />
+    <Content Include="Areas\Employee\Scripts\_AddNewVacation.js" />
+    <Content Include="Areas\Employee\Scripts\_EmployeeMessageChat.Js" />
+    <Content Include="Areas\Employee\Scripts\_InvoiceReminder.js" />
+    <Content Include="Areas\Employee\Scripts\_JobReminder.Js" />
+    <Content Include="Common\Common.js" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\bootstrap-multiselect.css" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\emoticons.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\selectize.css" />
+    <Content Include="Content\css\style.css" />
+    <Content Include="Content\css\templatestyle.css" />
+    <Content Include="Content\css\timesheetreportstyle.css" />
+    <Content Include="Content\fonts\font-awesome.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\images\arrow.png" />
+    <Content Include="Content\images\arrow2.png" />
+    <Content Include="Content\images\Calendar.jpg" />
+    <Content Include="Content\images\calender.png" />
+    <Content Include="Content\images\calender2.png" />
+    <Content Include="Content\images\ConditionReport.jpg" />
+    <Content Include="Content\images\ConditionReportFooter.jpg" />
+    <Content Include="Content\images\Customers-hover.png" />
+    <Content Include="Content\images\Customers.png" />
+    <Content Include="Content\images\Dashboard-hover.png" />
+    <Content Include="Content\images\dashboard.png" />
+    <Content Include="Content\images\drop-dwn.png" />
+    <Content Include="Content\images\drop-right.png" />
+    <Content Include="Content\images\emoticons.png" />
+    <Content Include="Content\images\Employee-hover.png" />
+    <Content Include="Content\images\Employee.png" />
+    <Content Include="Content\images\envelope.png" />
+    <Content Include="Content\images\fone.png" />
+    <Content Include="Content\images\fsmfavicon.ico" />
+    <Content Include="Content\images\Gutter.jpg" />
+    <Content Include="Content\images\HIALogo.jpg" />
+    <Content Include="Content\images\Invoice.jpg" />
+    <Content Include="Content\images\invoice.png" />
+    <Content Include="Content\images\Invoices-hover.png" />
+    <Content Include="Content\images\Invoices.png" />
+    <Content Include="Content\images\Jobs-hover.png" />
+    <Content Include="Content\images\Jobs.png" />
+    <Content Include="Content\images\loader.gif" />
+    <Content Include="Content\images\Loaderimg.gif" />
+    <Content Include="Content\images\loading_spinner.gif" />
+    <Content Include="Content\images\login-bg.png" />
+    <Content Include="Content\images\logo.jpg" />
+    <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\Logo_New.png" />
+    <Content Include="Content\images\Logo_New_1.png" />
+    <Content Include="Content\images\Logo_New_bg.png" />
+    <Content Include="Content\images\map.png" />
+    <Content Include="Content\images\marked.png" />
+    <Content Include="Content\images\Messages-hover.png" />
+    <Content Include="Content\images\Messages.png" />
+    <Content Include="Content\images\mouse.png" />
+    <Content Include="Content\images\pswd.png" />
+    <Content Include="Content\images\Purchase-Order-hover.png" />
+    <Content Include="Content\images\purchase-order.png" />
+    <Content Include="Content\images\quotes-2.png" />
+    <Content Include="Content\images\Quotes-hover.png" />
+    <Content Include="Content\images\quotes.png" />
+    <Content Include="Content\images\report.png" />
+    <Content Include="Content\images\Reports-hover.png" />
+    <Content Include="Content\images\Reports.png" />
+    <Content Include="Content\images\role_management.png" />
+    <Content Include="Content\images\role_management_hover.png" />
+    <Content Include="Content\images\schedule-2.png" />
+    <Content Include="Content\images\Schedule.png" />
+    <Content Include="Content\images\schedule-hover.png" />
+    <Content Include="Content\images\schedule_Calender.png" />
+    <Content Include="Content\images\settings.png" />
+    <Content Include="Content\images\settings_hover.png" />
+    <Content Include="Content\images\SR&amp;G Logo.jpg" />
+    <Content Include="Content\images\srg_logo.png" />
+    <Content Include="Content\images\staff-2.png" />
+    <Content Include="Content\images\staff.png" />
+    <Content Include="Content\images\stock-2.png" />
+    <Content Include="Content\images\Stock-hover.png" />
+    <Content Include="Content\images\stock.png" />
+    <Content Include="Content\images\task.png" />
+    <Content Include="Content\images\Tasks-hover.png" />
+    <Content Include="Content\images\Tasks.png" />
+    <Content Include="Content\images\TempLogo.jpg" />
+    <Content Include="Content\images\user-3.png" />
+    <Content Include="Content\images\user.png" />
+    <Content Include="Content\images\user2.png" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Content\TimePicker\jquery.timepicker.css" />
+    <Content Include="Content\TimePicker\jquery.timepicker.js" />
+    <Content Include="EmailTemplate\ConfirmationAppointmentDomesticCustomer.htm" />
+    <Content Include="EmailTemplate\ConfirmationAppointmentStrataRealestate.htm" />
+    <Content Include="EmailTemplate\ContractedGutterCleanPriceIncrease.htm" />
+    <Content Include="EmailTemplate\ContractedGutterCleanSRASNeeded.htm" />
+    <Content Include="EmailTemplate\CustomerReminder.htm" />
+    <Content Include="EmailTemplate\CustomerReminderTemplate.htm" />
+    <Content Include="EmailTemplate\DashboardReminderTemplate.htm" />
+    <Content Include="EmailTemplate\DueToRainJobPostponed.htm" />
+    <Content Include="EmailTemplate\InvoiceDomesticClean.html" />
+    <Content Include="EmailTemplate\InvoiceDomesticOutStandingStage1.htm" />
+    <Content Include="EmailTemplate\InvoiceDomesticOutStandingStage2.htm" />
+    <Content Include="EmailTemplate\InvoiceDomesticRoofing.html" />
+    <Content Include="EmailTemplate\InvoiceOther.html" />
+    <Content Include="EmailTemplate\InvoiceOverduePayment.html" />
+    <Content Include="EmailTemplate\InvoiceStrataOutStandingStage1.htm" />
+    <Content Include="EmailTemplate\InvoiceStrataOutStandingStage2.htm" />
+    <Content Include="EmailTemplate\InvoiceStrataOutStandingStage3.htm" />
+    <Content Include="EmailTemplate\QuoteOtherWorkFound.html" />
+    <Content Include="EmailTemplate\QuoteRequested.html" />
+    <Content Include="EmailTemplate\ReminderForRain.htm" />
+    <Content Include="EmailTemplate\ReminderForSick.htm" />
+    <Content Include="EmailTemplate\SendInvoiceTemplate.htm" />
+    <Content Include="EmailTemplate\SendJobContactsRescheduleMail.htm" />
+    <Content Include="EmailTemplate\SendJobMail.htm" />
+    <Content Include="EmailTemplate\UnavailableOTRWDueToBadHealth.htm" />
+    <Content Include="EmployeeImages\EmptyPics.png" />
+    <Content Include="ErrorLog\ErrorLog.txt" />
+    <Content Include="ErrorLog\ErrorLogInvoiceMyob.txt" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Content\Plugins\Calendar\CHANGELOG.txt" />
+    <Content Include="Content\Plugins\Calendar\CONTRIBUTING.txt" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-bg_diagonals-thick_90_eeeeee_40x40.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-bg_glass_100_e4f1fb_1x400.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-bg_glass_50_3baae3_1x400.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-bg_glass_80_d7ebf9_1x400.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-bg_highlight-hard_100_f2f5f7_1x100.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-bg_highlight-hard_70_000000_1x100.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-bg_highlight-soft_100_deedf7_1x100.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-bg_highlight-soft_25_ffef8f_1x100.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-icons_2694e8_256x240.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-icons_3d80b3_256x240.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-icons_72a7cf_256x240.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\Plugins\Calendar\cupertino\jquery-ui.min.css" />
+    <Content Include="Content\Plugins\Calendar\fullcalendar.min.css" />
+    <Content Include="Content\Plugins\Calendar\fullcalendar.min.js" />
+    <Content Include="Content\Plugins\Calendar\fullcalendar.print.min.css" />
+    <Content Include="Content\Plugins\Calendar\gcal.min.js" />
+    <Content Include="Content\Plugins\Calendar\jquery-ui.min.js" />
+    <Content Include="Content\Plugins\Calendar\jquery.min.js" />
+    <Content Include="Content\Plugins\Calendar\LICENSE.txt" />
+    <Content Include="Content\Plugins\Calendar\moment.min.js" />
+    <Content Include="Content\Plugins\Calendar\scheduler.css" />
+    <Content Include="Content\Plugins\Calendar\scheduler.js" />
+    <Content Include="Content\Plugins\Calendar\scheduler.min.css" />
+    <Content Include="Content\Plugins\Calendar\scheduler.min.js" />
+    <Content Include="Images\doc.png" />
+    <Content Include="Images\Excel.png" />
+    <Content Include="Images\imgdoc1.png" />
+    <Content Include="Images\imgdoc2.png" />
+    <Content Include="Images\pdf.png" />
+    <Content Include="Images\Text.png" />
+    <Content Include="Images\thumb-down.png" />
+    <Content Include="Images\thumb-up.jpg" />
+    <Content Include="Images\thumb-up.png" />
+    <Content Include="Images\WordDoc.png" />
+    <Content Include="Ref\Push Notification.dll" />
+    <Content Include="Ref\PushSharp.Amazon.Adm.dll" />
+    <Content Include="Ref\PushSharp.Android.dll" />
+    <Content Include="Ref\PushSharp.Apple.dll" />
+    <Content Include="Ref\PushSharp.Blackberry.dll" />
+    <Content Include="Ref\PushSharp.Core.dll" />
+    <Content Include="Ref\PushSharp.FirefoxOS.dll" />
+    <Content Include="Ref\PushSharp.Google.Chrome.dll" />
+    <Content Include="Ref\PushSharp.Windows.dll" />
+    <Content Include="Ref\PushSharp.WindowsPhone.dll" />
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\web.config" />
+    <Content Include="Areas\Employee\Views\web.config" />
+    <Content Include="Areas\Employee\Views\Employee\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\EmployeeDetails.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\AddEmployee.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\AddCustomer.cshtml" />
+    <Content Include="Grid.mvc.readme" />
+    <Content Include="Areas\Customer\Views\Customer\Index.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\AddCustomerSiteDetail.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerGeneralInfoSearch.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\AddResidenceDetail.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\AddBillingAddress.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\AddConditionReport.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\EditBillingAddress.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\EditResidenceDetail.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\EditConditionReport.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\EditCustomer.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\EditCustomerSiteDetail.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\EditEmployee.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\AddEmployeeRates.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\EditEmployeeRates.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\ViewEmployeesRates.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Dashboard.cshtml" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Areas\Customer\Views\Customer\AddCustomerInfo.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomercontactAddEdit.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerContactLogList.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\ExportCustomerContact.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\AddCustomerContactLog.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\AddEmployeeJobs.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_EmployeeJobsSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\ViewEmployeeJobs.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\EditEmployeeJob.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\AddDocuments.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_ViewSitesDocuments.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomercontactsAddEdit.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerContactsList.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerContactsInfoSearch.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\ManageCustomerSites.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerSiteList.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerSiteSearch.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerSiteForm.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerSitesDocumentsInfoSearch.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerSiteDocumentList.cshtml" />
+    <Content Include="Areas\Employee\Views\Stock\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\Stock\AddStock.cshtml" />
+    <Content Include="Areas\Employee\Views\Stock\EditStock.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_ViewAddStockOtrw.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_StockSearchView.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_AssignToOTRW.cshtml" />
+    <Content Include="Areas\Employee\Views\Stock\_AssignOTRWStock.cshtml" />
+    <Content Include="Areas\Employee\Views\Stock\ViewOTRWDetail.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_OTRWStockSearch.cshtml" />
+    <Content Include="App_Browsers\qt.browser" />
+    <Content Include="Areas\Employee\Views\Job\GetUserTimeSheetData.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_UserTimeSheetList.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\_EditUserTimeSheet.cshtml" />
+    <Content Include="Areas\Employee\Views\Purchase\AddEditPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\ViewJobSiteDetail.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\EditInvoice.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\InvoiceList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JobsDocumentList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_PurchaseorderSearchView.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_UploadJobsDocumentList.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\TimeSheetExport.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\CustomerJobInfoList.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\CreateInvoice.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\InvoiceList.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\SendCustomerEmail.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_UploadJobsDocumentList.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\AddPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Purchase\ViewPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\InvoiceExport.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_CustomerJobInfoListSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_InvoiceListListSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\ManageStockInfo.cshtml" />
+    <Content Include="Areas\Employee\Views\Purchase\ViewJobspurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_PurchaseOrderJobSearchview.cshtml" />
+    <Content Include="Areas\Employee\Views\Purchase\AddEditJobPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Message\EmployeeMessageList.cshtml" />
+    <Content Include="Areas\Employee\Views\Message\_EmployeeMessageChat.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\SupportJobList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_SupportJobListSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\GetVacations.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_EmployeeVacation.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\GetPublicHoliday.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_HolidaySearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_AddEditHolidays.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_InvoiceJobPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_EmployeeMessageSearch.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_GetUserModules.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_GetUserActions.cshtml" />
+    <Content Include="Areas\Admin\Views\RoleManagement\ManageRolesActions.cshtml" />
+    <Content Include="Areas\Admin\Views\RoleManagement\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_GetRolesList.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_EditRole.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_RoleManagementListSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\AddEditJobPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_ViewjobSiteDetail.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\ManageVacactions.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_AddNewVacation.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_ManageVacationsGrid.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_EditVacation.cshtml" />
+    <Content Include="Areas\Employee\Views\Message\_ViewInboxMessageChat.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\SaveJobInfo.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\AddEditJobPurchaseOrderWithJobId.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\ViewJobspurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\AddJobPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_PurchaseOrderSearchViewForPurchase.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\UpdateCustomerDetails.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\EditCustomerSiteDetail.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\_CustomerSiteForm.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\UpdateBillingAddress.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\UpdateSiteContact.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\AddJob.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_SiteList.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\AddJobDocuments.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JobSiteDocumentInfoSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JobSiteDocumentList.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\ViewCustomerContactLog.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JobContactLogList.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\_CustomercontactAddEdit.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\ViewJobsInvoicePurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\AddJobInvoicePurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\EditJobInvoicePurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\EditJob.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\AssignJob.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_AddRole.cshtml" />
+    <Content Include="Areas\Admin\Views\Setting\ManageDocument.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ImportantDocumentList.cshtml" />
+    <Content Include="Areas\Customer\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\JobHistory.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerJobList.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerJobHistoryInfoSearch.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\InvoiceHistory.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerInvoiceHistoryInfoSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\SaveInvoiceInfo.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\EditJob.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\UpdateCustomerDetails.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\UpdateSiteContact.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\_InvoiceSiteForm.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\UpdateBillingAddress.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\ViewCustomerContactLog.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_InvoiceJobContactLogList.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\_CustomercontactAddEdit.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\AddJobDocuments.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\StockInfo.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\ViewJobspurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\AddJobPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\AddEditJobPurchaseOrder.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_ImportantDocsList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_SiteDocumentsList.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\JobInvoiceExport.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_PurchaseOrderInvoiceSearchView.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_AddPurchaseInvoiceView.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\ApproveEmployee.cshtml" />
+    <Content Include="Areas\Employee\Views\Purchase\PurchaseExport.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\_AddNewCustomer.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\_AddNewCustomerSite.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\EmployeeProfile.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_AddHolidays.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_EditHolidays.cshtml" />
+    <Content Include="Areas\Employee\Views\Purchase\PurchaseExportPreview.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\InvoiceExportPreview.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerContactLogSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_ContactLogSearch.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_GetSiteAddress.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\ViewCustomerBillingAddress.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerBillingAddressList.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerBillingForm.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerBillingSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\JobDocuments.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JobDocumentList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_QuickView.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_QuickSiteView.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\JobDocuments.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_CustomerInvoiceList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_EditManageVacationAdmin.cshtml" />
+    <Content Include="Areas\Employee\Views\Stock\_AssignJOBSStock.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\_ReportTypeGenerate.cshtml" />
+    <Content Include="Areas\Employee\Views\Job\AggregateSheetExport.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ManageQuickView.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_QuickCustSiteView.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\ViewJobContacts.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\_JobContactsInfoSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\_JobContactsList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_UpdateJobContactsAddEdit.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\ViewInvoiceContacts.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_InvoiceContactsSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_InvoiceContactsList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_UpdateInvoiceContactsAddEdit.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_UploadEmployeeDocumentsList.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ShowReschduleCalender.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ShowSuperVisorPopUp.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_RatesListSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\JCL\GETJCLList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JCLDetailSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\JCL\AddJCL.cshtml" />
+    <Content Include="Areas\Employee\Views\JCL\EditJCL.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ExtendJobPopUp.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\CustomerReminderExportPreview.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JobReminderCreate.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\JobReminderExportPreview.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\DashboardReminderExportPreview.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\_DashboardReminderCreate.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\DashboardReminderExportPreview.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_GetTrackUserPopup.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_ReAssignedJobPopUp.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\ManageJCLItem.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JCLItemInvoiceList.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_CallBackJobPopUp.cshtml" />
+    <Content Include="EmailTemplate\DepositRequest.htm" />
+    <Content Include="Areas\Customer\Views\Customer\ViewCustomerContacts.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\_CustomerReminderCreate.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\QuoteExportPreview.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\QuoteExport.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_AddCustomerWizard.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_AddSiteWizard.cshtml" />
+    <Content Include="Areas\Customer\Views\Shared\_AddContactWizard.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_AddEmployeeHolidays.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\SendSupportMail.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\GenerateReports.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\LabourCostPerHour.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\LabourCost.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\ConditionalReportExportPreview.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\ConditionalReportExportPreview.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\_SaveNextContractJob.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\_CancelNextContractJob.cshtml" />
+    <Content Include="Areas\Employee\Views\Report\ActivityLog.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_LogListSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JobPerformanceSnapshot.cshtml" />
+    <Content Include="Areas\Employee\Views\AssetManagement\ViewAssetManagement.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_AssetManageSearchView.cshtml" />
+    <Content Include="Areas\Employee\Views\AssetManagement\AddAssetManage.cshtml" />
+    <Content Include="Areas\Employee\Views\AssetManagement\EditAssetManage.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\SalesBonusReport.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\UnpaidInvoiceReport.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\OperationReport.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\_SetOrderPopUp.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\_GetJobContacts.cshtml" />
+    <Content Include="Areas\Customer\Views\Customer\_GetJobContacts.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\ViewRoastedOff.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_AddRoastedOff.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_EmployeeRoastedOffList.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\SendEmailTemppartial.cshtml" />
+    <Content Include="Images\JobDocuments\a4448643-cde8-4598-a779-ed7d0802d74a\UsingSORC_Impl_040836f6-2b5c-44b7-bf5a-933376202ad0.docx" />
+    <Content Include="Areas\Employee\Views\Employee\PerformanceBonusReport.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_ExtendJob.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_InvoiceReminderCreate.cshtml" />
+    <Content Include="Areas\Employee\Views\CustomerJob\QuoteExportPreview.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\SalesInvoiceReport.cshtml" />
+    <Content Include="Areas\Employee\Views\Invoice\Syncmyob.cshtml" />
+    <Content Include="Areas\Employee\Views\Material\Index.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_MaterialListSearch.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_MaterailList.cshtml" />
+    <Content Include="Areas\Employee\Views\Material\ViewQuoteMaterial.cshtml" />
+    <Content Include="Areas\Employee\Views\Employee\PaolhReport.cshtml" />
+    <None Include="Properties\PublishProfiles\FSM_DEV.pubxml" />
+    <Content Include="Areas\Employee\Views\Job\StockInfo.cshtml" />
+    <Content Include="Areas\Employee\Views\Shared\_JobsStockList.cshtml" />
+    <None Include="Properties\PublishProfiles\FSM_web_Published.pubxml" />
+    <Content Include="Areas\Employee\Views\Shared\_EmployeeDetailSearch.cshtml" />
+    <Content Include="Ref\fsmPushNotification.p12" />
+    <Content Include="Scripts\css\build.min.css" />
+    <Content Include="Scripts\css\fastselect.min.css" />
+    <Content Include="Scripts\css\richtext.css" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <None Include="Scripts\jquery-1.12.4-vsdoc.js" />
+    <Content Include="Scripts\Calendar.js" />
+    <Content Include="Scripts\emoticons.js" />
+    <Content Include="Scripts\exporting.js" />
+    <Content Include="Content\css\fullcalendar.css" />
+    <Content Include="Scripts\filedrop.js" />
+    <Content Include="Scripts\fullcalendar.js" />
+    <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.ru.js" />
+    <Content Include="Scripts\gridmvc.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.js" />
+    <Content Include="Scripts\jquery-1.12.4.min.map" />
+    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.1.1.js" />
+    <Content Include="Scripts\jquery-3.1.1.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery.geocomplete.js" />
+    <Content Include="Scripts\jquery.geocomplete.min.js" />
+    <Content Include="Scripts\jquery.maskedinput-1.3.1.min_.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\js\accordion.js" />
+    <Content Include="Scripts\js\bootstrap-multiselect.js" />
+    <Content Include="Scripts\js\bootstrap.min.js" />
+    <Content Include="Scripts\js\Cookies.js" />
+    <Content Include="Scripts\js\jquery.monthpicker.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.min.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\RichText\jquery.richtext.js" />
+    <Content Include="Scripts\RichText\jquery.richtext.min.js" />
+    <Content Include="Scripts\css\richtext.min.css" />
+    <Content Include="Scripts\Selectize.js" />
+    <Content Include="Scripts\tinymce\jquery.tinymce.min.js" />
+    <Content Include="Scripts\tinymce\license.txt" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\advlist\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\anchor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autolink\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autoresize\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\autosave\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\bbcode\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\charmap\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\css\prism.css" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\codesample\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\code\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\colorpicker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\css\dialog.css" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\buttons.png" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\icons.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\items.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_arrow.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\menu_check.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\progress.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\img\tabs.gif" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\tiny_mce_popup.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\editable_selects.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\form_utils.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\mctabs.js" />
+    <Content Include="Scripts\tinymce\plugins\compat3x\utils\validate.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\contextmenu\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\directionality\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cool.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-cry.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-embarassed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-foot-in-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-frown.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-innocent.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-kiss.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-laughing.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-money-mouth.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-sealed.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-smile.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-surprised.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-tongue-out.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-undecided.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-wink.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\img\smiley-yell.gif" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\emoticons\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\example\dialog.html" />
+    <Content Include="Scripts\tinymce\plugins\example\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\example_dependency\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullpage\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\fullscreen\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\hr\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\imagetools\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\image\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\importcss\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\insertdatetime\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\layer\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\legacyoutput\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\link\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\lists\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\media\moxieplayer.swf" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\media\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\nonbreaking\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\noneditable\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\pagebreak\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\paste\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\preview\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\print\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\save\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\searchreplace\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\spellchecker\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\tabfocus\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\table\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\template\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textcolor\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\textpattern\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\css\visualblocks.css" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\address.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\article.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\aside.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\blockquote.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\div.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\dl.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\figure.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h1.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h2.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h3.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h4.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h5.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\h6.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\hgroup.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\ol.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\p.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\pre.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\section.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\img\ul.gif" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualblocks\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\visualchars\plugin.min.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.js" />
+    <Content Include="Scripts\tinymce\plugins\wordcount\plugin.min.js" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.inline.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\content.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.svg" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\anchor.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\loader.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\object.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\img\trans.gif" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.ie7.min.css" />
+    <Content Include="Scripts\tinymce\skins\lightgray\skin.min.css" />
+    <Content Include="Scripts\tinymce\themes\inlite\theme.js" />
+    <Content Include="Scripts\tinymce\themes\inlite\theme.min.js" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.js" />
+    <Content Include="Scripts\tinymce\themes\modern\theme.min.js" />
+    <Content Include="Scripts\tinymce\tinymce.js" />
+    <Content Include="Scripts\tinymce\tinymce.min.js" />
+    <Content Include="Scripts\touch\jquery.ui.touch.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="SmsTemplate\DomesticPaymentReminder.htm" />
+    <Content Include="SmsTemplate\DueToRainJobPostponed.htm" />
+    <Content Include="SmsTemplate\PaymentIsPending.htm" />
+    <Content Include="SmsTemplate\PleaseProvideFeedbackJob.htm" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+    <Content Include="Views\Shared\_GridPager.cshtml" />
+    <Content Include="Views\Shared\_Grid.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Shared\_LayoutPassword.cshtml" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.json" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.woff" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.ttf" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.json" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\tinymce-small.eot" />
+    <Content Include="Scripts\tinymce\skins\lightgray\fonts\readme.md" />
+    <Content Include="Scripts\tinymce\langs\readme.md" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Shared\UnAuthorize.cshtml" />
+    <Content Include="Views\Error\UnAuthorize.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Purchase\" />
+    <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Employee\Models\" />
+    <Folder Include="EmployeeImages\TempImages\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="fonts\bin\roslyn\" />
+    <Folder Include="FSM\Core\ViewModels\" />
+    <Folder Include="Images\CustomerDocs\" />
+    <Folder Include="Images\EmployeeJobs\" />
+    <Folder Include="ImportantDocs\" />
+    <Folder Include="InvoiceEmailPdf\" />
+    <Folder Include="OperationReport\" />
+    <Folder Include="QuoteExportFile\" />
+    <Folder Include="Views\EmployeeController\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FSM.Core\FSM.Core.csproj">
+      <Project>{2d7bb6d6-1a85-4243-b8b0-131f68fe1ee5}</Project>
+      <Name>FSM.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FSM.Infrastructure\FSM.Infrastructure.csproj">
+      <Project>{b08eee65-2a15-4926-97e9-4442a1400267}</Project>
+      <Name>FSM.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>54245</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:54245/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

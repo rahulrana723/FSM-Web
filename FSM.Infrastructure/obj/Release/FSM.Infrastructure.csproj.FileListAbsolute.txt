@@ -1,0 +1,40 @@
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Infrastructure.dll.config
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Infrastructure.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Infrastructure.pdb
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\EntityFramework.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\EntityFramework.SqlServer.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Core.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Core.pdb
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\EntityFramework.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\bin\Release\EntityFramework.SqlServer.xml
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\obj\Release\FSM.Infrastructure.csprojResolveAssemblyReference.cache
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\obj\Release\FSM.Infrastructure.dll
+D:\projects\FSM_Onion\FSM_M2\FSM.Infrastructure\obj\Release\FSM.Infrastructure.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Infrastructure.dll.config
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Infrastructure.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\EntityFramework.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\EntityFramework.SqlServer.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Core.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\FSM.Core.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\EntityFramework.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\bin\Release\EntityFramework.SqlServer.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Release\FSM.Infrastructure.csprojAssemblyReference.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Release\FSM.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Release\FSM.Infrastructure.csproj.CopyComplete
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Release\FSM.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM_M2\FSM_M2\FSM.Infrastructure\obj\Release\FSM.Infrastructure.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\FSM.Infrastructure.dll.config
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\FSM.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\FSM.Infrastructure.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\EntityFramework.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\EntityFramework.SqlServer.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\FSM.Core.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\FSM.Core.pdb
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\EntityFramework.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\bin\Release\EntityFramework.SqlServer.xml
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Release\FSM.Infrastructure.csprojAssemblyReference.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Release\FSM.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Release\FSM.Infrastructure.csproj.CopyComplete
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Release\FSM.Infrastructure.dll
+D:\Projects\Personal\Josh\Code&DB\Code&DB\FSM Web\src\FSM.Infrastructure\obj\Release\FSM.Infrastructure.pdb

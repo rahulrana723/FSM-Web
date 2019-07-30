@@ -1,0 +1,80 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSiteDocumentsListViewModel
+@using GridMvc.Html
+@section scripts
+{
+    var FSM={
+    CustomerGeneralInfoId:""
+    };
+    FSM.CustomerGeneralInfoId = @Html.Raw(Json.Encode(Model.CustomerSiteDocuments.CustomerGeneralInfoId));
+}
+
+@Html.Grid(Model.CustomerSiteDocumentsCoreViewModelList).Columns(
+    columns =>
+    {
+        columns.Add(model => model.SiteAddress).Titled("Site Address");
+        columns.Add(model => model.DocumentName).Titled("Document Name");
+        columns.Add(model => model.DocType).Titled("Document Type");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        //.RenderValueAs(model => Html.ActionLink("View", "", null, new { @class = "viewjobdocuments btn btn-default editbtngrid", href = "javascript:void(0)", @SiteDetailId = model.SiteDetailId })).Filterable(false).Titled("Action");
+        .RenderValueAs(model => Html.ActionLink("View", "", null, new {@href =Url.Content("~/Images/CustomerDocs/"+model.DocumentId + "/" + model.DocumentName),@target="-blank",@class="btn btn-default" })).Filterable(false).Titled("Views");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", null, new
+        {
+            @type = "button",
+            @class = "deletedocuments btn btn-default",
+            href = "javascript:void(0)"
+            ,
+            onclick = "DeletejobDocuments('" + model.SiteDetailId + "','"+model.DocumentId+"');",
+            @SiteDetailId = model.SiteDetailId,
+            @DocumentId=model.DocumentId
+        })).Filterable(false).Titled("Delete");
+
+    }
+).WithPaging(50).Sortable(true).EmptyText("There are no documents to display.")
+   @if(Model.CustomerSiteDocumentsCoreViewModelList.Count() > 0)
+   {
+<div class="quickview-align">
+    @Html.ActionLink("Quick View", "QuickSiteView", "CustomerJob", new { @area = "Employee" }, new { @class = "quicksiteview btn-default btn-quickview", @data_siteid = Model.CustomerSiteDocuments.SiteId })
+</div>
+   }
+
+
+<script>
+
+    $(document).on('click', '.grid-pager .pagination a', function (event) {
+        event.preventDefault();
+        var querystring = $(this).prop('href').split("?")[1];
+        var values = querystring.split("&");
+        var pagenumparam = '';
+        var customerGeneralinfoid = FSM.CustomerGeneralInfoId;
+
+        $.each(values, function (i, item) {
+            if (item.indexOf("grid-page") > -1) {
+                pagenumparam = item;
+            }
+        })
+        $.get(common.SitePath + "/Customer/Customer/AddDocumentsPartial?customerGeneralinfoid=" + customerGeneralinfoid + "&" + pagenumparam, function (data) {
+            $('#dvShowCustList').empty();
+            $('#dvShowCustList').append(data);
+        });
+
+    });
+
+    $(document).on('click', '.grid-header-title a', function (event) {
+        event.preventDefault();
+    });
+</script>
+
+
+
+
+
+

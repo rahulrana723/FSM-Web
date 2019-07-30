@@ -1,0 +1,30 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.PurchaseOrderjobsearchviewModel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(model => model.JobId)
+        @Html.HiddenFor(model => model.PageSize)
+        @*<div class="clearfix"></div>*@
+        <div class="search_block">
+            <div class="col-sm-4">
+                <div class="search_customer">
+                    @Html.EditorFor(model => model.SearchKeyword, new { htmlAttributes = new { @id = "searchkeyword", @class = "form-control", @style = "display:inline", @placeholder = "Search Keyword" } })
+                  
+                </div>
+            </div>
+
+            <div class="col-sm-2 text-left">
+              
+                <input type="submit" value="Search" class="search_btn black-btn search_pad" />
+            </div>
+                <a type="button" class="btn btn-primary pull-right btnaddstock" href="@Url.Action("AddEditJobPurchaseOrder","Purchase", new { Area = "Employee" })">
+                    <i class="" aria-hidden="true"></i>
+                    Add Purchase Order
+                </a>
+            </div><!--search_order-->
+    </div>
+}
+
+

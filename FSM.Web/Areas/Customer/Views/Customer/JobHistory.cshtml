@@ -1,0 +1,33 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeJobListViewModel
+@using GridMvc.Html
+@using FSM.Web.Common;
+@{
+    ViewBag.Title = "Job History";
+}
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("JobHistory","Customer", new { @area = "Customer"})';
+        FSM.SelectedVal=@Html.Raw(Json.Encode(Model.Employeejobsearchmodel.PageSize));
+        FSM.GeneralInfoId=@Html.Raw(Json.Encode(Model.Employeejobsearchmodel.CustomerGeneralInfoId));
+        FSM.EditJob='@Url.Action("SaveJobInfo", "CustomerJob", new { @area = "Employee" })';
+    </script>
+<script src="~/Areas/Customer/Scripts/JobHistory.js"></script>
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+
+            <div class="new_emp_tab outer_box">
+                <div class="form-group form_width" style="float:left">
+                    <div class="col-md-12 no-pad">
+                        <div class="customer_head_tab">
+                            @Html.Partial("_CustomerJobHistoryInfoSearch", Model, new ViewDataDictionary())
+                        </div>
+                     </div>
+                </div>
+            </div>
+
+            <div class="drop_head_tab" id="divjobList">
+                <div class="clearfix"></div>
+                @Html.Partial("_CustomerJobList", Model)
+            </div>
+    </div>
+    </section>

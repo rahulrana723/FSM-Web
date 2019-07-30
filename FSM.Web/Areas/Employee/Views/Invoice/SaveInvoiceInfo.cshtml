@@ -1,0 +1,100 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.InvoiceTabPanelViewModel
+@{
+    ViewBag.Title = "SaveInvoiceInfo";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+
+<div>
+    <h2 class="">&nbsp;Invoice No:<span style="color:gray;font-size:22px;"> @Model.InvoiceNo</span></h2>
+    @if (Model.InvoiceType =="Quote")
+    {
+        <h2 class="invoice-Quote">&nbsp;Quote No:<span> @Model.JobNo</span></h2>
+    }
+    else
+    {
+        <h2 class="invoice-head">&nbsp;Job No:<span> @Model.JobNo</span></h2>
+    }
+</div>
+
+
+<div id="tabs" style="border:none;">
+    <ul>
+        <li>@Html.ActionLink("Invoice Detail", "EditInvoice", new { id = Model.InvoiceId })</li>
+        <li>@Html.ActionLink("Job Detail", "EditJob", new { id = Model.JobId, InvoiceId = Model.InvoiceId })</li>
+        <li>@Html.ActionLink("Job Documents", "JobDocuments", new { id = Model.JobId, InvoiceId = Model.InvoiceId })</li>
+        <li>@Html.ActionLink("Customer Detail", "UpdateCustomerDetails", new { id = Model.CustomerGeneralInfoId })</li>
+        <li>@Html.ActionLink("Site Detail", "UpdateCustomerSiteDetail", new { id = Model.CustomerSiteDetailId })</li>
+        <li>@Html.ActionLink("Site Contact", "ViewInvoiceContacts", new { siteId = Model.CustomerSiteDetailId, customerGeneralInfoId = Model.CustomerGeneralInfoId, invoiceId = Model.InvoiceId })</li>
+        <li>@Html.ActionLink("Billing Address", "UpdateBillingAddress", new { id = Model.BillingAddressId, customerid = Model.CustomerGeneralInfoId })</li>
+        <li>@Html.ActionLink("Contact Log", "ViewCustomerContactLog", new { id = Model.JobId })</li>
+        <li>@Html.ActionLink("Site Documents", "AddJobDocuments", new { id = Model.JobId })</li>
+
+    </ul>
+</div>
+
+<script>
+    $(function () {
+        $("#tabs").tabs();
+        if (FSM.JobId == "" || FSM.JobId == undefined || FSM.JobId == "null" || FSM.JobId == null) {
+            $("#tabs").tabs("disable", 1);
+            $("#tabs").tabs("disable", 2);
+            $("#tabs").tabs("disable", 3);
+            $("#tabs").tabs("disable", 4);
+            $("#tabs").tabs("disable", 5);
+            $("#tabs").tabs("disable", 6);
+        }
+        else {
+            $("#tabs").tabs("enable", 1);
+            $("#tabs").tabs("enable", 2);
+            $("#tabs").tabs("enable", 3);
+            $("#tabs").tabs("enable", 4);
+            $("#tabs").tabs("enable", 5);
+            $("#tabs").tabs("enable", 6);
+        }
+
+        if (FSM.ActiveTab =="Invoice Detail") {
+            $("#tabs").tabs('option', 'active', 0);
+        }
+        else if (FSM.ActiveTab == "Job Detail") {
+            $("#tabs").tabs('option', 'active', 1);
+        }
+        else if (FSM.ActiveTab == "Job Documents") {
+            $("#tabs").tabs('option', 'active', 2);
+        }
+        else if (FSM.ActiveTab == "Customer Details") {
+            $("#tabs").tabs('option', 'active', 3);
+        }
+        else if (FSM.ActiveTab == "Customer Sites") {
+            $("#tabs").tabs('option', 'active', 4);
+        }
+        else if (FSM.ActiveTab == "Contact") {
+            $("#tabs").tabs('option', 'active', 5);
+        }
+        else if (FSM.ActiveTab =="Billing Address") {
+            $("#tabs").tabs('option', 'active', 6);
+        }
+        else if (FSM.ActiveTab == "Contact Log") {
+            $("#tabs").tabs('option', 'active', 7);
+        }
+        else if (FSM.ActiveTab == "Site Documents") {
+            $("#tabs").tabs('option', 'active', 8);
+        }
+    });
+
+</script>
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.JobId = @Html.Raw(Json.Encode(Model.JobId));
+        FSM.JobId = @Html.Raw(Json.Encode(Model.SiteDocumentsCount));
+        FSM.ActiveTab = @Html.Raw(Json.Encode(Model.ActiveTab));
+        FSM.Success = @Html.Raw(Json.Encode(Model.Success));
+        $(document).ready(function () {
+            $(".ddlmultiselect").multiselect();
+        })
+    </script>
+}

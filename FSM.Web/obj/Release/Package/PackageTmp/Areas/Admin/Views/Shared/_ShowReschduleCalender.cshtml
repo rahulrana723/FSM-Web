@@ -1,0 +1,49 @@
+﻿@model  FSM.Web.Areas.Admin.ViewModels.RescheduleViewModel
+<div class="modal fade" id="modalReschduleCalender" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:61%;margin-left:23%;">
+            <div class="modal-header">
+                <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+                @if (Model.ResourceId == "00000000-0000-0000-0000-000000000000")
+            {
+                    <h4 class="modal-title">Reschedule All Day</h4>
+                }
+                else
+                {
+                    <h4 class="modal-title">Reschedule Jobs</h4>
+                }
+            </div>
+            <div id="ErrorDv" style="display:none;color:red;padding: 5px 0px 0px 18px;"></div>
+            <div class="modal-body" style="height:130px">
+
+                @Html.HiddenFor(model => model.ResourceId, new { @id = "resourceIdCal" })
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CalenderSelectDate)
+                    @Html.EditorFor(model => model.CalenderSelectDate, new { htmlAttributes = new { @id = "reschduleCalender", @class = "form-control" } })
+                </div>
+                @if (Model.ResourceId != "00000000-0000-0000-0000-000000000000" && Model.ResourceId !=null)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AssignTo, new { id = "AssignOtrwLabel" })
+                        @Html.DropDownListFor(m => m.AssignTo, Model.OTRWList, "Select OTRW User", new { @id = "tempAssignTo", @title = "Select OTRW User", @class = "ddljobslist form-control Create_Customer" })
+                    </div>
+                }
+            </div>
+
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="msgsend">
+                        <div class="chatBtnsDv">
+                            <input type="button" value="Update Date" id="UpdateRescheduleDate" class="btn btn-success chatBtns" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#reschduleCalender').datepicker({ dateFormat: 'dd M yy', minDate: 0 });
+    });
+</script>

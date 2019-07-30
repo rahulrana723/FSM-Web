@@ -1,0 +1,39 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerGeneralInfoViewModel
+<div class="modal fade" id="modalAddCustomer" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Add New Customer</h4>
+                <div class="text-validation"></div>
+            </div>
+            <div class="modal-body customer_label" style="overflow:auto;">
+                <div class="MessageView">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CTId)
+                        @Html.EditorFor(model => model.CTId, new { htmlAttributes = new {@id="CustCid", @class = "form-control disable_width", @readonly = "readonly" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CustomerLastName)
+                        @Html.EditorFor(model => model.CustomerLastName, new { htmlAttributes = new { @id = "CustLName", @class = "form-control" } })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CustomerType)
+                        @Html.EnumDropDownListFor(m => m.CustomerType, "(Select)", htmlAttributes: new {@id = "CustType", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+
+          
+                <div class="form-group">
+                        <div class="CustbtnTag">
+                            <input type="button" value="Add" id="messageSent" class="btn btn-success custsaveBtns chatBtns" />
+                            <input type="button" value="Cancel" id="custcancel" class="btn btn-default black-btn" />
+                        </div>
+                </div>
+    
+        </div>
+    </div>
+</div>
+
+

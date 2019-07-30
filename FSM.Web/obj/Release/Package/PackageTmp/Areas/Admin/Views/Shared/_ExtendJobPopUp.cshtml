@@ -1,0 +1,82 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.JobsViewModel
+
+<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+<div class="modal fade" id="modalExtendJobCalender" role="dialog">
+<div class="modal-dialog">
+    <div class="modal-content" style="width:78%;margin-left:23%;">
+        <div class="modal-header">
+            <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+          
+             <h4 class="modal-title">Extend Job</h4>
+        </div>
+        <div id="ErrorDv" style="display:none;color:red;padding: 5px 0px 0px 18px;"></div>
+        <div class="modal-body" style="height:220px">
+
+            @Html.HiddenFor(model => model.Id, new { @id = "jobIdCal" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.DateBooked)
+                @Html.EditorFor(model => model.DateBooked, new { htmlAttributes = new { @id = "DateBookedCalender", @class = "form-control" } })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.EstimatedHours)
+                @Html.EditorFor(model => model.EstimatedHours, new { htmlAttributes = new { @id = "estimatedHours", @class = "form-control" } })
+            </div>
+            @*<div class="form-group">
+                @Html.LabelFor(model => model.OTRWRequired)
+                @Html.EnumDropDownListFor(m => m.OTRWRequired, "(Select)", htmlAttributes: new { @id = "OtrwReuired", @class = "form-control Create_Customer" })
+            </div>*@
+                <div class="form-group ddlassign2">
+                    @Html.LabelFor(model => model.AssignTo2, new { id = "AssignOtrwLabel" })
+                    @Html.ListBoxFor(model => model.AssignTo2, Model.OTRWList, new { @title = "Select OTRW User", @id = "tempAssignTo2", @class = "ddlmultiselect", multiple = "multiple" })
+                </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="form-group">
+                <div class="msgsend">
+                    <div class="chatBtnsDv">
+                        <input type="button" value="Update" id="UpdateExtendJob" class="btn btn-success chatBtns" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#DateBookedCalender').datepicker({ dateFormat: 'dd M yy' });
+
+        $(".ddlmultiselect").multiselect();
+
+
+        $("#tempAssignTo2").change(function () {
+            var OtrwReq = $("#OtrwReuired").val();
+            var numberOfChecked = $('input:checkbox:checked').length;
+            if (OtrwReq == "") {
+                $("#ErrorDv").empty();
+                $(window).scrollTop(0);
+                $("#ErrorDv").css("display", "block");
+                $('#ErrorDv').css('color', 'red');
+                $("#ErrorDv").html("<strong>Please select atleast 1 OTRW required field !</strong>");
+                $("#ErrorDv").delay(4000).fadeOut(function () {
+                });
+                $("#tempAssignTo2").multiselect('clearSelection');
+                return false;
+            }
+            if (numberOfChecked > OtrwReq) {
+                $("#ErrorDv").empty();
+                $(window).scrollTop(0);
+                $("#ErrorDv").css("display", "block");
+                $('#ErrorDv').css('color', 'red');
+                $("#ErrorDv").html("Maximum " + OtrwReq + " OTRW users allowed");
+                $("#ErrorDv").delay(4000).fadeOut(function () {
+                });
+                $("#tempAssignTo2").multiselect('clearSelection');
+                return false;
+            }
+        })
+    });
+</script>

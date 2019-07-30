@@ -1,0 +1,102 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.StockListViewmodel
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("Index", "Stock", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.Stockserarchviewmodel.PageSize;
+        FSM.EditStock='@Url.Action("EditStock", "Stock", new { @area = "Employee" })';
+        FSM.HasGridRecords='@Model.stocklistviewmodel.Count()'
+        var success='@TempData["StockMsg"]';
+        if (success != "" && success != undefined)
+        {
+            FSM.Message=success;
+        }
+        else
+        {
+            FSM.Message="";
+        }
+    </script>
+}
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Stock </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="drop_head_tab">
+            <div class="bd-example stock_right">
+                <div class="alert alert-success jobalert" style="display:none">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                </div>
+                <div class="search_stock">
+                    @Html.Partial("_StockSearchView", Model.Stockserarchviewmodel)
+                </div>
+
+            </div>
+         @Html.Grid(Model.stocklistviewmodel).SetRowCssClasses(
+    item => item.ID == Guid.Empty ? string.Empty : "cssEditStock").Columns(
+    columns =>
+    {
+        columns.Add(model => model.ID, true);
+        columns.Add(model => model.Label).Titled("Label").SetWidth(250);
+        columns.Add(model => model.Description).Titled("Description").SetWidth(250);
+        columns.Add(model => model.UnitMeasure).Titled("Unit Measure");
+        columns.Add(model => model.Price).Titled("Price/Per Item");
+        columns.Add(model => model.Quantity).Titled("Quantity");
+        columns.Add(model => model.Available).Titled("Available");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("View Stock", "ViewOTRWDetail", new { id = model.ID.ToString(), @stock = model.Label.ToString() }, new { @class = "btn btn-default editbtngrid" })).Filterable(false).Titled("Assigned stock");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "EditStock", new { id = model.ID.ToString() }, new { @class = "btn btn-default editbtngrid" })).Filterable(false).Titled("Edit");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+          .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { stockid = model.ID.ToString() }, new { @class = "btn btn-default ", @type = "button", href = "javascript:void(0)", onclick = "DeleteStock('" + model.ID.ToString() + "');" })).Filterable(false).Titled("Delete");
+    }
+        ).WithPaging(Model.Stockserarchviewmodel.PageSize).Sortable(true)
+
+
+            <div style="float: left;">
+                <label class="recordCount">Total Record: @Model.stocklistviewmodel.Count()</label>
+            </div>
+            <div style="float: right;">
+                <label>Page Size</label>
+                @Html.DropDownList("ddPageSize", new List<SelectListItem>
+         {
+           new SelectListItem { Text="5",Value="5"},
+           new SelectListItem { Text = "10", Value = "10" },
+           new SelectListItem { Text = "15", Value = "15" },
+           new SelectListItem { Text = "20", Value = "20" },
+           new SelectListItem { Text = "25", Value = "25" },
+           new SelectListItem { Text = "30", Value = "30" }
+         }, new { @class = "form-control" })
+            </div>
+        </div>
+    </div><!--emp_table-->
+</div>
+<div id="divShowInventoryPopup"></div>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Areas/Employee/Scripts/StockListing.js"></script>
+<style>
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+    display: inline-block !important;
+    float: none;
+}
+
+</style>

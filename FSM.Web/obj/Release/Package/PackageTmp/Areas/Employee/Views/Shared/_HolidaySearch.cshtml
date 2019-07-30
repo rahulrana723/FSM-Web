@@ -1,0 +1,33 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.HolidaySearchViewModel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(m => m.PageSize)
+        <div class="search_block pubic_holidays">
+            <div class="form-group outer_customer col-sm-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        @Html.TextBoxFor(model => model.SearchText, new { @class = "form-control", placeholder = "Search Keyword" ,@maxlength = "50" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(model => model.StartDate, "{0:d}", new { @class = "form-control ", placeholder = "Start Date" })
+                    </div>
+                    <div class="col-md-2">
+                        @Html.TextBoxFor(model => model.EndDate , "{0:d}", new { @class = "form-control ", placeholder = "End Date"})
+
+                    </div>
+                    <div class="col-md-2">
+                        <input type="submit" value="Search" class="search_btn black-btn top_mrgn"/>
+                    </div>
+                    <div class="col-md-3">
+                            <input type="button" class="btn btn-primary add_stock pull-right btnAssignotrw btnaddeditholiday" value="Add Leave" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+}
+

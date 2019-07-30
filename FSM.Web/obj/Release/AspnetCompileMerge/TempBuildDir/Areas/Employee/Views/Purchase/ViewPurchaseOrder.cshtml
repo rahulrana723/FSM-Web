@@ -1,0 +1,91 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.PurcahseOrderListviewmodel
+@using GridMvc.Html
+@{
+    ViewBag.Title = "ViewPurchaseOrder";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ViewPurchaseOrder", "Purchase", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.Purchasesearchorderviewmodel.PageSize;
+        FSM.HasGridRecords='@Model.Purchaseorderviewmodel.Count()'
+        var success='@TempData["Message"]';
+        if (success != "" && success != undefined && success != 0)
+        {
+            FSM.Message=success;
+        }
+        else
+        {
+            FSM.Message="";
+        }
+        if (FSM.Message != "" && FSM.Message != 0) {
+            $(".jobalert").css("display", "block");
+            if (FSM.Message == "1") {
+                $(".jobalert").html("<strong>Purchase order added Successfully!</strong>");
+            }
+            else if (FSM.Message == "2") {
+                $(".jobalert").html("<strong>Purchase order Updated Successfully!</strong>");
+            }
+            else if (FSM.Message == "3") {
+                $(".jobalert").html("<strong>Purchase order Deleted Successfully!</strong>");
+            }
+            $(".jobalert").delay(2000).fadeOut();
+        }
+    </script>
+}
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Stock Purchase orders </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="drop_head_tab">
+            <div class="bd-example stock_right">
+                <div class="alert alert-success jobalert" style="display:none">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                </div>
+                <div class="search_Purchaseorder">
+                    @Html.Partial("_PurchaseorderSearchView", Model.Purchasesearchorderviewmodel)
+                </div>
+            </div>
+            <div class="divstockpurchase">
+                @Html.Grid(Model.Purchaseorderviewmodel).Columns(
+ columns =>
+ {
+     columns.Add(model => model.PurchaseOrderNoformated).Titled("Purchase Order No");
+     columns.Add(model => model.Description).Titled("Description");
+     columns.Add(model => model.Cost).Titled("Cost");
+     columns.Add(model => model.Name).Titled("Supplier");
+     columns.Add()
+     .Encoded(false)
+     .Sanitized(false)
+     .SetWidth(30)
+     .RenderValueAs(model => Html.ActionLink("Edit", "AddEditPurchaseOrder", new { Purchaseorderid = model.ID.ToString() }, new { @class = "btn btn-default" })).Filterable(false).Titled("Edit");
+     columns.Add()
+     .Encoded(false)
+     .Sanitized(false)
+     .SetWidth(30)
+     .RenderValueAs(model => Html.ActionLink("Delete", "","", new { Purchaseid = model.ID.ToString() }, new { @class = "btn btn-default", @type = "button", href = "javascript:void(0)", onclick = "Deletepurchaseorder('" + model.ID.ToString()+"');" })).Filterable(false).Titled("Delete");
+ }).WithPaging(Model.Purchasesearchorderviewmodel.PageSize).Sortable(true)
+
+                <div style="float: left;">
+                    <label class="recordCount">Total Record:@Model.Purchaseorderviewmodel.Count()</label>
+                </div>
+                <div style="float: right;">
+                    <label>Page Size</label>
+                    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+         {
+           new SelectListItem { Text="5",Value="5"},
+           new SelectListItem { Text = "10", Value = "10" },
+           new SelectListItem { Text = "15", Value = "15" },
+           new SelectListItem { Text = "20", Value = "20" },
+           new SelectListItem { Text = "25", Value = "25" },
+           new SelectListItem { Text = "30", Value = "30" }
+         }, new { @class = "form-control" })
+                </div>
+            </div>
+        </div><!--emp_table-->
+    </div>
+</div>
+<script src="~/Areas/Employee/Scripts/PurchaseOrderlisting.js"></script>

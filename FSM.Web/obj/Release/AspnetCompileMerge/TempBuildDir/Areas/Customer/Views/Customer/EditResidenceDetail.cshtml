@@ -1,0 +1,71 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerResidenceDetailViewModel
+
+@{
+    ViewBag.Title = "EditResidenceDetail";
+}
+<script src="~/Areas/Customer/Scripts/EditResidenceDetail.js"></script>
+<div id="EditResidenceDetailErrorDiv" style="display:none;">
+</div>
+
+@using (Html.BeginForm("EditResidenceDetail", "Customer", new { @area = "Customer" }, FormMethod.Post, new { @id = "formResidenceDetail" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="general_form">
+        <h4>Edit Residence Detail</h4>
+        <hr />
+        <div class="form">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ResidenceDetailId)
+            @Html.HiddenFor(model => model.CustomerGeneralInfoId)
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.TypeOfResidence)
+                    @Html.EnumDropDownListFor(m => m.TypeOfResidence, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.TypeOfResidence, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Unit)
+                    @Html.EditorFor(model => model.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Unit, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.NoBldgs)
+                    @Html.EditorFor(model => model.NoBldgs, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NoBldgs, "", new { @class = "text-danger" })
+            </div>
+
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Height)
+                
+                    @Html.EnumDropDownListFor(m => m.Height, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Height, "", new { @class = "text-danger" })
+                </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Pitch)
+                    @Html.EnumDropDownListFor(m => m.Pitch, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Pitch, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RoofType)
+                    @Html.EnumDropDownListFor(m => m.RoofType, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RoofType, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.GutterGaurd)
+                    @Html.EnumDropDownListFor(m => m.GutterGaurd, "(Select)", htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.GutterGaurd, "", new { @class = "text-danger" })
+            </div>
+            @Html.HiddenFor(m => m.CreatedBy)
+
+            @Html.HiddenFor(m => m.CreatedDate)
+            </div>
+        <div class="buttons text-center">
+            <input id="btnEditResidenceDetail" class="btn btn-default" type="button" value="Update" />
+            <input id="btnCancelResidenceDetail" class="btn btn-default" type="button" value="Cancel" />
+        </div>
+        </div>
+}

@@ -1,0 +1,41 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.DisplayJobStocksListViewModel
+@using GridMvc.Html
+
+@Html.Grid(Model.DisplayJobStocksList).Columns(
+    columns =>
+    {
+        columns.Add(model => model.Label).Titled("Stock item");
+        columns.Add(model => model.UnitMeasure).Titled("Unit of Measure");
+        columns.Add(model => model.Price).Titled("Price");
+        columns.Add(model => model.Quantity).Titled("Quantity");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "", null, new { @class = "editJobStock btn btn-default editbtngrid", href = "javascript:void(0)",@Id=model.ID,@stockId=model.StockId })).Filterable(false).Titled("Edit");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", null, new { @class = "deletaJobStock btn btn-default editbtngrid",onclick="DeleteJobStock('"+ model.ID + "','"+ model.StockId+"');", href  = "javascript:void(0)", @Id = model.ID, @stockId = model.StockId })).Filterable(false).Titled("Delete");
+
+    }
+    ).WithPaging(Model.DisplayJobStocksViewModel.PageSize).Sortable(true).EmptyText("There are no stocks to display.")
+
+<div style="float: right;">
+    <label>Page Size</label>
+    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+         {
+           new SelectListItem { Text="5",Value="5"},
+           new SelectListItem { Text = "10", Value = "10" },
+           new SelectListItem { Text = "15", Value = "15" },
+           new SelectListItem { Text = "20", Value = "20" },
+           new SelectListItem { Text = "25", Value = "25" },
+           new SelectListItem { Text = "30", Value = "30" }
+         }, new { @class = "form-control" })
+</div>
+
+
+

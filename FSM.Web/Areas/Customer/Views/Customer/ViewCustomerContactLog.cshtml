@@ -1,0 +1,51 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerContractListViewModel
+
+@{
+    ViewBag.Title = "ViewCustomerContactLog";
+    
+}
+<script src="~/Areas/Customer/Scripts/ContractLog.js"></script>
+
+<div id="ContactinfoErrorDiv" style="display:none;">
+</div>
+<div class="alert alert-success jobalert" style="display:none">
+    <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+<section class="dashboard_section">
+    <div class="dashboard_right_block customer_contact">
+        <div class="employee_table paper-wrap bevel tlbr">
+            @*<div class="new_emp_tab outer_contact">*@
+            <div class="new_emp_tab outer_box">
+                @*<div class="form-group" style="float:right">*@
+                @*<div class="col-md-offset-2 col-md-10">*@
+                    <div class="col-md-12 no-pad">
+                        @Html.Partial("_CustomerContactLogSearch", Model.ContactLog, new ViewDataDictionary())
+                    </div>
+                    <div class="emp_table">
+                        <div class="add_customer"> 
+                            @Html.ActionLink("Send Message", "", "", new { @customerGeneralinfoid = Model.CustomerContactLog.CustomerGeneralInfoId }, new { @class = "btnaddRem btn btn-success pull-right", href = "javascript:void(0)", customerGeneralinfoid = Model.CustomerContactLog.CustomerGeneralInfoId })                          
+                            @Html.ActionLink("Add New Log", "", "", new { @customerGeneralinfoid = Model.CustomerContactLog.CustomerGeneralInfoId}, new { @class = "btnaddlog btn btn-success pull-right",href = "javascript:void(0)", customerGeneralinfoid = Model.CustomerContactLog.CustomerGeneralInfoId })
+                            @*@Html.ActionLink("Create Reminder", "", "", new { @customerGeneralinfoid = Model.CustomerContactLog.CustomerGeneralInfoId }, new {@class = "btnaddRem btn btn-success pull-right", href = "javascript:void(0)", customerGeneralinfoid = Model.CustomerContactLog.CustomerGeneralInfoId})*@
+                        </div>
+                    </div>
+                @*</div>*@
+            </div>
+            @*</div>*@
+          
+            <div class="table-responsive drop_head_tab" id="divContactPartial">
+
+                @Html.Partial("_CustomerContactLogList")
+                
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<div id="divShowPopup"></div>
+<div id="divRemPopup"></div>
+<script>
+    var FSM = {};
+    FSM.CustomerGeneralInfoId = @Html.Raw(Json.Encode(Model.CustomerContactLog.CustomerGeneralInfoId));
+
+</script>

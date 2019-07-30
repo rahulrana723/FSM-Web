@@ -1,0 +1,69 @@
+﻿@model FSM.Web.Areas.Admin.ViewModels.ManageDocumentVM
+@{
+    ViewBag.Title = "ManageDocument";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.DownloadUrl='@Url.Action("DownloadImportantDoc", "Setting")';
+        FSM.DeleteUrl = '@Url.Action("DeleteImportantDoc", "Setting")';
+        FSM.DocumentUrl = '@Url.Content("~/")';
+    </script>
+    <script src="~/Areas/Admin/Scripts/ManageDocument.js"></script>
+}
+<div class="dashboard_right_block  important_outer">
+    <div class="list_heading">
+        <h2>Important Documents </h2>
+    </div>
+    @using (Html.BeginForm("SaveImportantDocument", "Setting", FormMethod.Post, new { enctype = "multipart/form-data", @id = "frmImportantDocs" }))
+    {
+        <div class="importdoc-msg" style="display:none;"></div>
+        <div class="alert alert-success jobalert" style="display:none">
+            <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+        <div class="col-md-12 no-pad">
+            <div class="outer_box_doc">
+                <div class="add_doc">
+                    <input type="button" value="Add" id="add_btnDoc" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+        <div class="table-responsive" id="divContactPartial">
+            <div class="document_collapse important_collpase" style="display:none;">
+                <div class="header">
+                    <span>Add documents</span>
+                </div>
+
+                @*<div class="col-sm-4">
+                        <span class="browse_sendcustomer">
+                            <label class="btn btn-default btn-file browse_btn">
+                                Browse @Html.TextBoxFor(m => m.FilePosted, new { type = "file",@style="display:none" })
+                            </label>
+                        </span>
+                    </div>*@
+
+                <div class="col-sm-5">
+                    <div class="label_name desc_width">
+                        @*<label><input class="form-control" id="AddDocName" name="Name" placeholder="Search Keyword" value="" type="text"></label>*@
+                        @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @placeholder = "File Description" })
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.FilePosted, new { type = "file", accept = "image/x-png,image/gif,image/jpeg,.docx,.xlsx,.txt" })
+                </div>
+                <div class="col-sm-3">
+                    <div class="checkbox">
+                        <input id="btnUploadDocs" class="btn btn-default search_doc" type="button" value="Save" />
+                    </div>
+                </div>
+            </div>
+            <div class="impdocs-list">
+                @Html.Partial("_ImportantDocumentList", Model)
+            </div>
+            <div class="quickviewdiv"></div>
+        </div>
+    }
+          
+</div>

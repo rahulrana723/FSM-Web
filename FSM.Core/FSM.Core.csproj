@@ -1,0 +1,265 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2D7BB6D6-1A85-4243-B8B0-131F68FE1EE5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FSM.Core</RootNamespace>
+    <AssemblyName>FSM.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Mvc">
+      <HintPath>..\FSM.Web\Bin\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\Action_Master.cs" />
+    <Compile Include="Entities\AspNetRoles.cs" />
+    <Compile Include="Entities\AspNetUserRoles.cs" />
+    <Compile Include="Entities\AspNetUsers.cs" />
+    <Compile Include="Entities\AspNetUsersIsDelete.cs" />
+    <Compile Include="Entities\AssetManagement.cs" />
+    <Compile Include="Entities\CompulsaryTask.cs" />
+    <Compile Include="Entities\ContactLogSiteContactsMapping.cs" />
+    <Compile Include="Entities\CustomerBillingAddress.cs" />
+    <Compile Include="Entities\CustomerConditionReport.cs" />
+    <Compile Include="Entities\CustomerContactLog.cs" />
+    <Compile Include="Entities\CustomerContacts.cs" />
+    <Compile Include="Entities\CustomerGeneralInfo.cs" />
+    <Compile Include="Entities\CustomerJobReminderMapping.cs" />
+    <Compile Include="Entities\CustomerReminder.cs" />
+    <Compile Include="Entities\CustomerResidenceDetail.cs" />
+    <Compile Include="Entities\CustomerSiteDetail.cs" />
+    <Compile Include="Entities\CustomerSitesDocuments.cs" />
+    <Compile Include="Entities\EmployeeWorkType.cs" />
+    <Compile Include="Entities\InvoiceAssignToMapping.cs" />
+    <Compile Include="Entities\InvoicedJCLItemMapping.cs" />
+    <Compile Include="Entities\InvoicePayment.cs" />
+    <Compile Include="Entities\JCL.cs" />
+    <Compile Include="Entities\JCLColor_Mapping.cs" />
+    <Compile Include="Entities\JCLExtraProducts_Mapping.cs" />
+    <Compile Include="Entities\JCLItemInvoiceMapping.cs" />
+    <Compile Include="Entities\JCLProducts_Mapping.cs" />
+    <Compile Include="Entities\JCLSize_Mapping.cs" />
+    <Compile Include="Entities\JobRiskAssessment.cs" />
+    <Compile Include="Entities\JobsReasonMapping.cs" />
+    <Compile Include="Entities\JobTaskMapping.cs" />
+    <Compile Include="Entities\Log.cs" />
+    <Compile Include="Entities\RateCategory.cs" />
+    <Compile Include="Entities\RateSubCategory.cs" />
+    <Compile Include="Entities\EmployeeDetail.cs" />
+    <Compile Include="Entities\EmployeeDetailTemp.cs" />
+    <Compile Include="Entities\EmployeeRates.cs" />
+    <Compile Include="Entities\EmployeeJobs.cs" />
+    <Compile Include="Entities\ImportantDocuments.cs" />
+    <Compile Include="Entities\Invoice.cs" />
+    <Compile Include="Entities\InvoiceItems.cs" />
+    <Compile Include="Entities\JobAssignToMapping.cs" />
+    <Compile Include="Entities\JobDocuments.cs" />
+    <Compile Include="Entities\Module_ActionDefaultMaster.cs" />
+    <Compile Include="Entities\Module_Master.cs" />
+    <Compile Include="Entities\Notifications.cs" />
+    <Compile Include="Entities\OTRWStock.cs" />
+    <Compile Include="Entities\ParentAction_Master.cs" />
+    <Compile Include="Entities\PublicHoliday.cs" />
+    <Compile Include="Entities\PurchaseOrderByStock.cs" />
+    <Compile Include="Entities\PurchaseorderItemsStock.cs" />
+    <Compile Include="Entities\PurchaseOrderByJob.cs" />
+    <Compile Include="Entities\PurchaseorderItemJob.cs" />
+    <Compile Include="Entities\RoastedOff.cs" />
+    <Compile Include="Entities\RoastedOffWeekMapping.cs" />
+    <Compile Include="Entities\RoleModuleActionMapping.cs" />
+    <Compile Include="Entities\RoleModuleMapping.cs" />
+    <Compile Include="Entities\RoleParentActionMapping.cs" />
+    <Compile Include="Entities\ScheduleReminder.cs" />
+    <Compile Include="Entities\Stock.cs" />
+    <Compile Include="Entities\JobStock.cs" />
+    <Compile Include="Entities\Supplier.cs" />
+    <Compile Include="Entities\SupportdojobMapping.cs" />
+    <Compile Include="Entities\SupportJob.cs" />
+    <Compile Include="Entities\UserDeviceTokenMapping.cs" />
+    <Compile Include="Entities\UserMessage.cs" />
+    <Compile Include="Entities\UserMessageThread.cs" />
+    <Compile Include="Entities\UserTimeSheet.cs" />
+    <Compile Include="Entities\Vacation.cs" />
+    <Compile Include="Entities\ViewEmployeeRates.cs" />
+    <Compile Include="Entities\WebNotifications.cs" />
+    <Compile Include="Entities\WorkType.cs" />
+    <Compile Include="Interface\IAction_MasterRepository.cs" />
+    <Compile Include="Interface\IAspNetRolesRepository.cs" />
+    <Compile Include="Interface\IAspNetUserRolesRepository.cs" />
+    <Compile Include="Interface\IAspNetUsersIsDeleteRepository.cs" />
+    <Compile Include="Interface\IAspNetUsersRepository.cs" />
+    <Compile Include="Interface\IAssetManagementRepository.cs" />
+    <Compile Include="Interface\ICompulsaryTaskRepository.cs" />
+    <Compile Include="Interface\IContactLogSiteContactsMappingRepository.cs" />
+    <Compile Include="Interface\ICustomerBillingAddressRepository.cs" />
+    <Compile Include="Interface\ICustomerConditionReportRepository.cs" />
+    <Compile Include="Interface\ICustomerContactLogRepository.cs" />
+    <Compile Include="Interface\ICustomerContactsRepository.cs" />
+    <Compile Include="Interface\ICustomerJobReminderMapping.cs" />
+    <Compile Include="Interface\ICustomerReminderRepository.cs" />
+    <Compile Include="Interface\ICustomerResidenceDetailRepository.cs" />
+    <Compile Include="Interface\ICustomerSiteDetailRepository.cs" />
+    <Compile Include="Interface\ICustomerSiteDocumentsRepository.cs" />
+    <Compile Include="Interface\IEmployeeWorkTypeRepository.cs" />
+    <Compile Include="Interface\IInvoiceAssignToMappingRepository.cs" />
+    <Compile Include="Interface\IinvoicedJCLItemMappingRepository.cs" />
+    <Compile Include="Interface\IiNvoicePaymentRepository.cs" />
+    <Compile Include="Interface\IJCLColor_MappingRepository.cs" />
+    <Compile Include="Interface\IJClExtraproduct_mappingRepositories.cs" />
+    <Compile Include="Interface\IJCLItemInvoiceMappingRepository.cs" />
+    <Compile Include="Interface\IJCLRepository.cs" />
+    <Compile Include="Interface\IJobRiskAssessmentRepository.cs" />
+    <Compile Include="Interface\IJobsReasonMappingRepository.cs" />
+    <Compile Include="Interface\IJobTaskMappingRepository.cs" />
+    <Compile Include="Interface\ILogRepository.cs" />
+    <Compile Include="Interface\IRateCategoryRepository.cs" />
+    <Compile Include="Interface\IRateSubCategoryRepository.cs" />
+    <Compile Include="Interface\IEmployeeDetailRepository.cs" />
+    <Compile Include="Interface\ICustomerGeneralInfoRepository.cs" />
+    <Compile Include="Interface\IEmployeeDetailTempRepository.cs" />
+    <Compile Include="Interface\IEmployeeJobDocumentRepository.cs" />
+    <Compile Include="Interface\IEmployeeJobRepository.cs" />
+    <Compile Include="Interface\IEmployeeRatesRepository.cs" />
+    <Compile Include="Interface\IGenericRepository.cs" />
+    <Compile Include="Interface\IimportantDocuments.cs" />
+    <Compile Include="Interface\IiNoviceRepository.cs" />
+    <Compile Include="Interface\IiNvoiceItemsRepository.cs" />
+    <Compile Include="Interface\IJobAssignToMappingRepository.cs" />
+    <Compile Include="Interface\IModule_ActionDefaultMaster.cs" />
+    <Compile Include="Interface\IModule_MasterRepository.cs" />
+    <Compile Include="Interface\INotificationRepository.cs" />
+    <Compile Include="Interface\IOTRWStockRepository.cs" />
+    <Compile Include="Interface\IParentAction_MasterRepository.cs" />
+    <Compile Include="Interface\IPublicHolidayRepository.cs" />
+    <Compile Include="Interface\IPurchaseOrderByStock.cs" />
+    <Compile Include="Interface\IPurchaseorderItemsStock.cs" />
+    <Compile Include="Interface\IPurchaseOrderByJobRepository.cs" />
+    <Compile Include="Interface\IPurchaseorderItemJobRepository.cs" />
+    <Compile Include="Interface\IRoastedOffRepository.cs" />
+    <Compile Include="Interface\IRoastedOffWeekMappingRepository.cs" />
+    <Compile Include="Interface\IRoleModuleActionMappingRepository.cs" />
+    <Compile Include="Interface\IRoleModuleMappingRepository.cs" />
+    <Compile Include="Interface\IRoleParentActionMappingRepository.cs" />
+    <Compile Include="Interface\IScheduleReminderRepository.cs" />
+    <Compile Include="Interface\IStockRepository.cs" />
+    <Compile Include="Interface\IJobStockRepository.cs" />
+    <Compile Include="Interface\ISupportdojobMapping.cs" />
+    <Compile Include="Interface\IUserDeviceTokenMapping.cs" />
+    <Compile Include="Interface\IUserMessageRepository.cs" />
+    <Compile Include="Interface\IUserMessageThreadRepository.cs" />
+    <Compile Include="Interface\ISupportJobRepository.cs" />
+    <Compile Include="Interface\IUserTimeSheetRepository.cs" />
+    <Compile Include="Interface\ISupplier.cs" />
+    <Compile Include="Interface\IVacationRepository.cs" />
+    <Compile Include="Interface\IViewEmployeeRatesRepository.cs" />
+    <Compile Include="Interface\IWebNotificationRepository.cs" />
+    <Compile Include="Interface\IWorkTypeRepository.cs" />
+    <Compile Include="Interface\IJCLSize_MappingRepository.cs" />
+    <Compile Include="Interface\IJCLProducts_MappingRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\ActionByRoleViewModel.cs" />
+    <Compile Include="ViewModels\AspNetUsersCore.cs" />
+    <Compile Include="ViewModels\AssetManageCoreViewModel.cs" />
+    <Compile Include="ViewModels\CheckSiteTwoPeopleJobCoreViewModel.cs" />
+    <Compile Include="ViewModels\CustomerBillingAddressCoreViewModel.cs" />
+    <Compile Include="ViewModels\CustomerGeneralInfoCoreViewModel.cs" />
+    <Compile Include="ViewModels\CustomerReminderModel.cs" />
+    <Compile Include="ViewModels\CustomerStockItemListCoreViewmodel.cs" />
+    <Compile Include="ViewModels\EmployeeRateCoreViewModel.cs" />
+    <Compile Include="ViewModels\GetHours.cs" />
+    <Compile Include="ViewModels\GetLatitudeLongitudeCoreviewModel.cs" />
+    <Compile Include="ViewModels\GetQuickViewJobDataCoreViewModel.cs" />
+    <Compile Include="ViewModels\GetSuperVisorCoreViewModel.cs" />
+    <Compile Include="ViewModels\GetWorkTypeCoreViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceHistoryCoreVieweModel.cs" />
+    <Compile Include="ViewModels\InvoiceJCLItemListCoreViewModel.cs" />
+    <Compile Include="ViewModels\InvoiceStockJCLItemCoreViewModel.cs" />
+    <Compile Include="ViewModels\JCLInvoiceItemModel.cs" />
+    <Compile Include="ViewModels\JCLItemInvoiceCoreViewModel.cs" />
+    <Compile Include="ViewModels\JobContactsVM.cs" />
+    <Compile Include="ViewModels\JobDataVM.cs" />
+    <Compile Include="ViewModels\JobDataViewModel.cs" />
+    <Compile Include="ViewModels\JobPerFormanceCoreViewModel.cs" />
+    <Compile Include="ViewModels\JobScheduleViewModel.cs" />
+    <Compile Include="ViewModels\ActionCoreViewModel.cs" />
+    <Compile Include="ViewModels\AspNetRolesCore.cs" />
+    <Compile Include="ViewModels\LogDetailsCoreViewModel.cs" />
+    <Compile Include="ViewModels\ModuleActionMasterCore.cs" />
+    <Compile Include="ViewModels\ModuleCoreViewModel.cs" />
+    <Compile Include="ViewModels\OtrwJobNoForSheetCoreViewMode.cs" />
+    <Compile Include="ViewModels\OTRWUserViewModel.cs" />
+    <Compile Include="ViewModels\ParentActionCoreViewModel.cs" />
+    <Compile Include="ViewModels\PurchaseDatajobCoreviewModel.cs" />
+    <Compile Include="ViewModels\CreateInvoiceCoreViewModel.cs" />
+    <Compile Include="ViewModels\CustomerContactsCountViewModel.cs" />
+    <Compile Include="ViewModels\CustomerContactlogcore.cs" />
+    <Compile Include="ViewModels\CustomerContactsViewModel.cs" />
+    <Compile Include="ViewModels\Dashboardjobdetailcoreviewmodel.cs" />
+    <Compile Include="ViewModels\DisplaySiteDocumentsCountViewModel.cs" />
+    <Compile Include="ViewModels\DisplaySitesViewModel.cs" />
+    <Compile Include="ViewModels\CustomerSitesDocumentsViewModelCore.cs" />
+    <Compile Include="ViewModels\EmployeeDetailViewModel.cs" />
+    <Compile Include="ViewModels\EmployeeJobVieweModel.cs" />
+    <Compile Include="ViewModels\JobStockListCoreViewModel.cs" />
+    <Compile Include="ViewModels\OTRWSearchViewmodel.cs" />
+    <Compile Include="ViewModels\PurchaseDataCoreviewModel.cs" />
+    <Compile Include="ViewModels\PurchaseOrderByStockCoreViewModel.cs" />
+    <Compile Include="ViewModels\PurchaserOrderByJobCoreViewModel.cs" />
+    <Compile Include="ViewModels\QuickViewInvoiceCoreViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\RoastedOffCoreViewModel.cs" />
+    <Compile Include="ViewModels\stockviewmodel.cs" />
+    <Compile Include="ViewModels\SupportJobCoreViewModel.cs" />
+    <Compile Include="ViewModels\TimeSheetTotal.cs" />
+    <Compile Include="ViewModels\TimeSheetViewModel.cs" />
+    <Compile Include="ViewModels\UserMessageCoreViewModel.cs" />
+    <Compile Include="ViewModels\ViewEmployeeRatesCoreViewModel.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

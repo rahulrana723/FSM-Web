@@ -1,0 +1,49 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.ContactLogSearchModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-9">
+                @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @id = "FirstName", @class = "form-control form_textbox contacts_serch", placeholder = "Search Keyword" } })
+            </div>
+            <div class="col-md-3">
+                <button id="contactsSerch" class="btn btn-default" type="button" value="Search">Search</button>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(document).on("click", "#contactsSerch", function () {
+        var customerGeneralinfoid = FSM.CustomerGeneralInfoId;
+        var Name = $("#FirstName").val();
+        var pagenum = $('.active span').text();
+
+        $.ajax({
+            url: common.SitePath + "/customer/customer/CustomerContactLogSearch",
+            data: { CustomerGeneralinfoid: customerGeneralinfoid, Keyword: Name, PageNum: pagenum },
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                $("#divContactPartial").empty();
+                $("#divContactPartial").append(data);
+            },
+            error: function () {
+                alert("something seems wrong");
+            }
+        })
+
+    })
+
+    $(document).off("keypress", ".contacts_serch").on("keypress", ".contacts_serch", function (e) {
+
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            $('#contactsSerch').click();
+            return false;
+        }
+    });
+</script>

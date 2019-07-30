@@ -1,0 +1,148 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerConditionReportViewModel
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+    <title>Conditional Report Template</title>
+    <!-- STYLESHEET FIrLE -->
+    @*<link href="css/font-awesome.min.css" type="text/css" rel="stylesheet" />*@
+    <link href="~/Content/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/css/templatestyle.css" rel="stylesheet" />
+    <!--  SCRIPTS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <title>ConditionalReportExport</title>
+</head>
+<body>
+    <div class="logo">
+       
+        <img alt="" src="~/Content/images/ConditionReport.jpg" width="800">
+    </div>
+    <br />
+                    <p><strong><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">ADDRESS: SP9612</span></strong></p>
+                    <p><strong><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">36 HAWTHORNE ST, </span></strong></p>
+                    <p><strong><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">HABERFIELD, NSW 2045</span></strong></p>
+                    <p><strong><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></strong></p>
+               
+                    <p style="text-align: right; margin-top:-10%;"><strong><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">December 20,2016</span></strong></p>
+               
+    <p><strong><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></strong></p>
+    <p><strong><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">ROOF MAINTENANCE REPORT:</span></strong></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">We recently completed a roof inspection at your property. This is what we noticed:</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <table style="margin-left: 5.4pt; ">
+        <tbody>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Roof Tiles </span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">@Model.RoofTilesSheets</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Ridge Capping/ Pointing</span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">@Model.RidgeCappings</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Gable/Barge End </span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">@Model.BargeCappings</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Valleys</span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">@Model.Valleys</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Flashings</span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">@Model.Flashings</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Guttering </span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">@Model.Gutters</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Downpipes</span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">@Model.DownPipes</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Eaves</span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Good</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Fascia</span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Good</span></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width: 1.75in; padding: 0in 5.4pt 0in 5.4pt;" width="168">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Safety System &ndash; Anchor Points</span></p>
+                </td>
+                <td style="width: 295.05pt; padding: 0in 5.4pt 0in 5.4pt;" width="393">
+                    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">No</span></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Any other comments:</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">@Model.ConditionNote</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Please contact us if you have any questions.</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: #1f497d;">&nbsp;</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Regards</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <p><span style="font-size: 12.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">Beth Clarke </span></p>
+    <p><span style="font-size: 10.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <p><span style="font-size: 10.0pt; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <p style="line-height: 115%;"><span style="font-size: 10.0pt; line-height: 115%; font-family: 'Century Gothic','sans-serif'; color: black;">&nbsp;</span></p>
+    <p style="line-height: 115%;"><span style="font-size: 10.0pt; line-height: 115%; font-family: 'Century Gothic','sans-serif'; color: black;">ABN&nbsp;&nbsp;&nbsp;&nbsp; 87 677 002 504<br /> P&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 02 8020 5777<br /> E&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:frontdesk@sydneyroofandgutter.com.au"><span style="color: black;">frontdesk@sydneyroofandgutter.com.au</span></a><br /> W&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span><span style="font-size: 11.0pt; line-height: 115%; font-family: 'Calibri','sans-serif'; color: black;"><a href="http://www.sydneyroofandgutter.com.au/"><span style="font-size: 10.0pt; line-height: 115%; font-family: 'Century Gothic','sans-serif'; color: black; text-decoration: none; text-underline: none;">www.sydneyroofandgutter.com.au</span></a></span><span style="font-size: 10.0pt; line-height: 115%; font-family: 'Century Gothic','sans-serif'; color: black;"><br /> <br /> </span></p>
+    <p><span style="font-size: 11.0pt; font-family: 'Calibri','sans-serif'; color: black;">&nbsp;</span></p>
+    <p style="line-height: 150%;"><span style="font-size: 8.0pt; line-height: 150%; font-family: 'Century Gothic','sans-serif'; color: #1f497d;">&nbsp;</span></p>
+    <p><span style="font-size: 12.0pt;">&nbsp;</span></p>
+
+    <img alt="" src="~/Content/images/ConditionReportFooter.jpg" width="800">
+    <img alt="" src="~/Content/images/ConditionReport.jpg" width="800">
+</body>
+</html>
+
+

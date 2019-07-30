@@ -1,0 +1,97 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.AssetManagementListViewModel
+@using GridMvc.Html
+
+
+@{
+    ViewBag.Title = "ViewAssetManagement";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ViewAssetManagement", "AssetManagement", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.AssetManageSerarchViewmodel.PageSize;
+        FSM.EditAsset='@Url.Action("EditAssetManage", "AssetManagement", new { @area = "Employee" })';
+        FSM.HasGridRecords='@Model.assetMangeListModel.Count()'
+        var success='@TempData["AssetManageMsg"]';
+        if (success != "" && success != undefined)
+        {
+            FSM.Message=success;
+        }
+        else
+        {
+            FSM.Message="";
+        }
+    </script>
+}
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Asset Management </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="drop_head_tab">
+            <div class="bd-example stock_right">
+                <div class="alert alert-success jobalert" style="display:none">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                </div>
+                <div class="search_stock">
+                    @Html.Partial("_AssetManageSearchView", Model.AssetManageSerarchViewmodel)
+                </div>
+
+            </div>
+            @Html.Grid(Model.assetMangeListModel).SetRowCssClasses(
+    item => item.AssetManageID == Guid.Empty ? string.Empty : "cssEditAssetManage").Columns(
+    columns =>
+    {
+        columns.Add(model => model.AssetManageID, true);
+        columns.Add(model => model.Type).Titled("Type").SetWidth(250);
+        columns.Add(model => model.Identifier).Titled("Identifier").SetWidth(250);
+        columns.Add(model => model.Notes).Titled("Notes");
+        columns.Add(model => model.AssignUserName).Titled("Assigned To");
+        columns.Add(model => model.DateAssigned).Titled("Date Assigned");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "EditAssetManage", new { id = model.AssetManageID.ToString() }, new { @class = "btn btn-default editbtngrid" })).Filterable(false).Titled("Edit");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+          .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { AssetId = model.AssetManageID.ToString() }, new { @class = "btn btn-default ", @type = "button", href = "javascript:void(0)", onclick = "DeleteAssetManage('" + model.AssetManageID.ToString() + "');" })).Filterable(false).Titled("Delete");
+    }
+        ).WithPaging(Model.AssetManageSerarchViewmodel.PageSize).Sortable(true)
+
+
+            <div style="float: left;">
+                <label class="recordCount">Total Record: @Model.assetMangeListModel.Count()</label>
+            </div>
+            <div style="float: right;">
+                <label>Page Size</label>
+                @Html.DropDownList("ddPageSize", new List<SelectListItem>
+         {
+           new SelectListItem { Text="5",Value="5"},
+           new SelectListItem { Text = "10", Value = "10" },
+           new SelectListItem { Text = "15", Value = "15" },
+           new SelectListItem { Text = "20", Value = "20" },
+           new SelectListItem { Text = "25", Value = "25" },
+           new SelectListItem { Text = "30", Value = "30" }
+         }, new { @class = "form-control" })
+            </div>
+        </div>
+    </div><!--emp_table-->
+</div>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Areas/Employee/Scripts/ViewAssetManagement.js"></script>
+<style>
+    .btn-default {
+        color: #333;
+        background-color: #fff;
+        border-color: #ccc;
+        display: inline-block !important;
+        float: none;
+    }
+</style>
+

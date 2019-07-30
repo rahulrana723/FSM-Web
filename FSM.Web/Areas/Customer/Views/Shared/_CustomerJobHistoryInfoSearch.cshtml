@@ -1,0 +1,55 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeJobListViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.Employeejobsearchmodel.PageSize ,new {@id="ddpageSize" })
+    @Html.HiddenFor(m => m.Employeejobsearchmodel.CustomerGeneralInfoId,new {@id="custGeneralInfoId" })
+    <div class="row">
+        <div class="col-md-2 texbox_margin">
+          @Html.EditorFor(model => model.Employeejobsearchmodel.Keyword, new { htmlAttributes = new { @id = "srchBox", @class = "form-control form_textbox contacts_serch entersrch", placeholder = "Search Keyword" } })
+            </div>
+        <div class="col-md-2">
+            @Html.DropDownListFor(model => model.SiteCountviewModel.SiteDetailId, new SelectList(Model.SiteCountviewModel.siteDetail, "SiteDetailId", "StreetName"), "(Select Site)", new {@Id = "ddsrchbox" ,@class = "form-control entersrch" })
+            @Html.ValidationMessageFor(model => model.SiteCountviewModel.SiteDetailId, "", new { @class = "validate_red" })
+            </div>
+        <div class="col-md-3">
+            <button id="JobSearch" class="search_btn btn black-btn" type="button" value="Search">Search</button>
+        </div>
+         </div>
+ }
+
+   <script>
+       $("#JobSearch").click(function () {
+           var customerGeneralinfoid = $("#custGeneralInfoId").val();
+           var Name = $("#srchBox").val();
+           var pagenum = $("#ddpageSize").val();
+           var siteName = $('#ddsrchbox').val();
+
+           $.ajax({
+               url: common.SitePath + "/customer/customer/JobHistory",
+               data: { CustomerGeneralinfoid: customerGeneralinfoid, Keyword: Name, PageNum: pagenum, SiteId: siteName },
+               type: 'POST',
+               async: false,
+               success: function (data) {
+                   $("#divjobList").empty();
+                   $("#divjobList").append(data);
+
+               },
+               error: function () {
+                   alert("something seems wrong");
+               }
+           })
+
+       })
+
+       $(document).on("keypress", ".entersrch", function (e) {
+           var key = e.which;
+           if (key == 13)  // the enter key code
+           {
+               $('#JobSearch').click();
+               return false;
+           }
+       });
+
+   </script>

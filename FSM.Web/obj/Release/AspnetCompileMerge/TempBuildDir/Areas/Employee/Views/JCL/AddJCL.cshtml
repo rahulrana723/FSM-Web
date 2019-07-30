@@ -1,0 +1,394 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JCLDetailViewModel
+
+@{
+    ViewBag.Title = "AddJCL";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+}
+<style>
+    .chkbox {
+        margin: 23px 0 0 !important;
+    }
+</style>
+<script>
+    var FSM = {};
+
+</script>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Areas/Employee/Scripts/AddJCL.js"></script>
+
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+
+        @using (Html.BeginForm("AddJCL", "JCL", new { @area = "Employee" }, FormMethod.Post, new
+        {
+            @id = "frmSaveJCL"
+        }))
+        {
+
+            <div class="dashboard_center_block">
+                <div class="new_emp_tab  outer_section4">
+                    <div class="new_emp">
+                        @Html.AntiForgeryToken()
+                        <h3>Add New Sale Item</h3>
+
+                        <div class="alert alert-success jobalert" style="display:none">
+                            <strong>Success!</strong> Indicates a successful or positive action.
+                        </div>
+                        <div class="form">
+                            @Html.HiddenFor(m => m.JCLId)
+                            <div class="site_details_outer">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ItemName)
+                                            @Html.TextBoxFor(m => m.ItemName, new { @class = "form-control Create_Customer", placeholder = " " })
+                                            @Html.ValidationMessageFor(model => model.ItemName, "", new { @class = " text-danger",@id="ItemError" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Category)
+                                            @Html.EnumDropDownListFor(m => m.Category, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer" })
+                                            @Html.ValidationMessageFor(model => model.Category, "", new { @class = " text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        @Html.LabelFor(model => model.Material)
+                                        @Html.TextBoxFor(m => m.Material, new { @class = "form-control Create_Customer", placeholder = " " })
+                                        @Html.ValidationMessageFor(model => model.Material, "", new { @class = " text-danger" })
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.DefaultQty)
+                                            @Html.TextBoxFor(m => m.DefaultQty, new { @class = "form-control Create_Customer", placeholder = " " })
+                                            @Html.ValidationMessageFor(model => model.DefaultQty, "", new { @class = " text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Price)
+                                            @Html.TextBoxFor(m => m.Price, new { @class = "form-control Create_Customer", placeholder = " " })
+                                            @Html.ValidationMessageFor(model => model.Price, "", new { @class = " text-danger", @id = "PriceError" })
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Description)
+                                            @Html.TextBoxFor(m => m.Description, new { @class = "form-control Create_Customer", placeholder = " " })
+                                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = " text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.CheckBoxFor(model => model.ApplyBonus, new { @id = "Applybonus", @class = "chkbox" })
+                                            @Html.Label("Bonus")
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="row">
+                                    <div class="col-md-3">
+                                        <input id="AddColor" class="btn btn-default hover_btn" type="button" value="Add Color">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input id="AddSize" class="btn btn-default hover_btn" type="button" value="Add Size">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input id="AddProducts" class="btn btn-default hover_btn" type="button" value="Add Products">
+                                    </div>
+                                </div>*@
+
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="site_details_outer2 collapsediv">
+                                        <div>
+                                            <div class="col-md-12">
+                                                <div class="color_collapse">
+                                                    <input id="txtColor" type="text">
+                                                    <input id="AddColorGrid" class="btn btn-default hover_btn black-btn" type="button" value="Add">
+                                                    <table class="table table-striped table-bordered color_files">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Color</th>
+                                                                <th>Delete</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (Model.JClColorList != null)
+                                                            {
+                                                                foreach (var key in Model.JClColorList)
+                                                                {
+                                                            <tr>
+                                                                <td style="display:none;">@key.ColorId</td>
+                                                                <td style="display:none;">@key.JCLId</td>
+                                                                <td>@key.ColorName</td>
+                                                            </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="site_details_outer3 collapsediv">
+                                        <div>
+                                            <div class="col-md-12">
+
+                                                <div class="size_collapse">
+                                                    <input id="txtSize" type="text">
+                                                    <input id="AddSizeGrid" class="btn btn-default hover_btn black-btn" type="button" value="Add">
+                                                    <table class="table table-striped table-bordered size-files">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Size</th>
+                                                                <th>Delete</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @if (Model.JCLSizeList != null)
+                                                            {
+                                                                foreach (var key in Model.JCLSizeList)
+                                                                {
+                                                            <tr>
+                                                                <td style="display:none;">@key.SizeId</td>
+                                                                <td style="display:none;">@key.JCLId</td>
+                                                                <td>@key.Size</td>
+                                                            </tr>
+                                                                }
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="site_details_outer4 collapsediv">
+                                        <div>
+                                            <div class="product_collapse">
+                                                <input id="txtProducts" type="text">
+                                                <input id="AddProductsGrid" class="btn btn-default hover_btn black-btn" type="button" value="Add">
+                                                <table class="table table-striped table-bordered products_files">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Products</th>
+                                                            <th>Delete</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if (Model.JCLProductsList != null)
+                                                        {
+                                                            foreach (var key in Model.JCLProductsList)
+                                                            {
+                                                        <tr>
+                                                            <td style="display:none;">@key.ProductId</td>
+                                                            <td style="display:none;">@key.JCLId</td>
+                                                            <td>@key.ProductName</td>
+                                                        </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="site_details_outer5 collapsediv">
+                                        <div>
+                                            <div class="product_collapse">
+                                                <input id="txtextras" type="text">
+                                                <input id="AddExtraGrid" class="btn btn-default hover_btn black-btn" type="button" value="Add">
+                                                <table class="table table-striped table-bordered Extras_files">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Extra Item</th>
+                                                            <th>Delete</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @if (Model.JCLExtraProductsList != null)
+                                                        {
+                                                            foreach (var key in Model.JCLExtraProductsList)
+                                                            {
+                                                                <tr>
+                                                                    <td style="display:none;">@key.ProductId</td>
+                                                                    <td style="display:none;">@key.JCLId</td>
+                                                                    <td>@key.ProductName</td>
+                                                                    <td>
+                                                                        <button type='button' id='dltproductRow' class='btn btn-default btn-sm' style='margin: 0px'>
+                                                                            <span class='glyphicon glyphicon-remove-sign'></span>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="buttons text-center">
+                            <input class="btn btn-default saveJCL" type="button" value="Save" />
+                            <a class="btn btn-default" href="@Url.Action("GETJCLList", "JCL", new { Area = "Employee" })">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</section>
+<style>
+    /*.form-horizontal .control-label {
+        text-align: left;
+        font-weight: normal;
+        margin: 0 0 10px 0;
+        font-size: 15px;
+    }*/
+
+    .site_details_outer {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+    }
+
+
+    .site_details_outer2 {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+        min-height: 355px;
+    }
+
+
+    .site_details_outer3 {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+        min-height: 355px;
+    }
+
+    .site_details_outer4 {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+        min-height: 355px;
+    }
+
+    .site_details_outer5 {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+        min-height: 355px;
+    }
+
+    .site_details_outer:after {
+        position: absolute;
+        content: "Sale Item General Info";
+        top: -11px;
+        background: #fff;
+        width: 182px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        left: 27px;
+    }
+
+    .site_details_outer2:after {
+        position: absolute;
+        content: "Sale Item Colour Details";
+        top: -11px;
+        background: #fff;
+        width: 184px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        left: 21px;
+    }
+
+    .site_details_outer3:after {
+        position: absolute;
+        content: "Sale Item Size Details";
+        top: -11px;
+        background: #fff;
+        width: 180px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        left: 21px;
+    }
+
+    .site_details_outer4:after {
+        position: absolute;
+        content: "Sale Item Product Details";
+        top: -11px;
+        background: #fff;
+        width: 193px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        left: 21px;
+    }
+
+      .site_details_outer5:after {
+        position: absolute;
+        content: "Extra's";
+        top: -11px;
+        background: #fff;
+        width: 71px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        left: 21px;
+    }
+
+    .save {
+        background: #2a2d33 none repeat scroll 0 0 !important;
+        border-radius: 0;
+        box-shadow: none;
+        color: #fff !important;
+        font-size: 15px !important;
+        height: 30px;
+        margin: 0 15px 0 0;
+        padding: 3px 25px !important;
+    }
+</style>

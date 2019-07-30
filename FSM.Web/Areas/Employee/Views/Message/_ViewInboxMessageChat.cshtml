@@ -1,0 +1,98 @@
+﻿
+@model FSM.Web.Areas.Employee.ViewModels.EmployeeNameIdViewModel
+<div class="modal fade" id="modalViewMessageLog" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Add New Message</h4>
+            </div>
+            <div class="modal-body" style="overflow:auto;">
+                <div id="errorMsgDv" style="display:none;"></div>
+                <label>Users</label>
+                @Html.HiddenFor(model => model.FromId, new { @class = "FromId" })
+                @Html.DropDownListFor(model => model.EmployeeId, new SelectList(Model.employeeDetail, "EmployeeId", "UserName"), "(Select)", new { @class = "form-control ddlviewinbox" })
+                <textarea class="msgsendArea" placeholder="Write a Message"></textarea>
+            </div>
+        
+            <div class="modal-footer">
+                <div class="form-group">
+                  
+                        <div class="text-center">
+                            <img src="~/Images/thumb-up.png" id="thumbsndinbox" height="36" width="38"> 
+                            <img src="~/Images/thumb-down.png" id="thumbsndinboxdown" height="36" width="38"> 
+                            <input type="button" value="Send" id="messageInboxSent" class="btn btn-success chatBtns" />
+                            <input type="button" value="Cancel" id="clrbox" class="btn btn-default black-btn" />
+                   
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#clrbox").click(function () {
+        $(".msgsendArea").val("");
+    })
+    $("#messageInboxSent").click(function () {
+        var textval = $(".msgsendArea").val().replace(/ /g, '').length;
+        var selectId = $('select.ddlviewinbox option:selected').val();
+        $("#messageInboxSent").val("Sending...");
+
+        if (selectId == "") {
+            $("#messageInboxSent").val("Send");
+            $('#errorMsgDv').css('color', 'red');
+            $('#errorMsgDv').html("Please select user!");
+            $('#errorMsgDv').show();
+            return false;
+        }
+
+        if (textval === 0) {
+            $("#messageInboxSent").val("Send");
+            $('#errorMsgDv').css('color', 'red');
+            $('#errorMsgDv').html("Please enter message !");
+            $('#errorMsgDv').show();
+            return false;
+        }
+       
+       
+        else 
+        {
+            return true;
+        }
+    });
+    $("#thumbsndinbox").click(function () {                //thums up
+        var selectId = $('select.ddlviewinbox option:selected').val();
+        if (selectId == "") {
+            $('#errorMsgDv').css('color', 'red');
+            $('#errorMsgDv').html("Please select user!");
+            $('#errorMsgDv').show();
+            return false;
+        }
+        else {
+            return true;
+        }
+    });
+    $("#thumbsndinboxdown").click(function () {                //thums down
+        var selectId = $('select.ddlviewinbox option:selected').val();
+        if (selectId == "") {
+            $('#errorMsgDv').css('color', 'red');
+            $('#errorMsgDv').html("Please select user!");
+            $('#errorMsgDv').show();
+            return false;
+        }
+        else {
+            return true;
+        }
+    });
+    $(".msgsendArea").keyup(function () {
+        var textval = $(".msgsendArea").val().replace(/ /g, '').length;
+        if (textval === 0) {
+            $('#messageInboxSent').attr('disabled', true);
+        }
+        else {
+            $('#messageInboxSent').attr('disabled', false);
+        }
+    })
+</script>
+

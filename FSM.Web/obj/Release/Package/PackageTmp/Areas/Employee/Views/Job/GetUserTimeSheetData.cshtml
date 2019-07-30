@@ -1,0 +1,95 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.TimeSheetDataViewModel
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "GetUserTimeSheetData";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.TimeSheetUrl = '@Url.Action("GetUserTimeSheetPartial", "Job", new { area = "Employee" })';
+        FSM.EditTimeSheetUrl = '@Url.Action("_EditUserTimeSheet", "Job", new { area = "Employee" })';
+        FSM.HasGridRecords = '@Model.UserTimeSheetList.Count()'
+    </script>
+    <script src="~/Areas/Employee/Scripts/UserTimeSheet.js"></script>
+    <script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+    <link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+}
+
+
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>TimeSheet </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div id="sheetSuccessMsg" style="display:none;text-align:left;color:forestgreen">
+            Record edit successfully!
+        </div>
+        <div class="customer_head_tab">
+            <div id="sheetKeywordDV" style="color:red;display:none;">
+                Should be less than or equal to 50 chars !
+            </div>
+            <div id="sheetStartDateDV" style="color:red;display:none;">
+                Invalid Start Date !
+            </div>
+            <div id="sheetEndDateDV" style="color:red;display:none;">
+                Invalid End Date !
+            </div>
+            <div class="search_timesheet_block">                
+                    <div class="search_timesheet">
+                        <div class="row">
+                            <div class="col-sm-2">
+                                @Html.EditorFor(model => model.Keyword, new { htmlAttributes = new { @class = "form-control srchTimesheet", @placeholder = "Search Keyword" } })
+                            </div>
+                            <div class="col-sm-2">
+
+                                @Html.EditorFor(model => model.JobStartDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "Start Date" } })
+                            </div>
+                            <div class="col-sm-2">
+
+                                @Html.EditorFor(model => model.JobEndDate, new { htmlAttributes = new { @class = "form-control", @placeholder = "End Date" } })
+                            </div>
+                            <div class="col-sm-2">
+                                @Html.DropDownListFor(model => model.UserId, Model.Users, new { @title = "Select OTRW User", @class = "ddlmultiselect", multiple = "multiple" })
+                            </div>
+                            <div class="col-sm-2 text-right">
+                                <input id="searchTimeSheet" type="button" value="Search" class="search_btn black-btn " />
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="new_emp_tab ">
+                                    <input id="ReportPopUp" type="button" value="Report" class="btn btn-default" />
+                                    @*@Html.ActionLink("Report", "Export", "Job", new { @area = "Employee" }, new
+                               {
+                                   @class = "btn btn-default",
+                                   id = "generatereport"
+                               })*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                       
+                        </div>
+                    </div><!--search_customer-->
+               
+               
+            </div><!--search_customer-->
+            <div class="drop_head_tab">
+                <div class="clearfix"></div>
+
+                @Html.Partial("_UserTimeSheetList", Model)
+
+                
+            </div>
+            </div>
+    </div>
+</div>
+
+<div id="divTimeSheetPopup"></div>
+
+
+
+
+
+
+

@@ -1,0 +1,206 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JobPurChaseViewModel
+@{
+    ViewBag.Title = "AddEditJobPurchaseOrder";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+}
+<script>
+    var FSM = {};
+    FSM.OrderId = '@Model.PurchaseOrderByJobViewModel.ID';
+    FSM.JobListVal = '@Html.Raw(serializer.Serialize(Model.getjobviewmodel.JobDetailsList))';
+    FSM.JobId = '@Model.getjobviewmodel.JobId';
+    FSM.JobNo = '@Model.getjobviewmodel.JobNo';
+    if (FSM.OrderId == '@Guid.Empty') {
+        FSM.OrderId = "";
+    }
+    FSM.PurchaseStatusUrl = '@Url.Action("ChangePurchaseOrderStatus", "Purchase", new { @area = "Employee" })';
+</script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        <div class="employee_table">
+            <div class="customer_head_tab purchade_order_tab border_top">
+            @Html.HiddenFor(m=>Model.PurchaseOrderByJobViewModel.ID)
+
+                @if (Model.PurchaseOrderByJobViewModel.PurchaseOrderNo != null)
+            {
+                    <h2>&nbsp;Add/Edit Job Purchase Order:<span> @Model.PurchaseOrderByJobViewModel.PurchaseOrderNo</span></h2>
+                }
+                else
+                {
+                    <h3>Add/Edit Job Purchase Order</h3>
+                }
+                <span style="color:red" class="status-purchase">@Model.PurchaseOrderByJobViewModel.ApproveStatus</span>
+                @if (Model.UserRole == "Admin" && Model.PurchaseOrderByJobViewModel.ID != Guid.Empty
+    && Model.PurchaseOrderByJobViewModel.ID != null && !string.IsNullOrEmpty(Model.PurchaseOrderByJobViewModel.ApproveStatus))
+                {
+                    @Html.ActionLink("Change Status", null, null, new { @class = "change-status-purchase", data_purchaseid = Model.PurchaseOrderByJobViewModel.ID })
+                }
+
+                <div class="alert alert-success errormsgdiv" style="display:none">
+                    <strong>Success!</strong>
+                </div>
+                <form>
+                    @Html.Hidden("available", new { @id = "available" })
+                    <div class="form-group">
+                        <div class="form-group col-sm-2">
+                            <label>Select Job Id</label>
+                            @*@Html.DropDownListFor(m => m.getjobviewmodel.EmployeeJobId, new SelectList(Model.getjobviewmodel.employeeJobDetail, "EmployeeJobId", "Description"), "(Select)", new { @class = "form-control ddljobid" })*@
+                            @Html.DropDownListFor(m => m.getjobviewmodel.EmployeeJobId, Model.getjobviewmodel.JobDetailsList, "(Select)", new { @class = "form-control", placeholder = "Search Job" })
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label>Supplier</label>
+                            @Html.DropDownListFor(M => M.PurchaseOrderByJobViewModel.SupplierID, new SelectList(Model.PurchaseOrderByJobViewModel.SupplierJobList, "ID", "Name"), "(Select)", new { @class = "form-control ddlsupplier" })
+                            @Html.ValidationMessageFor(model => model.PurchaseOrderByJobViewModel.SupplierID, "", new { @class = "text-danger errorsupplier" })
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label>Purchase Order No</label>
+                            @Html.TextBoxFor(m => m.PurchaseOrderByJobViewModel.PurchaseOrderNo, new { @class = "form-control", placeholder = " ", @disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Purchase Item</label>
+                        @*@Html.DropDownListFor(M => M.PurchaseOrderITemByJobViewModel.StockID, new SelectList(Model.PurchaseOrderITemByJobViewModel.StockJoblist, "StockId", "StockName"), "(Select)", new { @class = "form-control ddlstockname top_space" })*@
+                        @Html.TextBoxFor(M => M.PurchaseOrderITemByJobViewModel.PurchaseItem, new { @class = "form-control ddlstockname " })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderITemByJobViewModel.StockID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Unit Measure</label>
+                        @Html.TextBoxFor(M => M.PurchaseOrderITemByJobViewModel.UnitOfMeasure, new { @id = "UnitOfMeasure", @class = "form-control  " })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderITemByJobViewModel.UnitOfMeasure, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label>Quantity</label>
+                        @Html.TextBoxFor(M => M.PurchaseOrderITemByJobViewModel.Quantity, new { @id = "Quantity", @class = "form-control  " })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderITemByJobViewModel.Quantity, "", new { @class = "errordiv", @style = "top: 0px; " })
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label>Price</label>
+                        @Html.TextBoxFor(m => m.PurchaseOrderITemByJobViewModel.Price, new { @id = "Price", @class = "stockprice form-control", placeholder = " " })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderITemByJobViewModel.Price, "", new { @class = " text-danger" })
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <div class="top_space4">
+                            <input type="button" value="Add Item" class="btn btn-default black-btn  btnAddstockitem" id="btnaddstockitems" />
+                            <a class="btn black-btn btn-default btnclear btnAddstockitem">
+                                Clear
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div><!--customer_head_tab-->
+            <div class="clearfix"></div>
+            <div id="divstockItems">
+                <div class="customer_table padding20 puchase_tab">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered tblstock">
+                            <thead>
+                                <tr>
+                                    <th style="display:none">StockID</th>
+                                    <th>Purchase Item</th>
+                                    <th>Unit Measure</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th style="display:none" align="center">Available</th>
+                                    <th style="width:15%;text-align:center;" align="center">Edit</th>
+                                    <th style="width:15%;text-align:center;" align="center">Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div><!--emp_table-->
+            </div>
+            <div class="customer_head_tab purchade_order_tab">
+                <form>
+                    <div class="form-group col-sm-2">
+                        <label>Cost</label>
+                        @Html.TextBoxFor(M => M.PurchaseOrderByJobViewModel.Cost, new { @id = "Cost", @class = "form-control  ", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderByJobViewModel.Cost, "", new { @class = "text -danger", @style = "top: 0px; " })
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label>Description</label>
+                        @Html.TextAreaFor(M => M.PurchaseOrderByJobViewModel.Description, new { @class = "form-control description textarea_height" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderByJobViewModel.Description, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @if (Model.ModifiedDate != null)
+                        {
+                            <div class="form-group col-sm-4">
+                                <b>Last Updated By </b>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div>
+                                    <b>UserName :-</b>
+                                    @Html.DisplayFor(model => model.UserName)
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div>
+                                    <b>Date & Time :-</b>
+                                    @Html.DisplayFor(model => model.ModifiedDate)
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group col-sm-4">
+                                <b>Created By  </b>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div>
+                                    <b>UserName :-</b>
+                                    @Html.DisplayFor(model => model.UserName)
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-4">
+                                <div>
+                                    <b>Date & Time :-</b>
+                                    @Html.DisplayFor(model => model.CreatedDate)
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </form>
+                <div class="form-group col-sm-12 text-center">
+                    <div class="top_space3">
+                        <input type="button" value="Add Purchase Order" class="btn btn-default black-btn   btnaddpurchaseorder btnAddstockitem" />
+                        <input type="button" value="Print" class="btn btn-default black-btn   btnPrintExport btnAddstockitem" />
+                        <input type="button" value="Preview" class="btn btn-default black-btn   btnPreviewExport btnAddstockitem" />
+                        @if (Model.PurchaseOrderByJobViewModel.ID != Guid.Empty)
+                        {
+                            @*@Html.ActionLink("Print", "PurchaseExport", "Purchase", new { @Purchaseorderid = Model.PurchaseOrderByJobViewModel.ID }, new { @class = "btn btn-default black-btn" })*@
+                            @*@Html.ActionLink("Preview", "Export", "Purchase", new { @Purchaseorderid = Model.PurchaseOrderByJobViewModel.ID }, new { @class = "btn btn-default black-btn purchasepreview" })*@
+                        }
+                        <a class="btn black-btn btn-default btnAddstockitem" type="button" href="@Url.Action("ViewJobsPurchaseOrder","purchase", new { Area = "Employee" })">
+                            Cancel
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Areas/Employee/Scripts/AddEditJobPurchase.js"></script>
+
+<style>
+    .ui-autocomplete {
+        max-height: 250px;
+        overflow-y: auto;
+        /* prevent horizontal scrollbar */
+        overflow-x: hidden;
+        /* add padding to account for vertical scrollbar */
+        padding-right: 20px;
+    }
+</style>

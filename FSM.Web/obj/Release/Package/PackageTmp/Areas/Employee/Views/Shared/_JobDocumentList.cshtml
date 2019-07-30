@@ -1,0 +1,41 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JobDocViewModel
+
+    
+    <table class="table table-striped grid-table table-bordered">
+        <thead>
+            <tr>
+                <th>Document Name</th>
+                <th>Document Type</th>
+                <th style="text-align:center;">View</th>
+                <th style="text-align:center;">Delete</th>
+            </tr>
+        </thead>
+         @if (Model.jobDocumentList.Count > 0)
+            {
+        <tbody>
+            @{
+                foreach (var item in Model.jobDocumentList)
+                {
+                    <tr>
+                        <td>@item.DocName</td>
+                        <td>@item.DocType</td>
+                        <td style="text-align:center;">
+                            @Html.ActionLink("View", null, null, new { @href = Url.Content("~/Images/JobDocuments/" + Model.JobId + "/" + item.SaveDocName), @target = "_blank", @class = "btn btn-default" })
+                        </td>
+                        <td style="text-align:center;">
+                        @Html.ActionLink("Delete", "", "", new { @area = "Employee", }, new {
+                       href = "javascript:void(0)", onclick = "DeleteJobDocs('" + item.Id + "','"+ Model.JobId + "');", @data_id = item.Id, @data_jobid = Model.JobId, @class = "del-jobdocs btn btn-default" })
+                        </td>
+                    </tr>
+                }
+                }
+        </tbody>
+           }
+    </table>
+@if (Model.jobDocumentList.Count > 0)
+{
+<div class="quickview-align">
+    @Html.ActionLink("Quick View", "QuickView", "CustomerJob", new { @area = "Employee" }, new { @class = "quickview btn-default btn-quickview", @data_jobid = Model.JobId })
+</div>
+}
+

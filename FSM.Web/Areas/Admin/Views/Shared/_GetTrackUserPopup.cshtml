@@ -1,0 +1,35 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.JobsViewModel
+
+<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+<script>
+    $("#btncross").click(function (e) {
+        $('#trackUser').text("Track User");
+    });
+</script>
+<div class="modal fade" id="modalTrackUserPopUp" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content" style="width:116%;margin-left:-9%;">
+            <div class="modal-header">
+                <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+
+                <h4 class="modal-title">Track User!</h4>
+            </div>
+            <div id="ErrorDv" style="display:none;color:red;padding: 5px 0px 0px 18px;"></div>
+            <div class="modal-body" style="height:100%">
+
+                <div class="col-md-3 ddlassign2">
+                    <div class="form-group">
+                        @Html.DropDownListFor(model => model.AssignTo2, Model.OTRWList, new { @title = "Select OTRW User", @id = "tempAssignTo2", @class = "ddlmultiselect", multiple = "multiple" })
+                    </div>
+                </div>
+                <input type="button" value="Search" id="srchTrackUser" class="btn btn-success chatBtns" />
+                <div id="googleMap" style="width:630px;height:300px;"> </div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+ <script src="~/Areas/Admin/Scripts/TrackerUserPopUp.js"></script>
+ 
+    

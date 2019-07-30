@@ -1,0 +1,376 @@
+﻿@model  FSM.Web.Areas.Customer.ViewModels.CustomerContactsViewModel
+@*<script src="~/Areas/Customer/Scripts/CustomerContactLog.js"></script>*@
+
+
+
+@using (Ajax.BeginForm("_CustomercontactsAddEdit", "Customer", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "SuccessLog" }, new { @id = "contactform" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="general_form border_margin">
+        @if (Model.HideAddContacts != "True")
+        {
+            <div class="add_customer">
+                @Html.ActionLink("Add New Contact", "", "", new { @customerGeneralinfoid = Model.CustomerGeneralInfoId, @customercontactid = Guid.Empty }, new { @class = "AddNewSite btnaddcontacts btn btn-default pull-right", href = "javascript:void(0)", customerGeneralinfoid = Model.CustomerGeneralInfoId, customercontactid = Guid.Empty })
+            </div>
+        }
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ContactId)
+        @Html.HiddenFor(model => model.CustomerGeneralInfoId)
+        @Html.HiddenFor(model => model.PageNum)
+        @Html.HiddenFor(m => m.CreatedBy)
+        @Html.HiddenFor(m => m.CreatedDate)
+        @Html.HiddenFor(m => m.IsDelete)
+        <div class="new_emp">
+            <h3> Add/Edit Contacts</h3>
+            <div class="form">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SiteId, "Select Site", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div>
+                                @Html.DropDownListFor(model => model.SiteId, Model.SiteList, "(Select)", new { id = "ddlSite", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SiteId, "", new { @id = "errorsitename", @style = "top:0px;color:red" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContactsType, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EnumDropDownListFor(m => m.ContactsType, "(Select)", new { id = "ddlContactType", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ContactsType, "", new { @id = "errorcontcttype", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EnumDropDownListFor(m => m.Title, "(Select)", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @id = "errortitle", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "ContactsFirstName", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @id = "errorfname", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @id = "errorlname", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNo1, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EditorFor(model => model.PhoneNo1, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNo1, "", new { @id = "errorpno1", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNo2, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EditorFor(model => model.PhoneNo2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNo2, "", new { @id = "errorpno2", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNo3, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EditorFor(model => model.PhoneNo3, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNo3, "", new { @id = "errorpno3", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmailId, "", new { @id = "erroremailId", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Spare1, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.TextAreaFor(model => model.Spare1, new { @id = "spare1", @class = "form-control description desc-width textarea_height contact-txtarea" })
+                            @Html.ValidationMessageFor(model => model.Spare1, "", new { @id = "errorpsno1", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    @if (Model.ContactId == Guid.Empty)
+                    {
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label>
+                                    Default Contact
+                                </label>
+                                <div>
+                                    @Html.CheckBoxFor(m => m.DefaultContact)
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>
+                                Contact For Confirmation
+                            </label>
+                            <div>
+                                @Html.CheckBoxFor(m => m.ContactConfirmation)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (Model.ModifiedDate != null)
+                {
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <b>Last Updated By: </b>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>
+                                <b>UserName :-</b>
+                                @Html.DisplayFor(model => model.UserName)
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>
+                                <b>Date & Time :-</b>
+                                @Html.DisplayFor(model => model.ModifiedDate)
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <b>Created By:  </b>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>
+                                <b>UserName :-</b>
+                                @Html.DisplayFor(model => model.UserName)
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div>
+                                <b>Date & Time :-</b>
+                                @Html.DisplayFor(model => model.CreatedDate)
+                            </div>
+                        </div>
+                    </div>
+                }
+                @*<div class="detail-box">
+
+
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(m => m.IsContact)
+                                    Site Contact
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(m => m.IsBillingContact)
+                                    Billing Contact
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(m => m.IsStrataManager)
+                                    Strata Manager
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(m => m.IsRealEstate)
+                                    Real Estate
+                                </label>
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="col-sm-5 col-sm-offset-3 buttons  text-center">
+
+                    @if (Model.ContactId == Guid.Empty)
+                    {
+                        <input type="submit" id="AddContacts" value="Save" class="btn btn-default black-btn" />
+                    }
+                    else
+                    {
+                        <input type="submit" id="AddContacts" value="Update" class="btn btn-default black-btn" />
+                    }
+                    <a class="btn btn-default" href="@Url.Action("index","Customer", new { Area = "Customer" })">
+                        Cancel
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#PhoneNo1,#PhoneNo2,#PhoneNo3').attr('maxlength', '10');
+        $('#PhoneNo1,#PhoneNo2,#PhoneNo3').attr("onkeypress", "return (event.charCode >= 48 && event.charCode <= 57) || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 46");
+
+    })
+
+    $('#contactform').submit(function () {
+
+        var title = $("#Title").val();
+        var firstName = $("#ContactsFirstName").val();
+        var siteName = $("#ddlSite").val();
+        var ContactType = $("#ddlContactType").val();
+        var lastName = $("#LastName").val();
+        var phoneNo1 = $("#PhoneNo1").val();
+        var phoneNo2 = $("#PhoneNo2").val();
+        var phoneNo3 = $("#PhoneNo3").val();
+        var emailId = $("#EmailId").val();
+        var email = $("#EmailId").val();
+        var spare1 = $("#spare1").val();
+        //var spare2= $("#spare2").val().length;
+        //var spare3 = $("#spare3").val().length;
+        // Check if empty of not
+        if (siteName == "") {
+            $("#errorsitename").text("*Please select site !");
+            return false;
+        }
+        else {
+            $("#errorsitename").text("");
+        }
+        if (ContactType == "") {
+            $("#errorcontcttype").text("*Please select contacts type !");
+            return false;
+        }
+        else {
+            $("#errorcontcttype").text("");
+        }
+
+        if (email != "") {
+            
+            var reg = /^([A-Za-z0-9_\-\.])+\@@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+            if (reg.test(email) == true) {
+                $("#erroremailId").text("");
+            }
+            else {
+                $("#erroremailId").text("*Please enter valid email address");
+                return false;
+            }
+        }
+        else {
+            $("#erroremailId").text("");
+        }
+
+        if (firstName == "") {
+            $("#errorfname").text("*Please provide first name");
+            return false;
+        }
+        else {
+            $("#errorfname").text("");
+        }
+        //if (lastName == "") {
+        //    $("#errorlname").text("*Please provide last name");
+        //    return false;
+        //}
+        //else {
+        //    $("#errorlname").text("");
+        //}
+        //if (emailId == "") {
+        //    $("#erroremailId").text("*Please provide email address");
+        //    return false;
+        //}
+        //else {
+        //    $("#erroremailId").text("");
+        //}
+        if (phoneNo1 != "") {
+            //var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+            //if ((phoneNo1.match(phoneno))) {
+            //    $("#errorpno1").text("");
+            //}
+            //else {
+            //    $("#errorpno1").text("*Please enter valid mobile no.");
+            //    return false;
+            //}
+        }
+        if (phoneNo2 != "") {
+            //var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+            //if ((phoneNo2.match(phoneno))) {
+            //    $("#errorpno2").text("");
+            //}
+            //else {
+            //    $("#errorpno2").text("*Please enter valid landline no.");
+            //    return false;
+            //}
+        }
+        if (phoneNo3 != "") {
+            //var phoneno = /^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/;
+            //if ((phoneNo3.match(phoneno))) {
+            //    $("#errorpno3").text("");
+            //}
+            //else {
+            //    $("#errorpno3").text("*Please enter valid alternate no.");
+            //    return false;
+            //}
+        }
+        //if (spare1 == "") {
+        //    $("#errorpsno1").text("*Please enter notes.");
+        //    return false;
+        //}
+        //else {
+        //    $("#errorpsno1").text("");
+        //}
+
+    });
+
+
+    $('#ContactsFirstName').keypress(function (e) {
+        //var regex = new RegExp("^[a-zA-Z]+$");
+        //var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+        //if (e.which == 8 || regex.test(str)) {
+        //    $("#errorfname").text("");
+        //    return true;
+        //}
+        //else {
+        //    e.preventDefault();
+        //    $("#errorfname").text("*Please Enter Alphabet");
+        //    return false;
+        //}
+    });
+    $('#LastName').keypress(function (e) {
+       //// var regex = new RegExp("^[a-zA-Z]+$");
+        
+       
+
+
+       // var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
+       // if (e.which == 8 || regex.test(str)) {
+       //     $("#errorlname").text("");
+       //     return true;
+       // }
+       // else {
+       //     e.preventDefault();
+       //     $("#errorlname").text("*Please Enter Alphabet");
+       //     return false;
+       // }
+    });
+</script>
+

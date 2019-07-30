@@ -1,0 +1,53 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.ContactsSearchViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PageSize)
+    <div class="col-md-9 no-pad">
+        <div class="col-md-5 no-pad">
+            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @id = "FirstName", @class = "form-control form_textbox contacts_serch", placeholder = "Search Keyword" } })
+            </div>
+        <div class="col-sm-3">
+            @*@Html.LabelFor(model => model.CustomerType)*@
+            @Html.EnumDropDownListFor(model => model.ContactsType, "(Select Type)", htmlAttributes: new { @id = "srchType", @class = "form-control customer_gap" })
+        </div>
+            <button id="contactsSerch" type="button" class="btn btn-default" value="Search">Search</button>
+        </div>
+}
+
+<script>
+    $(document).on("click", "#contactsSerch", function () {
+        
+        var customerGeneralInfoID=FSM.CustomerGeneralInfoId ;
+        var siteId = FSM.SiteId;
+        var contactType = $("#srchType").val();
+        var Name = $("#FirstName").val();
+        var pagenum = $('#ddPageSize').val();
+
+        $.ajax({
+            url: common.SitePath + "/Employee/customerJob/ViewJobContacts",
+            data: {CustomerGeneralinfoid:customerGeneralInfoID, SiteId:siteId,ContactType:contactType, name: Name, PageNum: pagenum },
+            type: 'POST',
+            async: false,
+            success: function (data) {
+                $("#divContactsPartial").empty();
+                $("#divContactsPartial").append(data);
+            },
+            error: function () {
+                alert("something seems wrong");
+            }
+        })
+
+    })
+
+    $(document).off("keypress", ".contacts_serch").on("keypress", ".contacts_serch", function (e) {
+
+        var key = e.which;
+        if (key == 13)  // the enter key code
+        {
+            $('#contactsSerch').click();
+            return false;
+        }
+    });
+</script>

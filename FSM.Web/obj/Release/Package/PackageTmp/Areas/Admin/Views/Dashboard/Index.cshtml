@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <div> 
+        I am Admin
+        <br />
+        @Html.ActionLink("Customer", "Index", "Customer", new {@area= "Customer" }, new { })
+        <br />
+
+        @Html.ActionLink("Employee", "EmployeeDetails", "Employee", new { @area = "Employee" }, new { })
+    
+    </div>
+</body>
+</html>

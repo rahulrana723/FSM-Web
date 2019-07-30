@@ -1,0 +1,89 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.CustomerEmailSendListViewModel
+@using GridMvc.Html
+
+@Html.Grid(Model.displaySiteDocumentViewModel).Columns(
+    columns =>
+    {
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(o => Html.CheckBox("checked", false, new { @id = "siteDocsId", @class = "checkedItemsite", @Sitedocid = o.DocumentId })).Filterable(false).Titled("<input name='allChksitedoc' class='allChksitedoc' type='checkbox' />Check");
+
+        columns.Add(model => model.DocumentName).Titled("Document Name");
+        columns.Add()
+     .Encoded(false)
+     .Sanitized(false)
+     .SetWidth(30)
+     .RenderValueAs(model => Html.ActionLink("Edit Name", "", null, new { @class = "btneditdocname btn btn-default ", datavalue = model.DocumentName, href = "javascript:void(0)", @Id = model.DocumentId })).Filterable(false).Titled("Edit Name");
+
+
+
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Download", "", null, new { @class = "btnSitedocdownload btn btn-default ", href = "javascript:void(0)", @Id = model.DocumentId })).Filterable(false).Titled("Download");
+
+    }
+    )
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script>
+    $(document).on("click", ".btnSitedocdownload ", function () {
+        var id = $(this).attr("Id");
+        var pagenum = $('.active span').text();
+        $.ajax({
+            url: common.SitePath + "/Employee/Invoice/DownloadSiteDocsFile",
+            data: { Id: id },
+            type: 'Get',
+            async: false,
+            success: function (data) {
+                window.open(common.SitePath + data);
+            },
+            error: function () {
+                alert("something seems wrong");
+            }
+        });
+    })
+
+
+    $(document).on("click", ".btneditdocname ", function () {
+        var id = $(this).attr("Id");
+        var pagenum = $('.active span').text();
+        var actualfilename = $(this).parent().parent().find('td:eq(1)').html();
+        if ($(this).text() == "Edit Name") {
+            $(".btneditdocname").each(function () {
+                var actualfilename = $(this).attr("datavalue");
+                $(this).parent().parent().find('td:eq(1)').html(actualfilename);
+                $(this).text("Edit Name");
+            });
+            $(this).parent().parent().find('td:eq(1)').html('<input type="text" class="EditedName">');
+            $(this).parent().parent().find('td:eq(1) .EditedName').val(actualfilename.split('.')[0]);
+            $(this).text("Update");  //button name change
+        }
+
+
+        else {
+            $(this).text("Edit Name");
+            actualfilename = $(this).parent().parent().find('td:eq(1) .EditedName').val();
+            var $current = $(this);
+            $.ajax({
+                url: common.SitePath + "/Employee/Invoice/RenameSiteDocument",
+                data: { Id: id, Newfilename: actualfilename },
+                type: 'Get',
+                async: false,
+                success: function (data) {
+                    if (data.Status) {
+                        $current.parent().parent().find('td:eq(1)').html(data.file_name);
+                    }
+                },
+                error: function () {
+                    alert("something seems wrong");
+                }
+            });
+        }
+    })
+</script>
+
+

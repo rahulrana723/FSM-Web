@@ -1,0 +1,75 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.LogListViewModel
+@using FSM.Web.Common;
+@using GridMvc.Html
+@{
+    ViewBag.Title = "ActivityLog";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<meta name="viewport" content="width=device-width" />
+<title>LogDetails</title>
+<section class="dashboard_section">
+    <div class="dashboard_right_block outer_padding">
+        <div class="list_heading">
+            <h2>User Logs </h2>
+        </div>
+        <div class="employee_table paper-wrap bevel tlbr">
+            <div class="outer_box2 employee_gap">
+                <div>
+
+                    <div class="form-group form_width List_Width" style="float:left">
+                        @Html.Partial("_LogListSearch", Model.logDetailInfo)
+                        <div class="clearfix"></div>
+
+                        @*<div class="employee-search ">
+                                @Html.Partial("_EmployeeDetailSearch", Model.EmployeeDetailInfo)
+                            </div>*@
+                    </div>
+                </div>
+            </div><!--new_emp_tab-->
+
+            <div class="emp_table">
+                <div class="drop_head_tab">
+                    <div class="table-responsive">
+                        @Html.Grid(Model.logDetailList).SetRowCssClasses(
+                            item => item.Id == Guid.Empty ? string.Empty : "cssEditEmployee").Columns(
+                            columns =>
+                            {
+                                columns.Add(model => model.Id, true);
+                                columns.Add(model => model.FullName).Titled("FullName");
+                                columns.Add(model => model.Message).Titled("Message");
+                                columns.Add(model => model.Date).Titled("Date");
+                            }
+                           ).WithPaging(Model.logDetailInfo.PageSize).Sortable(true)
+                        <div style="float: right;">
+                            <label>Page Size</label>
+                            @Html.DropDownList("ddPageSize", new List<SelectListItem>
+                           {
+                             new SelectListItem { Text="5",Value="5"},
+                             new SelectListItem { Text = "10", Value = "10" },
+                             new SelectListItem { Text = "15", Value = "15" },
+                             new SelectListItem { Text = "20", Value = "20" },
+                             new SelectListItem { Text = "25", Value = "25" },
+                             new SelectListItem { Text = "30", Value = "30" }
+                           }, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div><!--emp_table-->
+        </div>
+    </div><!--dashboard_right_block-->
+</section>
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ActivityLog", "Report", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.logDetailInfo.PageSize;
+    </script>
+}
+
+<script src="~/Areas/Employee/Scripts/ActivityLog.js"></script>
+
+
+
+
+

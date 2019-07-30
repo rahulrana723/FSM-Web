@@ -1,0 +1,72 @@
+﻿@*@model IEnumerable<FSM.Web.Areas.Customer.ViewModels.DisplaySitesViewModel>*@
+@model FSM.Web.Areas.Customer.ViewModels.CustomerSitesViewModel
+    @using GridMvc.Html
+
+    @Html.Grid(Model.DisplaySitesViewModel).SetRowCssClasses(
+    item => item.SiteDetailId == Guid.Empty ? string.Empty:"cssEditSiteDetail").Columns(
+    columns =>
+    {
+        //columns.Add(model => model.Name).Titled("Contact Name");
+        //columns.Add(model => model.StrataManagerName).Titled("Strata Manager ");
+        columns.Add(model => model.SiteDetailId, true);
+        columns.Add(model => model.SiteFileName).Titled("File Name");
+        // columns.Add(model => model.DisplayStreetType).Titled("Street Type");
+        columns.Add(model => model.DisplayRoofType).Titled("Roof Type");
+        //columns.Add(model => model.DisplayResidenceType).Titled("Residence Type");
+        columns.Add(model => model.Notes).Titled("Notes");
+        columns.Add(model => model.IsContracted).Titled("IsContracted");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "", new { id = model.SiteDetailId.ToString() }, new { @class = "btn btn-default editbtngrid", @id = "EditSiteDetail" })).Filterable(false).Titled("Action");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", new { id = model.SiteDetailId.ToString() }, new { @class = "btn btn-default editbtngrid", @id = "DeleteSiteDetail" })).Filterable(false).Titled("Action");
+    }
+    ).WithPaging(Model.PageSize).Sortable(true)
+
+<div style="float: right;">
+    <label>Page Size</label>
+    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+            {
+                new SelectListItem { Text="5",Value="5"},
+                new SelectListItem { Text = "10", Value = "10" },
+                new SelectListItem { Text = "15", Value = "15" },
+                new SelectListItem { Text = "20", Value = "20" },
+                new SelectListItem { Text = "25", Value = "25" },
+                new SelectListItem { Text = "30", Value = "30" }
+            }, new { @class = "form-control" })
+</div>
+<script src="~/Areas/Customer/Scripts/CustomerSitelist.js"></script>
+<script>
+    $('#ddPageSize').on('change', function () {
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.PageSize;
+        }
+        $.get(common.SitePath + "/Customer/Customer/CustomerSiteList?page_size=" + page_size+"&CustomerGeneralInfoId=@Model.CustomerGeneralInfoId", function (data) {
+            $('#dvShowCustList').empty();
+            $('#dvShowCustList').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+
+    });
+    $(document).on('dblclick', '.cssEditSiteDetail', function () {
+        // getting customer id
+        
+        var id = $(this).find('td:eq(0)').text();
+
+        $.get(common.SitePath + "/Customer/Customer/ManageCustomerSitesPartial?SiteDetailId=" + id, function (data) {
+            $('#dvCustForm').css('display', 'block');
+            $('#dvCustAddNew').css('display', 'none');
+            $('#dvCustFormPartial').empty();
+            $('#dvCustFormPartial').append(data);
+        });
+    });
+</script>
+

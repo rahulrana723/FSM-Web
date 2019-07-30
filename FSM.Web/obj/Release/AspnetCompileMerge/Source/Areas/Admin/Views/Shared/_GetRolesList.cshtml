@@ -1,0 +1,58 @@
+﻿@model FSM.Web.Areas.Admin.ViewModels.RoleManagementViewModel
+@using GridMvc.Html
+
+@Html.Grid(Model.aspNetRolesViewModelList).SetRowCssClasses(
+    item => item.Id == Guid.Empty ? string.Empty : "cssEditRole").Columns(
+        columns =>
+        {
+            columns.Add(model => model.Id, true);
+            columns.Add(model => model.Name).Titled("Name");
+
+            columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(model => Html.ActionLink("Edit", "EditRole", null, new
+                {
+                    @class = "btn btn-default editbtngrid",
+                    @id = "editRole",
+                    @data_roleid = model.Id
+                })).Filterable(false).Titled("Edit");
+
+            columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(model => Html.ActionLink("Delete", "DeleteRole", null, new
+                {
+                    @class = "btn btn-default editbtngrid",
+                    @id = "deleteRole",
+                    @data_roleid = model.Id
+                })).Filterable(false).Titled("Delete");
+
+            columns.Add()
+                .Encoded(false)
+                .Sanitized(false)
+                .SetWidth(30)
+                .RenderValueAs(model => Html.ActionLink("Manage Permission", "ManageRolesActions", new { RoleId = model.Id }, new
+                {
+                    @class = "btn btn-default editbtngrid"
+                })).Filterable(false).Titled("Manage Permissions");
+
+        }
+        ).WithPaging(Model.roleManagementSearchViewModel.PageSize).Sortable(true)
+<div style="float: left;">
+    <label class="recordCount" style="margin-left: 9px;">Total Record: @Model.aspNetRolesViewModelList.Count()</label>
+</div>
+
+<script>
+    $(document).ready(function () {
+        if ($(".pagination").length > 0) {
+            $('#ddPageSize').parent().css('margin-top', '-72px');
+        }
+        else {
+            $('#ddPageSize').parent().css('margin-top', '8px');
+        }
+    });
+</script>
+@*<script src="~/Scripts/jquery-1.12.4.js"></script>*@

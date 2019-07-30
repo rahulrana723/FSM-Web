@@ -1,0 +1,29 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeRoastedOffListViewModel
+@using GridMvc.Html
+
+@Html.Grid(Model.RoastedOffCoreListViewModel).Columns(
+    columns =>
+    {
+        columns.Add(model => model.UserName).Titled("OTRW Name");
+        columns.Add(model => model.Days).Titled("Days");
+        columns.Add(model => model.Weeks).Titled("Weeks");
+
+        columns.Add()
+         .Encoded(false)
+         .Sanitized(false)
+         .SetWidth(30)
+         .RenderValueAs(model => Html.ActionLink("Edit", "#", null, new
+         {
+             @class = "btn btn-default editbtngrid updateEmpRoasted",
+             @data_id = model.ID.ToString(),
+         })).Filterable(false).Titled("Edit");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { Id = model.ID.ToString() }, new { @class = "btn btn-default", @type = "button", href = "javascript:void(0)", onclick = "DeleteRoastedOff('" + model.ID.ToString() + "');" })).Filterable(false).Titled("Delete");
+    }
+    ).WithPaging(Model.PageSize).Sortable(true)
+
+

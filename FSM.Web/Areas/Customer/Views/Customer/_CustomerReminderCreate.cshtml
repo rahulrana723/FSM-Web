@@ -1,0 +1,109 @@
+﻿@model  FSM.Web.Areas.Customer.ViewModels.CustomerReminderVM
+<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+@*<script src="~/Areas/Customer/Scripts/CustomerContactLog.js"></script>*@
+<div class="modal fade" id="modalReminder" role="dialog" style="z-index:9999999 !important">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closebtncontact" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Send Message</h4>
+                <div class="saved-rem-msg" style="display:none;"></div>
+            </div>
+            <div id="ContactLogErrorDv" style="display:none;padding: 5px 0px 0px 18px;"></div>
+            <div class="modal-body">
+                @using (Ajax.BeginForm("_CustomerReminderCreate", "Customer", FormMethod.Post, new AjaxOptions() { HttpMethod = "POST", OnSuccess = "SuccessLog" }))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal popUp_width">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.CustomerGeneralInfoId, new { id = "customerId" })
+                        @Html.HiddenFor(model => model.ReminderId, new { id = "reminderId" })
+                        @Html.HiddenFor(m => m.CreatedBy)
+                        @Html.HiddenFor(m => m.CreatedDate)
+                        @Html.HiddenFor(m => m.IsDelete)
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.Schedule, htmlAttributes: new { @class = "control-label col-md-3 " })
+                                @Html.CheckBoxFor(model => model.Schedule, new { @class = "cust-chkstyle" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.HasSMS, htmlAttributes: new { @class = "control-label col-md-3 " })
+                                @Html.CheckBoxFor(model => model.HasSMS, new { @class = "cust-chkstyle" })
+                            </div>
+                            <div class="col-md-4">
+                                @Html.LabelFor(model => model.HasEmail, htmlAttributes: new { @class = "control-label col-md-3 " })
+                                @Html.CheckBoxFor(model => model.HasEmail, new { @class = "cust-chkstyle" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FromEmail, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EnumDropDownListFor(model => model.FromEmail, "(From Email)", htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.FromEmail, "", new { @class = "text-danger", @id = "" })
+                            </div>
+                        </div>
+                        <div class="form-group reminderDateDv" style="display: none;">
+                            @Html.LabelFor(model => model.ReminderDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.TextBoxFor(m => m.ReminderDate, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.Label("Site", htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.ListBoxFor(model => model.JobId2, Model.JobList, new { @title = "Select", @id = "RemJobId", @class = "ddlmultiselectmsgcustomer", multiple = "multiple" })
+                            </div>
+                        </div>
+                        @*<div class="form-group">
+                                @Html.LabelFor(model => model.MessageTypeId, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-8">
+                                    @Html.EnumDropDownListFor(model => model.MessageTypeId, "Select", new { @class = "form-control" })
+                                </div>
+                            </div>*@
+                        <div class="jobContactList">
+                            @Html.Partial("_GetJobContacts", Model)
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TemplateMessageId, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-8">
+                                @Html.EnumDropDownListFor(model => model.TemplateMessageId, "--Select--", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group NoteField">
+                            @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-3 " })
+                            <div class="col-md-8">
+                                @Html.TextAreaFor(model => model.Note, new { @class = "form-control mynotebook", @cols = 3, @rows = 5 })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                @Html.ActionLink("Send Reminder", "", "", new { @id = "btnReminderSaveSend", @class = "btn btn-success", href = "javascript:void(0)" })
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Areas/Customer/Scripts/_CustomerReminder.js"></script>
+
+
+

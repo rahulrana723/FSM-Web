@@ -1,0 +1,38 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.EmployeeDetailSearchViewModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        <div class="col-sm-12">
+            <div class="search_customer_block stock_top_bg">
+                <div class="search_customer ">
+                    <div class="col-sm-4 no-pad">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { maxlength = "50", @id = "searchkeyword", @class = "form-control", @placeholder = "Search Keyword" } })
+                    </div>
+                     <div class="col-md-3">
+                            @Html.DropDownListFor(m => m.Role, new List<SelectListItem>
+                               {
+                                  new SelectListItem() {Text = "--Select role--", Value=""},
+                                new SelectListItem() {Text = "Accounts", Value="6ab34575-4515-4d51-ad54-9e1ddcfd2285"},
+                                new SelectListItem() {Text = "Admin", Value="a45909cc-3ec6-4ca1-9e49-6644ac32bb96"},
+                                new SelectListItem() {Text = "Comms_inv", Value="bba795d1-e549-4283-bf73-6c321480c766"},
+                                new SelectListItem() {Text = "Operations", Value="cde8f045-239f-4531-aa17-d8aecb0fa732"},
+                                new SelectListItem() {Text = "Otrw", Value="31cf918d-b8fe-4490-b2d7-27324bfe89b4"}
+                               }, new { @class = "form-control col-sm-4 ddlTypes" })
+                            @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger " })
+                        </div>
+                    <div class="col-sm-2 text-left">
+                        <button class="search_btn black-btn search_pad" value="Search" type="submit">Search</button>
+                    </div>
+                    <div class="add_customer">
+                        @Html.ActionLink("Add New Message", "", null, new {@id="ViewInboxMesg", @class = "btn btn-default pull-right", href = "javascript:void(0)", })
+                    </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

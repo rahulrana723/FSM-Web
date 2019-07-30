@@ -1,0 +1,84 @@
+
+
+Rackspace Server : 
+
+Server : 198.101.251.91
+Password: d6Cu4TCQrRfA
+
+
+Rackspace cloud login
+
+url : mycloud.rackspace.com
+Username:  TJ100101
+PWD:       Mind@123
+
+Dev express
+
+User ID: caleb.lee@matinc.net
+PW:       Ensite2014
+
+go Daddy
+
+amir100101
+pwd: Mind@2015
+
+FTP
+
+HOST: ftp://accellinnovations.com
+username: dotnet@accellinnovations.com
+Password: mind@123
+
+
+New FTP
+
+host: ftp://accellinnovations.com
+User: newdevice@accellinnovations.com
+pwd: mind@123
+
+
+
+Host: ftp.accellinnovations.com
+Port: 21
+
+Login:
+devicetype1@accellinnovations.com
+devicetype2@accellinnovations.com
+devicetype3@accellinnovations.com
+devicetype4@accellinnovations.com
+devicetype5@accellinnovations.com
+
+built@accellinnovations.com
+PWD: Matinc@2015
+
+
+
+<add key="tvr.elasticsearch.uri" value="http://azureuser:VrMakeiteasy!@13.92.249.147:9200/" />
+
+
+<add name="ApplicationServices" connectionString="Server=tcp:tvrdevdb.database.windows.net,1433;Database=TVR_Dev;User ID=tvrdevuser;
+Password=Makeiteasy!;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True;Enlist=False"
+         providerName="System.Data.SqlClient"/>
+    
+    <add name="TvrContext" connectionString="Server=tcp:tvrdevdb.database.windows.net,1433;Database=TVR_Dev;User ID=tvrdevuser;Password=Makeiteasy!;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True;Enlist=False"
+         providerName="System.Data.SqlClient"/>
+
+    <add name="NLogConnectionString" connectionString="Server=tcp:tvrdevdb.database.windows.net,1433;Database=TVR_Dev;User ID=tvrdevuser;Password=Makeiteasy!;Trusted_Connection=False;Encrypt=True;Connection Timeout=30;MultipleActiveResultSets=True;Enlist=False"
+         providerName="System.Data.SqlClient"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
+

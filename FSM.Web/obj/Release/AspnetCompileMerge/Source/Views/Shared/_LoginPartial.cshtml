@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNet.Identity
+@using FSM.Web.Common
+@if (Request.IsAuthenticated)
+{
+    using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+
+        <ul class="hdr-navbar">
+            <li>
+                <div class="head_right">
+                    
+                    <h5>
+<a href="#" class="fsm-notification">
+    <i class="fa fa-bell" aria-hidden="true"></i> @if (ViewContext.Controller.UserNotificationCount()!="0")
+                        {
+                            var count = ViewContext.Controller.UserNotificationCount();
+                            @Html.Label("( "+count+" )", new { @class = "lbl-notify" })
+                        }
+                        Notifications</a>
+                    <a href="#" id="FSMDisplayUserStyle"><i class="fa fa-user " aria-hidden="true"></i>&nbsp; @User.Identity.GetUserName()<img id="my_image" src=""/></a>  </h5>
+                </div>
+                <div class="main-dropdwn" style="display:none;">
+                    <div class="drop-nav">
+                        <ul>
+                            <li><a href="@Url.Action("EmployeeProfile","Employee", new {@area="Employee",EmployeeId=User.Identity.GetUserId()})">Profile </a></li>
+                            <li><a href="@Url.Action("ChangePassword","Manage", new {@area=""})">Change Password </a></li>
+                            <li><a id="FSMLoggOffStyle" href="javascript:document.getElementById('logoutForm').submit()">Log out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

@@ -1,0 +1,4 @@
+﻿var common = {
+    SitePath: "",
+    MenuPath: "/"
+}

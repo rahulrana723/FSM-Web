@@ -1,0 +1,103 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JobDocViewModel
+@{
+    ViewBag.Title = "Job Documents";
+    Layout = null;
+}
+<script src="~/Scripts/jquery-1.12.4.min.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+@using (Html.BeginForm("SaveJobDocument", "CustomerJob", FormMethod.Post, new { enctype = "multipart/form-data", @id = "frmJobDocs" }))
+{
+    <div class="alert alert-success jobalert" style="display:none">
+        <strong>Success!</strong> Mail sent successfully.
+    </div>
+    <div class="col-md-12 no-pad">
+        <div class="outer_box_doc">
+            <div class="add_doc">
+                <input type="button" value="Add" id="add_btnDoc" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" id="divContactPartial">
+        <div class="Jobdocument_collapse important_collpase" style="display:none;">
+            <div class="sect-box">
+                <div class="header">
+                    <span>Add document</span>
+                </div>
+                @Html.HiddenFor(m => m.JobId, new { @class = "jobhdnid" })
+                @Html.HiddenFor(m => m.IsDelete)
+                <div class="col-sm-4">
+                    @Html.TextBoxFor(m => m.JobDocs, new { type = "file", accept = "image/x-png,image/gif,image/jpeg,.docx,.xlsx,.txt" })
+                </div>
+                <div class="col-sm-3">
+                    <div class="checkbox">
+                        <input id="btnSaveJobDocs" class="btn btn-default search_doc" type="button" value="Save" />
+                    </div>
+                </div>
+            </div>
+                <div id="dropArea">
+                    Drop your files here
+                </div>
+           
+        </div>
+
+        <div class="jobdocs-list">
+            @Html.Partial("_JobDocumentList", Model)
+        </div>
+        <div class="quickviewdiv"></div>
+    </div>
+
+}
+
+<script src="~/Areas/Employee/Scripts/JobDocuments.js"></script>
+<script src="~/Scripts/filedrop.js"></script>
+<script>
+    $(document).ready(function () {
+        var Job_id = $('.jobhdnid').val();
+        var returnresponse = "";
+       // alert(Job_id);
+        //var SiteId=$("#SiteCountviewModel_SiteDetailId").val();
+        //alert(SiteId);
+        $('#dropArea').filedrop({
+
+            url: '/Employee/CustomerJob/UploadFiles',
+            //allowedfiletypes: ['image/jpeg', 'image/png', 'image/gif'],
+            //allowedfileextensions: ['.jpg', '.jpeg', '.png', '.gif'],
+            paramname: 'files',
+            maxfiles: 20,
+            maxfilesize: 5, // in MB
+            data: {
+                JobId: Job_id,
+            },
+            dragOver: function () {
+                //$("#dropArea").css("display", "block");
+                $('#dropArea').addClass('active-drop');
+            },
+            dragLeave: function () {
+                $('#dropArea').removeClass('active-drop');
+
+            },
+            drop: function () {
+                //  siteid = $('#SiteCountviewModel_SiteDetailId  option:selected').val();
+                $('#dropArea').removeClass('active-drop');
+
+            },
+            afterAll: function (e) {
+                $('#dropArea').html('file(s) uploaded successfully');
+                $(window).scrollTop(0);
+                $('.jobalert').empty();
+                $('.jobalert').css('color', 'green');
+                $('.jobalert').html('<Strong>Document(s) Uploaded successfully!</Strong>');
+                $('.jobalert').show().delay(3000).fadeOut();
+                $('#JobDocs').val('');
+                $('.jobdocs-list').empty();
+                $('.jobdocs-list').html(returnresponse);
+                //   return RedirectToAction("AddCustomerInfo", new { id = model.CustomerSiteDocuments.CustomerGeneralInfoId.ToString(), activetab = "Documents", success = "ok" });
+            },
+            uploadFinished: function (i, file, response, time) {
+                returnresponse = response;
+                //alert(response);
+                //$("#dropArea").css("display", "none");
+                //$('#uploadList').append('<li class="list-group-item">'+file.name+'</li>')
+            }
+        })
+    })</script>

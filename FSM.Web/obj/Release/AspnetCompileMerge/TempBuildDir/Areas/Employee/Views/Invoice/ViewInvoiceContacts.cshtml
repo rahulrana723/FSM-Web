@@ -1,0 +1,64 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerContactsListViewModel
+@{
+    ViewBag.Title = "ViewCustomerContacts";
+    Layout = null;
+}
+@*<script src="~/Scripts/jquery.maskedinput-1.3.1.min_.js"></script>*@
+
+<div class="alert alert-success jobalert" style="display:none">
+    <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+<section class="dashboard_section">
+    <div class="dashboard_right_block customer_contact">
+        <div class="employee_table paper-wrap bevel tlbr">
+
+
+            <div class="new_emp_tab outer_box" style="display:none;">
+                @*<div class="form-group form_width" style="float:left">*@
+                <div class="col-md-12 no-pad">
+                    @Html.Partial("_InvoiceContactsSearch", Model.ContactsDetailInfo, new ViewDataDictionary())
+                </div>
+                @*</div>*@
+                <div class="emp_table">
+                    <div class="add_customer">
+                        @Html.ActionLink("Add New Contact", "", "", new { @customerGeneralinfoid = Model.CustomerContacts.CustomerGeneralInfoId, @SiteId = Model.CustomerContacts.SiteId, @InvoiceId = Model.customerContactsViewModel.InvoiceId, @customercontactid = Guid.Empty }, new { @class = "btnaddJobcontacts btn btn-default pull-right", data_HideAddContacts = true, href = "javascript:void(0)", customerGeneralinfoid = Model.CustomerContacts.CustomerGeneralInfoId, SiteId = Model.CustomerContacts.SiteId, InvoiceId = Model.customerContactsViewModel.InvoiceId, customercontactid = Guid.Empty })
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+            <div class="table-responsive drop_head_tab" id="divContactsPartial" style="display:none;">
+
+                @Html.Partial("_InvoiceContactsList")
+
+            </div>
+
+            <div class="table-responsive drop_head_tab" id="divContactsForm" style="display:none;">
+
+                @Html.Partial("_UpdateInvoiceContactsAddEdit", Model.customerContactsViewModel)
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+
+<script>
+    var FSM = {};
+    FSM.CustomerGeneralInfoId = @Html.Raw(Json.Encode(Model.CustomerContacts.CustomerGeneralInfoId));
+    FSM.SiteId = @Html.Raw(Json.Encode(Model.CustomerContacts.SiteId));
+    FSM.SelectedVal=@Model.ContactsDetailInfo.PageSize;
+    FSM.ContactCount=@Model.ContactCount;
+    FSM.TitleVal='@Model.customerContactsViewModel.Title';
+    FSM.JobId=@Html.Raw(Json.Encode(Model.customerContactsViewModel.JobId));
+
+
+</script>
+<script src="~/Areas/Employee/Scripts/ViewInvoiceContacts.js"></script>
+
+
+

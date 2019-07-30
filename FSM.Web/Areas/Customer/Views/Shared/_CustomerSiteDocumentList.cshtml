@@ -1,0 +1,104 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSiteDocumentsListViewModel
+@using GridMvc.Html
+@section scripts
+{
+    var FSM={
+    CustomerGeneralInfoId:""
+    };
+    FSM.CustomerGeneralInfoId = @Html.Raw(Json.Encode(Model.CustomerSiteDocuments.CustomerGeneralInfoId));
+}
+
+@Html.Grid(Model.CustomerSiteDocumentsCoreViewModelList).SetRowCssClasses(
+    item => item.SiteDetailId == Guid.Empty ? string.Empty : "cssViewDocument").Columns(
+    columns =>
+    {
+        columns.Add(model => model.SiteDetailId, true);
+        columns.Add(model => model.SiteAddress).Titled("Site");
+        columns.Add(model => model.filecount).Titled("File count");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("View", "", null, new { @class = "Customerquickview btn btn-default editbtngrid", href = "javascript:void(0)", @SiteDetailId = model.SiteDetailId })).Filterable(false).Titled("View");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", null, new
+        {
+            @type = "button",
+            @class = "deletedocuments btn btn-default",
+            href = "javascript:void(0)"
+            ,
+            onclick = "DeleteDocuments('" + model.SiteDetailId + "');",
+            @SiteDetailId = model.SiteDetailId
+        })).Filterable(false).Titled("Delete");
+
+    }
+).WithPaging(5).Sortable(true).EmptyText("There are no documents to display.")
+
+<script>
+    $(document).on('dblclick', '.cssViewDocument', function () {
+        var sitedetailid = $(this).find('td:eq(0)').text();
+
+        var data = { siteId: sitedetailid };
+        $.ajax({
+            url: common.SitePath + "/customer/customer/CustomerDocQuickView",
+            type: 'GET',
+            data: data,
+            async: false,
+            success: function (result) {
+                $(window).scrollTop(0);
+                $('.quickviewdiv').empty();
+                $('.quickviewdiv').html(result);
+                $('#modalQuickCustSiteView').modal("show");
+            },
+            error: function () {
+                alert('something went wrong !');
+            }
+        });
+    });
+    $(document).on('click', '.grid-pager .pagination a', function (event) {
+        event.preventDefault();
+        var querystring = $(this).prop('href').split("?")[1];
+        var values = querystring.split("&");
+        var pagenumparam = '';
+        var customerGeneralinfoid = FSM.CustomerGeneralInfoId;
+
+        $.each(values, function (i, item) {
+            if (item.indexOf("grid-page") > -1) {
+                pagenumparam = item;
+            }
+        })
+        $.get(common.SitePath + "/Customer/Customer/AddDocumentsPartial?customerGeneralinfoid=" + customerGeneralinfoid + "&" + pagenumparam, function (data) {
+            $('#dvShowCustList').empty();
+            $('#dvShowCustList').append(data);
+        });
+
+    });
+
+    $(document).on('click', '.grid-header-title a', function (event) {
+        event.preventDefault();
+        //var customerGeneralinfoid = FSM.CustomerGeneralInfoId;
+        var pagenum = $('.active span').text();
+
+        var elementparam = $(this).attr('href');
+
+        elementparam = elementparam + "&grid-page=" + pagenum;
+
+        var url = common.SitePath + "/Customer/Customer/AddDocumentsPartial" + elementparam;
+
+        $.get(url, function (data) {
+            $('#dvShowCustList').empty();
+            $('#dvShowCustList').append(data);
+        });
+
+    });
+</script>
+
+
+
+
+

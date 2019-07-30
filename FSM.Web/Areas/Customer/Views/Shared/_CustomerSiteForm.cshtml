@@ -1,0 +1,601 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSitesViewModel
+
+@using (Html.BeginForm("SaveCustomerList", "Customer", new { @area = "Customer" }, FormMethod.Post, new { @id = "formSiteDetail" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal general_form">
+        @if (Model.HideAddCustomer != "true")
+        {
+            <input type="button" value="Add Customer Site" class="btn btn-default customer AddNewSite" id="addcustomersite" />
+        }
+        @if (Model.SiteDetailId != Guid.Empty)
+        {
+            <h3>Customer Site Detail</h3>
+        }
+        else
+        {
+            <h3>Customer Site Detail: Add New Customer Site</h3>
+        }
+        <div id="CustomerSitesErrorDiv" style="display:none;">
+        </div>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.CustomerGeneralInfoId)
+        @Html.HiddenFor(model => model.ConditionReportId)
+        @Html.HiddenFor(model => model.SiteDetailId)
+        @Html.HiddenFor(model => model.ResidenceDetailId)
+        @Html.HiddenFor(model => model.CustomerSiteDetailViewModel.CreatedBy)
+        @Html.HiddenFor(model => model.CustomerSiteDetailViewModel.IsDelete)
+        @Html.HiddenFor(model => model.CustomerSiteDetailViewModel.CreatedDate)
+        @Html.HiddenFor(model => model.CustomerResidenceDetailViewModel.CreatedBy)
+        @Html.HiddenFor(model => model.CustomerResidenceDetailViewModel.CreatedDate)
+        @Html.HiddenFor(model => model.CustomerResidenceDetailViewModel.IsDelete)
+        @*@Html.HiddenFor(model => model.CustomerResidenceDetailViewModel.NeedTwoPPL)*@
+        @Html.HiddenFor(model => model.CustomerConditionReportViewModel.CreatedBy)
+        @Html.HiddenFor(model => model.CustomerConditionReportViewModel.CreatedDate)
+        @Html.HiddenFor(model => model.CustomerConditionReportViewModel.IsDelete)
+
+        <div class="site_details_outer">
+            <input id="geocomplete" class="form-control" type="text" placeholder="Type in an address" value="" />
+            <div class="address_label SiteAddress_details_outer">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CustomerSiteDetailViewModel.Unit, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    <div>
+                                        @Html.EditorFor(model => model.CustomerSiteDetailViewModel.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.Unit, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CustomerSiteDetailViewModel.Street, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    <div>
+                                        @Html.EditorFor(model => model.CustomerSiteDetailViewModel.Street, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.Street, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CustomerSiteDetailViewModel.StreetName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    <div>
+                                        @Html.EditorFor(model => model.CustomerSiteDetailViewModel.StreetName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.StreetName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            @*<div class="col-md-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailViewModel.StreetType, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerSiteDetailViewModel.StreetType, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.StreetType, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>*@
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CustomerSiteDetailViewModel.Suburb, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    <div>
+                                        @Html.EditorFor(model => model.CustomerSiteDetailViewModel.Suburb, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.Suburb, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CustomerSiteDetailViewModel.State, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    <div>
+                                        @Html.EditorFor(model => model.CustomerSiteDetailViewModel.State, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.State, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CustomerSiteDetailViewModel.PostalCode, htmlAttributes: new { @class = "control-label col-md-12" })
+                                    <div>
+                                        @Html.TextBoxFor(model => model.CustomerSiteDetailViewModel.PostalCode, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.PostalCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerSiteDetailViewModel.SiteFileName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div>
+                                    @Html.EditorFor(model => model.CustomerSiteDetailViewModel.SiteFileName, new { htmlAttributes = new { @id = "SiteFileName", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.SiteFileName, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerSiteDetailViewModel.PrefTimeOfDay, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div>
+                                    @Html.EnumDropDownListFor(model => model.CustomerSiteDetailViewModel.PrefTimeOfDay, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.PrefTimeOfDay, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerSiteDetailViewModel.StrataPlan, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div>
+                                    @Html.EditorFor(model => model.CustomerSiteDetailViewModel.StrataPlan, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.StrataPlan, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerSiteDetailViewModel.Contracted, htmlAttributes: new { @class = "control-label col-md-12" })
+                                <div>
+                                    @Html.EnumDropDownListFor(model => model.CustomerSiteDetailViewModel.Contracted, "(Select)", htmlAttributes: new { @id = "siteContracted", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.Contracted, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 priceShow" style="display:none;">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerSiteDetailViewModel.ScheduledPrice, htmlAttributes: new { @class = "control-label col-md-12 " })
+                                <div>
+                                    @Html.EditorFor(model => model.CustomerSiteDetailViewModel.ScheduledPrice, new { htmlAttributes = new { @id = "schdulePrice", @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.ScheduledPrice, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerSiteDetailViewModel.Notes, htmlAttributes: new { @class = "control-label col-md-12 " })
+                                <div>
+                                    @Html.TextAreaFor(model => model.CustomerSiteDetailViewModel.Notes, new { @class = "form-control description textarea_height" })
+                                    @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.Notes, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="checkbox">
+                                @Html.EditorFor(model => model.CustomerSiteDetailViewModel.BlackListed, new { htmlAttributes = new { @id = "BlackListed" } })
+                                @Html.LabelFor(model => model.CustomerSiteDetailViewModel.BlackListed)
+                                @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.BlackListed, "", new { @class = "text-danger" })
+                            </div>
+
+                            <div class="form-group blacklist">
+                                @Html.TextAreaFor(model => model.CustomerSiteDetailViewModel.BlackListReason, new { @id = "BlackListReason", @class = "form-control description textarea_height" })
+                                @Html.ValidationMessageFor(model => model.CustomerSiteDetailViewModel.BlackListReason, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <div class="site_details_outer2">
+                    <div>
+                        <div class="col-md-12">
+                            <div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.TypeOfResidence, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerResidenceDetailViewModel.TypeOfResidence, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.TypeOfResidence, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.Unit, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EditorFor(model => model.CustomerResidenceDetailViewModel.Unit, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.Unit, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.NoBldgs, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EditorFor(model => model.CustomerResidenceDetailViewModel.NoBldgs, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.NoBldgs, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" id="height">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.Height, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerResidenceDetailViewModel.Height, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.Height, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.Pitch, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerResidenceDetailViewModel.Pitch, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.Pitch, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.RoofType, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerResidenceDetailViewModel.RoofType, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.RoofType, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.GutterGaurd, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerResidenceDetailViewModel.GutterGaurd, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.GutterGaurd, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.SRASinstalled, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerResidenceDetailViewModel.SRASinstalled, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.SRASinstalled, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                </div>
+                            </div>
+
+
+                            <div class="detail-box view_boxcustomer">
+
+                                <div class="col-md-6">
+                                    <div class="checkbox">
+                                        @Html.CheckBoxFor(model => model.CustomerResidenceDetailViewModel.NotWet)
+                                        @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.NotWet, "", new { @class = "text-danger" })
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.NotWet, htmlAttributes: new { @class = "control-label col-md-9" })
+                                    </div>
+                                </div>
+                                @*<div class="col-md-6">
+                                        <div class="checkbox">
+                                            @Html.CheckBoxFor(model => model.CustomerResidenceDetailViewModel.NeedTwoPPL)
+                                            @Html.ValidationMessageFor(model => model.CustomerResidenceDetailViewModel.NeedTwoPPL, "", new { @class = "text-danger" })
+                                            @Html.LabelFor(model => model.CustomerResidenceDetailViewModel.NeedTwoPPL, htmlAttributes: new { @class = "control-label col-md-9" })
+
+                                        </div>
+                                    </div>*@
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="site_details_outer3">
+                    <div>
+                        <div class="col-md-12">
+                            <div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.RoofTilesSheets, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerConditionReportViewModel.RoofTilesSheets, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel.RoofTilesSheets, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.BargeCappings, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerConditionReportViewModel.BargeCappings, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel.BargeCappings, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.RidgeCappings, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerConditionReportViewModel.RidgeCappings, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel.RidgeCappings, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.Valleys, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerConditionReportViewModel.Valleys, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel.Valleys, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.Flashings, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerConditionReportViewModel.Flashings, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel.Flashings, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.Gutters, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerConditionReportViewModel.Gutters, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.DownPipes, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerConditionReportViewModel.DownPipes, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel.DownPipes, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.ConditionRoof, htmlAttributes: new { @class = "control-label col-md-12" })
+                                        <div>
+                                            @Html.EnumDropDownListFor(model => model.CustomerConditionReportViewModel.ConditionRoof, htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel.ConditionRoof, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerConditionReportViewModel.ConditionNote, htmlAttributes: new { @class = "control-label col-md-12 " })
+                                        <div>
+                                            @Html.TextAreaFor(model => model.CustomerConditionReportViewModel.ConditionNote, new { @class = "form-control description textarea_height" })
+                                            @Html.ValidationMessageFor(model => model.CustomerConditionReportViewModel.ConditionNote, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                   @if (Model.ConditionReportId != Guid.Empty)
+                                   {
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            @Html.ActionLink("Generate Report", "ConditionalReportExportPreview", "Customer", new { @Id = Model.ConditionReportId.ToString() }, new { @id = "ConditionExport", @class = "btn btn-default black-btn" })
+                                        </div>
+                                    </div>
+                                   }
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if (Model.ModifiedDate != null)
+        {
+            <div class="row">
+                <div class="col-sm-4">
+                    <b>Last Updated By: </b>
+                </div>
+                <div class="col-sm-4">
+                    <div>
+                        <b>UserName :-</b>
+                        @Html.DisplayFor(model => model.UserName)
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div>
+                        <b>Date & Time :-</b>
+                        @Html.DisplayFor(model => model.ModifiedDate)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-sm-4">
+                    <b>Created By : </b>
+                </div>
+                <div class="col-sm-4">
+                    <div>
+                        <b>UserName :-</b>
+                        @Html.DisplayFor(model => model.UserName)
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div>
+                        <b>Date & Time :-</b>
+                        @Html.DisplayFor(model => model.CreatedDate)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="buttons  text-center">
+            <div class="col-md-offset-5 col-md-3">
+                <input type="button" value="Save" class="btn btn-default save" id="savecustomersite" />
+                <a class="btn btn-default" href="@Url.Action("index","Customer", new { Area = "Customer" })">
+                    Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Areas/Customer/Scripts/CustomerSiteDetail.js"></script>
+
+<style>
+    /*.form-horizontal .control-label {
+        text-align: left;
+        font-weight: normal;
+        margin: 0 0 10px 0;
+        font-size: 15px;
+    }*/
+
+    .site_details_outer {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+    }
+
+
+    .site_details_outer2 {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+        min-height: 355px;
+    }
+
+
+    .site_details_outer3 {
+        margin: 0 0px 30px;
+        padding: 25px;
+        width: 100%;
+        float: left;
+        border: 1px solid #e4e4e4;
+        position: relative;
+        min-height: 355px;
+    }
+
+    .site_details_outer:after {
+        position: absolute;
+        content: "Site General Info";
+        top: -11px;
+        background: #fff;
+        width: 140px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        left: 27px;
+    }
+
+    .site_details_outer2:after {
+        position: absolute;
+        content: "Residence Details";
+        top: -11px;
+        background: #fff;
+        width: 160px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        left: 21px;
+    }
+
+    .site_details_outer3:after {
+        position: absolute;
+        content: "Condition Report";
+        top: -11px;
+        background: #fff;
+        width: 160px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        left: 21px;
+    }
+
+    .save {
+        background: #2a2d33 none repeat scroll 0 0 !important;
+        border-radius: 0;
+        box-shadow: none;
+        color: #fff !important;
+        font-size: 15px !important;
+        height: 30px;
+        margin: 0 15px 0 0;
+        padding: 3px 25px !important;
+    }
+</style>
+
+<script>
+    $(function () {
+        defaultBounds = new google.maps.LatLngBounds(
+           new google.maps.LatLng(-33.807690, 150.987274),
+           new google.maps.LatLng(-33.807690, 150.987274));
+
+        $("#geocomplete").geocomplete({
+            bounds: defaultBounds,
+            // types: ["geocode", "establishment"],
+            //country: 'AU',
+            //type: ["2000", "neighborhood"]
+            //  types: ['administrative_area_level_1','NSW'], //
+             componentRestrictions: {country: "au"}
+            //types: ["geocode"],
+           
+          //  types: ['establishment'],
+            // componentRestrictions:   {country: "AU"}
+
+        }).bind("geocode:result", function (event, result) {
+            for (var i = 0; i < result.address_components.length; i++) {
+                if (result.address_components[i].types[0] == "administrative_area_level_1")
+                    $("#CustomerSiteDetailViewModel_State").val(result.address_components[i].long_name);
+                else if (result.address_components[i].types[0] == "locality")
+                    $("#CustomerSiteDetailViewModel_Suburb").val(result.address_components[i].long_name);
+                else if (result.address_components[i].types[0] == "route")
+                    $("#CustomerSiteDetailViewModel_StreetName").val(result.address_components[i].long_name);
+                else if (result.address_components[i].types[0] == "street_number")
+                    $("#CustomerSiteDetailViewModel_Street").val(result.address_components[i].long_name);
+                else if (result.address_components[i].types[0] == "postal_code")
+                    $("#CustomerSiteDetailViewModel_PostalCode").val(result.address_components[i].long_name);
+            }
+            var startaplan = $("#StrataPlan").val();
+            if (startaplan != null && startaplan != 'undefined' && startaplan != '') {
+                $("#SiteFileName").val(startaplan);
+            }
+            else {
+                $("#SiteFileName").val($("#CustomerSiteDetailViewModel_Street").val() + " " + $("#CustomerSiteDetailViewModel_StreetName").val() + " " + $("#CustomerSiteDetailViewModel_Suburb").val() + " " + $("#CustomerSiteDetailViewModel_State").val() + " " + $("#CustomerSiteDetailViewModel_PostalCode").val())
+            }
+        });
+
+    });
+</script>
+

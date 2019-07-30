@@ -1,0 +1,570 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.CustoemrInvoiceListViewmodel
+@{
+    ViewBag.Title = "Create invoice";
+    // Layout = null;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        @using (Html.BeginForm("CreateInvoice", "Invoice", FormMethod.Post, new { enctype = "multipart/form-data", @id = "contactform" }))
+        {
+            <div class="employee_table">
+                <div class="emp_table padding20">
+                    <div class="Create_invoice_form invoice_form_padding">
+                        <h3 class="add_data"> CREATE INVOICE</h3>
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.Id, new { @id = "empInvoiceId" })
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.EmployeeJobId, new { @id = "empJobId" })
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.CustomerGeneralInfoId)
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.InvoiceType)
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.StrataPlan)
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.SiteStreetAddress)
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.JobType)
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.Due)
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.Paid)
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.QuotePaidAmount, new { @id = "hdnQuotepaidamt" })
+                        @Html.HiddenFor(model => model.createInvoiceViewModel.BalanceafterQuoteAmount, new { @id = "hdnQuoteidamt" })
+
+                        <div class="general_form">
+                            <h3 class="line_header">Invoice Detail</h3>
+                            <div class="form text_normal">
+                                <div class="">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.InvoiceDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.InvoiceDate, new { htmlAttributes = new { @id = "InvoiceDate", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.InvoiceDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.InvoiceNo, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.InvoiceNo, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.InvoiceNo, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.DropDownListFor(m => m.createInvoiceViewModel.ApprovedBy, new List<SelectListItem>
+                                            {
+                                            new SelectListItem() {Text = "--Select role--", Value=""},
+                                            new SelectListItem() {Text = "Accounts", Value="6ab34575-4515-4d51-ad54-9e1ddcfd2285"},
+                                            new SelectListItem() {Text = "Admin", Value="a45909cc-3ec6-4ca1-9e49-6644ac32bb96"},
+                                            new SelectListItem() {Text = "Comms_inv", Value="bba795d1-e549-4283-bf73-6c321480c766"},
+                                            new SelectListItem() {Text = "Operations", Value="cde8f045-239f-4531-aa17-d8aecb0fa732"}
+                                            }, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.ApprovedBy, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.Price, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.Price, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.Price, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.CheckMeasure)
+                                            @Html.CheckBoxFor(m => m.createInvoiceViewModel.CheckMeasure)
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.CheckMeasure, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-wrap table-responsive" style="margin-top:18px;">
+                                    <table width="100%" border="1" class="table table-striped grid-table table-bordered InvoiceJCL_table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Items</th>
+                                                <th style="width: 25%;">Description</th>
+                                                <th>Colour</th>
+                                                <th>Size</th>
+                                                <th>Products</th>
+                                                <th>Qty</th>
+                                                <th style="width: 9%;">Unit Price</th>
+                                                <th>Amount</th>
+                                                <th>Delete</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            @Html.HiddenFor(model => model.createInvoiceViewModel.EmployeeJobId)
+                                            @if (Model.JclMappingViewModel != null)
+                                            {
+                                                for (int i = 0; i < Model.JclMappingViewModel.JCLInfo.Count; i++)
+                                                {
+                                                    <tr>
+                                                        <td class='Mappingid' style='display:none'>@Model.JclMappingViewModel.JCLInfo[i].Id</td>
+                                                        <td class='jclid' style='display:none'>@Model.JclMappingViewModel.JCLInfo[i].GCLID</td>
+                                                        <td class='jobid' style='display:none'>@Model.JclMappingViewModel.JCLInfo[i].JobId</td>
+                                                        <td class='colorid' style='display:none'>@Model.JclMappingViewModel.JCLInfo[i].Colorid</td>
+                                                        <td class='sizeid' style='display:none'>@Model.JclMappingViewModel.JCLInfo[i].Sizeid</td>
+                                                        <td class='productid' style='display:none'>@Model.JclMappingViewModel.JCLInfo[i].Productid</td>
+                                                        <td class='order'> <a href='javascript:void(0)' class='up arrowUp btn btn-default'>^</a> <a href='javascript:void(0)' style="margin-top: 6px;" class='down arrowDown btn btn-default'>V</a></td>
+                                                        <td>@Html.DropDownListFor(m => m.JclMappingViewModel.JCLInfo[i].GCLID, Model.JclMappingViewModel.JCLInfo[i].JCLItemList, "Select JCL Item", new { @class = "tblddlJCL form-control Create_Customer" })</td>
+                                                        <td class="jcldescription">@Html.Raw(HttpUtility.HtmlDecode(@Html.TextAreaFor(m => m.JclMappingViewModel.JCLInfo[i].Description, new { @class = "edtdescription form-control" }).ToHtmlString())) </td>
+                                                        @*<td class="jcldescription" id="descrption">@Html.DisplayFor(m => m.JclMappingViewModel.JCLInfo[i].Description)</td>*@
+                                                        <td>@Html.DropDownListFor(m => m.JclMappingViewModel.JCLInfo[i].Colorid, Model.JclMappingViewModel.JCLInfo[i].jclcolorlist, "Select Color", new { @class = "tblddlcolor form-control Create_Customer" })</td>
+                                                        <td>@Html.DropDownListFor(m => m.JclMappingViewModel.JCLInfo[i].Sizeid, Model.JclMappingViewModel.JCLInfo[i].jclSizeList, "Select Size", new { @class = "tblddlsize form-control Create_Customer" })</td>
+                                                        <td>@Html.DropDownListFor(m => m.JclMappingViewModel.JCLInfo[i].Productid, Model.JclMappingViewModel.JCLInfo[i].jclProductlist, "Select Product", new { @class = "tblddlproduct form-control Create_Customer" })</td>
+                                                        <td class="jclquantity">@Html.TextBoxFor(m => m.JclMappingViewModel.JCLInfo[i].DefaultQty, new { @class = "editquantity form-control text-box single-line" })</td>
+                                                        <td class="jclprice">@Html.TextBoxFor(m => m.JclMappingViewModel.JCLInfo[i].Price, new { @class = "edtprice form-control text-box single-line" })</td>
+                                                        @*<td class="jclprice">@Html.DisplayFor(m => m.JclMappingViewModel.JCLInfo[i].Price)</td>*@
+                                                        <td class="jclTotalprice">@Html.DisplayFor(m => m.JclMappingViewModel.JCLInfo[i].TotalPrice)</td>
+                                                        <td class="dltrowjcl" style="color:blue">x</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <div class="">
+                                        <input class="btn btn-default black-btn" type="button" id="addNewLine" value="Add a new line" />
+                                    </div>
+                                    @*@if (Model.createInvoiceViewModel.JobType == FSM.Web.FSMConstant.Constant.JobType.Quote)
+                                        {*@
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.AmountPaid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EnumDropDownListFor(m => m.createInvoiceViewModel.AmountPaid, "(Select)", htmlAttributes: new { @id = "amountPaid", @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.AmountPaid, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    @*}*@
+                                </div>
+                                @*<div style="margin-bottom:10px;">
+                                    <table width="100%" border="1" class="invoice_table">
+                                        <thead>
+                                            <tr>
+                                                <th>Items</th>
+                                                <th>Description</th>
+                                                <th>Qty</th>
+                                                <th>Price</th>
+                                                <th>Amount AUD</th>
+                                                <th>Amount GST AUD</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+                                            @if (Model.getStockItemListViewModel != null)
+                                            {
+                                            for (int i = 0; i < Model.getStockItemListViewModel.Count; i++)
+                                            {
+                                            <tr>
+                                                @*
+                                                <td>@Html.TextBoxFor(modelItem => modelItem.getStockItemListViewModel[i].Items, new { @class = "tblreadonly" })</td>
+                                                <td>@Html.TextBoxFor(modelItem => modelItem.getStockItemListViewModel[i].Description, new { @class = "tblreadonly" })</td>
+                                                <td>@Html.TextBoxFor(modelItem => modelItem.getStockItemListViewModel[i].Quantity, new { @class = "tblreadonly" })</td>
+                                                <td>@Html.TextBoxFor(modelItem => modelItem.getStockItemListViewModel[i].Price, new { @class = "tblreadonly" })</td>
+                                                <td class="Amount">@Html.TextBoxFor(modelItem => modelItem.getStockItemListViewModel[i].AmountAUD, new { @class = "tblreadonly" })</td>
+                                                <td class="AmountGST">@Html.TextBoxFor(modelItem => modelItem.getStockItemListViewModel[i].AmountGSTAUD, new { @class = "tblreadonly" })</td>
+                                                <td class="btnEditItembtn">x</td>
+                                                <td class="dltrow">x</td>*@
+                                @*@Html.HiddenFor(modelItem => modelItem.getStockItemListViewModel[i].Items, new { @class = "Items" })
+                                                <td class="Items">@Html.DisplayFor(modelItem => modelItem.getStockItemListViewModel[i].Items)</td>
+                                                @Html.HiddenFor(modelItem => modelItem.getStockItemListViewModel[i].Description)
+                                                <td>@Html.LabelFor(modelItem => modelItem.getStockItemListViewModel[i].Description)</td>
+                                                @Html.HiddenFor(modelItem => modelItem.getStockItemListViewModel[i].Quantity, new { @class = "clsQty" })
+                                                <td>@Html.DisplayFor(modelItem => modelItem.getStockItemListViewModel[i].Quantity)</td>
+                                                @Html.HiddenFor(modelItem => modelItem.getStockItemListViewModel[i].Price, new { @class = "clsItemsPrice" })
+                                                <td>@Html.DisplayFor(modelItem => modelItem.getStockItemListViewModel[i].Price)</td>
+                                                @Html.HiddenFor(modelItem => modelItem.getStockItemListViewModel[i].AmountAUD, new { @class = "clsAmountAUD" })
+                                                <td class="Amount">@Html.DisplayFor(modelItem => modelItem.getStockItemListViewModel[i].AmountAUD)</td>
+                                                @Html.HiddenFor(modelItem => modelItem.getStockItemListViewModel[i].AmountGSTAUD, new { @class = "clsAmountGST" })
+                                                <td class="AmountGST">@Html.DisplayFor(modelItem => modelItem.getStockItemListViewModel[i].AmountGSTAUD)</td>
+                                                <td class="btnEditItembtn" style="color:blue">Edit</td>
+                                                <td class="dltrow" style="color:blue">x</td>
+                                            </tr>
+                                            }
+                                            }
+                                        </tbody>
+                                    </table>*@
+                                @*<div class="AmountTotalDv">
+                                            @Html.HiddenFor(modelItem => modelItem.createInvoiceViewModel.SubTotal, new { @class = "subTotal" })
+                                            <b>SubTotal:</b><label class="subTotalLbl"> @Model.createInvoiceViewModel.SubTotal</label><br />
+                                            <b>GST:</b>10%<br />
+                                            @Html.HiddenFor(modelItem => modelItem.createInvoiceViewModel.SubTotal, new { @class = "TotalWithGST" })
+                                            <b>Total:</b><label class="TotalWithGSTLbl"> @Model.createInvoiceViewModel.Total</label>
+                                        </div>
+                                    </div>*@
+
+                                <div class="AmountTotalDv">
+                                    @if (@Model.JclMappingViewModel.JCLInfo.Count > 0)
+                                    {
+                                        @Html.HiddenFor(modelItem => Model.JclMappingViewModel.JCLInfo.First().SubTotal, new { @class = "subTotal" })
+                                        <b>SubTotal:</b><a>$</a><label class="subTotalLbl"> @Model.JclMappingViewModel.JCLInfo.First().SubTotal</label><br />
+                                        <b>GST(10%):</b><a>$</a><label class="lblGst"> @Model.JclMappingViewModel.JCLInfo.First().GST </label><br />
+                                        @Html.HiddenFor(modelItem => Model.JclMappingViewModel.JCLInfo.First().GST, new { @class = "TotalWithGST" })
+                                        <b>Total:</b><a>$</a><label class="TotalWithGSTLbl"> @Model.JclMappingViewModel.JCLInfo.First().GrandTotal</label>
+                                        @*if (Model.createInvoiceViewModel.JobType != FSM.Web.FSMConstant.Constant.JobType.Quote)
+                                        {
+                                            <br /><b> AmountPaid:</b><a>($):</a><label class="divQuoteamountpaid">@Model.createInvoiceViewModel.QuotePaidAmount</label>
+                                            <br /><b>Balance</b><a>($):</a><label class="divQuoteamountbal">@Model.createInvoiceViewModel.BalanceafterQuoteAmount</label>
+                                        }*@
+
+
+                                    }
+                                    else
+                                    {
+                                        <b>SubTotal:</b><a>$</a><label class="subTotalLbl"> </label><br />
+                                        <b>GST(10%):</b><a>$</a><label class="lblGst"> </label><br />
+                                        <b>Total:</b><a>$</a><label class="TotalWithGSTLbl"></label><br />
+
+                                    }
+                                    <div id="divpaymentshowhide" style="display:none">
+                                        <b>Deposit Required($):</b><label class="amountPay"></label>
+                                        @*<br /> <b>Balance Due:</b><a>$</a><label class="balanceDue"></label>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--general_form-->
+                        <div class="general_form">
+                            <h3 class="line_header">Job Detail</h3>
+                            <div class="form text_normal">
+                                <div class="">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.JobNo, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.JobId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.JobId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.CustomerLastName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.CustomerLastName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.CustomerLastName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.JobType, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EnumDropDownListFor(m => m.createInvoiceViewModel.JobType, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.JobType, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.JobStatus, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EnumDropDownListFor(m => m.createInvoiceViewModel.JobStatus, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.JobStatus, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.DateBooked, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.DateBooked, new { htmlAttributes = new { @id = "DateBooked", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.DateBooked, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3 ddlassign2">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.OTRWAssignedList, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.ListBoxFor(model => model.createInvoiceViewModel.OTRWAssignedList, Model.createInvoiceViewModel.OTRWListselect, new { @title = "Select OTRW User", @id = "tempAssignTo2", @class = "ddlmultiselect", multiple = "multiple" })
+                                            @*@Html.DropDownListFor(M => M.createInvoiceViewModel.OTRWAssigned, new SelectList(Model.createInvoiceViewModel.OTRWList, "EmployeeId", "EmployeeName"), "(select)",
+                                                new { @class = "form-control" })*@
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.OTRWAssignedList, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.OTRWNotes, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Raw(HttpUtility.HtmlDecode(Html.TextAreaFor(M => M.createInvoiceViewModel.OTRWNotes, new { @class = "form-control description desc-width textarea_height" }).ToHtmlString()))
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.OTRWNotes, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.OperationNotes, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Raw(HttpUtility.HtmlDecode(Html.TextAreaFor(M => M.createInvoiceViewModel.OperationNotes, new { @class = "form-control description desc-width textarea_height" }).ToHtmlString()))
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.OperationNotes, "", new { @class = "text-danger" })
+                                        </div >
+                                    </div >
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.JobNotes, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.Raw(HttpUtility.HtmlDecode(Html.TextAreaFor(M => M.createInvoiceViewModel.JobNotes, new { @class = "form-control description desc-width textarea_height" }).ToHtmlString()))
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.JobNotes, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="buttons text-center">
+
+                                    @*@Html.ActionLink("Manage Item", "ManageStockInfo", "Invoice", new { @jobId = Model.createInvoiceViewModel.EmployeeJobId.ToString() }, new { @class = "btn btn-default" })*@
+                                    @*<input class="btnmanagejobinvoice btn btn-default" type="button" value="Manage job Purchase" data-val="@Model.EmployeeJobId.ToString()" />*@
+
+                                </div>
+                            </div>
+                        </div><!--general_form-->
+                        @*@if (Model.createInvoiceViewModel.SupportJobId != null)
+                            {
+                                <div class="general_form">
+                                    <h3 class="line_header">Support Job Detail</h3>
+                                    <div class="form text_normal">
+                                        <div class="">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    @Html.HiddenFor(model => model.createInvoiceViewModel.SupportJobId)
+                                                    @Html.LabelFor(model => model.createInvoiceViewModel.SupportJId, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.EditorFor(model => model.createInvoiceViewModel.SupportJId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SupportJId, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    @Html.HiddenFor(model => model.createInvoiceViewModel.SupportCustName)
+                                                    @Html.LabelFor(model => model.createInvoiceViewModel.SupportCustName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.EditorFor(model => model.createInvoiceViewModel.SupportCustName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                                    @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SupportCustName, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    @Html.HiddenFor(model => model.createInvoiceViewModel.SupportjobType)
+                                                    @Html.LabelFor(model => model.createInvoiceViewModel.SupportjobType, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.EnumDropDownListFor(m => m.createInvoiceViewModel.SupportjobType, "(Select)", htmlAttributes: new { @class = "form-control", @disabled = "disabled" })
+                                                    @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SupportjobType, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.createInvoiceViewModel.JobStatus, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.EnumDropDownListFor(m => m.createInvoiceViewModel.SupportjobStatus, "(Select)", htmlAttributes: new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SupportjobStatus, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.createInvoiceViewModel.SupportjobDateBooked, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.EditorFor(model => model.createInvoiceViewModel.SupportjobDateBooked, new { htmlAttributes = new { @id = "SupportjobDateBooked", @class = "form-control" } })
+                                                    @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SupportjobDateBooked, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    @Html.LabelFor(model => model.createInvoiceViewModel.SupportOTRW, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                    @Html.DropDownListFor(M => M.createInvoiceViewModel.SupportOTRW, new SelectList(Model.createInvoiceViewModel.OTRWList, "EmployeeId", "EmployeeName"), "(select)",
+                                            new { @class = "form-control" })
+                                                    @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SupportOTRW, "", new { @class = "text-danger" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="buttons text-center">
+
+                                            @Html.ActionLink("Manage Item", "ManageStockInfo", "Invoice", new { @jobId = Model.createInvoiceViewModel.SupportJobId.ToString() }, new { @class = "btn btn-default" })
+                                            @<input class="btnmanageSupportjobinvoice btn btn-default" type="button" value="Manage job Purchase" data-val="@Model.SupportJobId.ToString()" />
+                                            @Html.ActionLink("Manage Purchase Order", "ViewJobsInvoicePurchaseOrder", "Invoice", new { @JobId = Model.createInvoiceViewModel.SupportJobId.ToString(), @InvoiceId = Model.createInvoiceViewModel.Id.ToString() }, new { @class = "btn btn-default editbtngrid", Jobid = Model.createInvoiceViewModel.EmployeeJobId.ToString(), InvoiceId = Model.createInvoiceViewModel.Id.ToString() })
+                                        </div>
+                                    </div>
+                                </div>
+                            }*@
+
+
+
+                        <div class="general_form">
+                            <h3 class="line_header">Billing Detail</h3>
+                            <div class="form text_normal">
+                                <div class="">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.CoLastName, new { id = "AssignOtrwLabel" })
+                                            @Html.DropDownListFor(m => m.createInvoiceViewModel.BillingAddressId, Model.createInvoiceViewModel.BillingAddressList, "Select", new { @id = "BillingFileName", @title = "Select", @class = "form-control Create_Customer" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.BillingEmail, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.BillingEmail, new { htmlAttributes = new { @id = "BillingEmail", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.BillingEmail, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.PhoneNo, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.PhoneNo, new { htmlAttributes = new { @id = "billingMobile", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.PhoneNo, "", new { @id = "errorpno1", @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div><!--general_form-->
+                        <div class="general_form">
+                            <h3 class="line_header">Site Detail</h3>
+                            <div class="form text_normal">
+                                <div class="">
+                                    @*<div class="col-sm-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.createInvoiceViewModel.ContactName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                @Html.EditorFor(model => model.createInvoiceViewModel.ContactName, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.createInvoiceViewModel.ContactName, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>*@
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.SiteUnit, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.SiteUnit, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SiteUnit, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.SiteStreetName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.SiteStreetName, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SiteStreetName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    @*<div class="col-sm-3">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.createInvoiceViewModel.SiteStreetAddress, htmlAttributes: new { @class = "control-label col-md-12" })
+                                                @Html.EditorFor(model => model.createInvoiceViewModel.SiteStreetAddress, new { htmlAttributes = new { @class = "form-control" } })
+                                                @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SiteStreetAddress, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>*@
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.SiteSuburb, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.SiteSuburb, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SiteSuburb, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.SiteState, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.SiteState, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SiteState, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.createInvoiceViewModel.SitePostalCode, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.createInvoiceViewModel.SitePostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.createInvoiceViewModel.SitePostalCode, "", new { @id = "errorSitecode", @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div><!--general_form-->
+
+                        <div class="general_form">
+                            <h3 class="line_header">Payments Detail</h3>
+                            <div class="form text_normal">
+                                <div class="">
+                                    <div class="grid-wrap table-responsive" style="margin-top:18px;">
+                                        <table width="100%" border="1" class="table table-striped grid-table table-bordered InvoicePayment_table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Date</th>
+                                                    <th>Amount</th>
+                                                    <th>Method</th>
+                                                    <th>Reference</th>
+                                                    <th>Note</th>
+                                                    <th>Delete</th>
+                                                </tr>
+
+                                            </thead>
+                                            <tbody>
+                                                @if (Model.InvoicePaymentViewModel != null)
+                                                {
+                                                    for (int i = 0; i < Model.InvoicePaymentViewModel.Count; i++)
+                                                    {
+                                                        <tr>
+                                                            <td class="paymentId" style="display:none">@Model.InvoicePaymentViewModel[i].Id</td>
+                                                            <td class="paymentInvoiceId" style="display:none">@Model.InvoicePaymentViewModel[i].InvoiceId</td>
+                                                            <td class="paymentDate">@Html.TextBoxFor(m => m.InvoicePaymentViewModel[i].PaymentDate, new { @class = "edtPayDate form-control text-box single-line " })</td>
+                                                            <td class="paymentAmount">@Html.TextBoxFor(m => m.InvoicePaymentViewModel[i].PaymentAmount, new { @class = "edtPayAmount form-control text-box single-line " })</td>
+                                                            <td class="paymentMethod">@Html.EnumDropDownListFor(m => m.InvoicePaymentViewModel[i].PaymentMethod, "(Select)", htmlAttributes: new { @class = "form-control" })</td>
+                                                            <td class="paymentReference">@Html.TextBoxFor(m => m.InvoicePaymentViewModel[i].Reference, new { @class = "edtPayDesc form-control text-box single-line" })</td>
+                                                            <td class="paymentNote">@Html.TextBoxFor(m => m.InvoicePaymentViewModel[i].PaymentNote, new { @class = "edtPaYNote form-control text-box single-line" })</td>
+                                                            <td class="dlttblRowPayment" style="color:blue">x</td>
+                                                        </tr>
+                                                    }
+                                                }
+                                            </tbody>
+                                        </table>
+                                        <div class="edtpaymentsdetail">
+                                            <b>Total Paid($):</b><label class="TotalAmountPAid"></label><br />
+                                            <b>Total Owing:</b><a>$</a><label class="owingbalanceAmt"></label>
+                                        </div>
+                                        <div class="">
+                                            <input class="btn btn-default black-btn" type="button" id="addNewPayment" value="Add Payment" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div><!--general_form-->
+                       <div class="buttons">
+                            <button type="button" class="btn btn-default btnsubmit">ADD</button>
+                            @Html.ActionLink("Manage Purchase Order", "ViewJobsInvoicePurchaseOrder", "Invoice", new { @JobId = Model.createInvoiceViewModel.EmployeeJobId.ToString(), @InvoiceId = Model.createInvoiceViewModel.Id.ToString() }, new { @class = "btn btn-default editbtngrid", Jobid = Model.createInvoiceViewModel.EmployeeJobId.ToString(), InvoiceId = Model.createInvoiceViewModel.Id.ToString() })
+                            <input id="btnCancelForJob" class="btn black-btn btn-default" type="button" value="Cancel" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="divjobpurchaseorder"></div>
+            @*<div class="divSupportjobpurchaseorder"></div>*@
+        }
+    </div>
+</section>
+@*<script src="~/Scripts/jquery-1.12.4.min.js"></script>*@
+<script src="~/Areas/Employee/Scripts/Invoice.js"></script>
+<script src="~/Areas/Employee/Scripts/ManagejobInvoice.js"></script>
+
+<div class="modal fade InvoicePopUp" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog modal-sm modal_width" role="document">
+        <div class="modal-content border_radius">
+            <div class="modal-header bgcolor_header" style="padding: 0px;">
+                <button type="button" class="close_btn" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title delete_stock">Modal Header</h5>
+            </div>
+            <div class="modal-body viewemp_modal">
+                <h5 class="alertmsg ">lorem ipsum dollar lorem ipsum dollar</h5>
+                <div class="bottom_btn">
+                    <button type="button" class="btn btn-primary btnconfirm black-btn">Yes</button>
+                    <button type="button" class="btn btn-success btncancel black-btn" data-dismiss="modal">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.JobId = '@Model.createInvoiceViewModel.EmployeeJobId'
+        FSM.InvoiceId = '@Model.createInvoiceViewModel.Id'
+        if (FSM.JobId == '') {
+            FSM.JobId = "";
+        }
+        if (FSM.InvoiceId == '') {
+            FSM.InvoiceId = "";
+        }
+        $(document).ready(function () {
+
+            $(".ddlmultiselect").multiselect();
+        })
+    </script>
+
+
+}

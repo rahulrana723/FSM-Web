@@ -1,0 +1,117 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.GetJobViewModel
+@{
+    ViewBag.Title = "AddEditJobPurchaseOrderWithJobId";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section scripts{
+    <script>
+        var FSM = {};
+    </script>
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="~/Areas/Employee/Scripts/AddEditPurchaseorderjob.js"></script>
+}
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        <div class="employee_table">
+            <div class="customer_head_tab purchade_order_tab border_top">
+                <h3>Add Job Purchase Order</h3>
+                <div class="alert alert-success errormsgdiv" style="display:none">
+                    <strong>Success!</strong>
+                </div>
+                <form>
+                    <div class="form-group">
+                        <div class="form-group col-sm-2">
+                            <label>Select Job Id</label>
+                            @Html.DropDownListFor(model => model.EmployeeJobId, new SelectList(Model.employeeJobDetail, "EmployeeJobid", "Description"), "(Select)", new { @class = "form-control ddljobid" })
+                        </div>
+                        <div class="form-group col-sm-2">
+                            <label>Supplier</label>
+                            @Html.DropDownList("dfd", new List<SelectListItem>
+                               {
+                                  new SelectListItem() { Text = "--Select role--", Value = "0"},
+                                new SelectListItem() { Text = "Deepak", Value = "B4337597-1E9A-4C9B-8BC5-2046A5DDEE73"},
+                                new SelectListItem() { Text = "Deepak324", Value = "206A6488-BA9B-42D0-8258-DAF38E8FA625"},
+                                new SelectListItem() { Text = "Deepak", Value = "9BF066E7-5ACD-48C8-8C72-DD03D52AE6F2"},
+                               }, new { @class = "form-control ddlsupplier" })
+                            <span class="text-danger errorsupplier"></span>
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Stock Item</label>
+                        <select class="form-control ddlstock  top_space"> <option></option></select>
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Unit Measure</label>
+                        <input type="text" class="form-control" id="UnitOfMeasure" readonly="readonly">
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label>Quantity</label>
+                        <input type="text" class="form-control Quantity" id="Quantity" maxlength="6">
+                        <span class="errordiv" ,style="top: 0px;"></span>
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label>Price</label>
+                        <input type="text" class="form-control stockprice" id="Price" readonly="readonly">
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label> </label>
+                        <button type="button" class="btn btn-default black-btn btnAddstockitem">Add item</button>
+                        @*<button type="button" class="btn btn-default btnclear">clear </button>*@
+                    </div>
+
+                </form>
+
+            </div><!--customer_head_tab-->
+            <div class="clearfix"></div>
+            <div id="divstockItems">
+                <div class="customer_table padding20 puchase_tab">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered tblstock">
+                            <thead>
+                                <tr>
+                                    <th style="display:none">StockID</th>
+                                    <th>Stock Item</th>
+                                    <th>Unit Measure</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th style="display:none">Available</th>
+                                    <th style="width:15%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div><!--emp_table-->
+            </div>
+            <div class="customer_head_tab purchade_order_tab">
+                <form>
+                    <div class="form-group col-sm-3">
+                        <label>Cost</label>
+                        <input class="form-control" type="text" id="Cost" readonly="readonly">
+                        @*@Html.ValidationMessageFor(model => model.PurchaseOrderByStockViewModel.Cost, "", new { @class = "text -danger", @style = "top: 0px; " })*@
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label>Description</label>
+                        <textarea class="form-control  description textarea_height" type="text"></textarea>
+                    </div>
+
+                    <div class="form-group col-sm-3 col-sm-offset-4">
+                        <div class="top_space3">
+                            <input type="button" value="Add Purchase Order" class="btn btn-default black-btn btnaddjobpurchaseorderwithJobid" />
+                            <a class="btn black-btn btn-default" type="button" href="@Url.Action("ViewJobsPurchaseOrder","Purchase", new { Area = "Employee"})">
+                                Back
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+

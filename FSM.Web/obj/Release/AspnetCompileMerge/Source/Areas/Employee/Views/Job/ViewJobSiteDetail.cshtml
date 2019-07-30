@@ -1,0 +1,313 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.CustomerSiteDetailListViewModel
+@using GridMvc.Html
+@{
+    ViewBag.Title = "ViewJobSiteDetail";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        <div class="employee_table">
+            <div class="emp_table padding20">
+                <div class="Create_invoice_form">
+
+                    @if (Model.Customercontactsmodel != null)
+                    {
+                        <div class="general_form">
+                            <h3>Customer Contact</h3>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.Label("Name", new { @class = "control-label " })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.Customercontactsmodel.Title.ToString()) ? Model.Customercontactsmodel.Title.ToString() : "") + " " + Model.Customercontactsmodel.FirstName + " " + Model.Customercontactsmodel.LastName, new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Customercontactsmodel.PhoneNo1, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.Customercontactsmodel.PhoneNo1) ? Model.Customercontactsmodel.PhoneNo1.ToString() : ""), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Customercontactsmodel.PhoneNo2, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.Customercontactsmodel.PhoneNo2) ? Model.Customercontactsmodel.PhoneNo2.ToString() : "Not Available"), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Customercontactsmodel.PhoneNo3, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.Customercontactsmodel.PhoneNo3) ? Model.Customercontactsmodel.PhoneNo3.ToString() : "Not Available"), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Customercontactsmodel.EmailId, new { @class = "control-label" })
+                                        @Html.EditorFor(m => m.Customercontactsmodel.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Customercontactsmodel.Spare1, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.Customercontactsmodel.Spare1) ? Model.Customercontactsmodel.Spare1.ToString() : "Not Available"), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Customercontactsmodel.Spare2, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.Customercontactsmodel.Spare2) ? Model.Customercontactsmodel.Spare2.ToString() : "Not Available"), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(m => m.Customercontactsmodel.Spare3, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.Customercontactsmodel.Spare3) ? Model.Customercontactsmodel.Spare3.ToString() : "Not Available"), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.CustomerSiteDetailmodel != null)
+                    {
+                        <div class="general_form">
+                            <h3>Customer Site Detail</h3>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailmodel.CustomerName, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerSiteDetailmodel.CustomerName.ToString()) ? Model.CustomerSiteDetailmodel.CustomerName.ToString() : "Not Available"), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailmodel.Unit, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerSiteDetailmodel.Unit) ? Model.CustomerSiteDetailmodel.Unit.ToString() : "Not Available"), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailmodel.StreetName, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerSiteDetailmodel.StreetName.ToString()) ? Model.CustomerSiteDetailmodel.StreetName.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailmodel.StreetType, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerSiteDetailmodel.StreetType.ToString()) ? Model.CustomerSiteDetailmodel.StreetType.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailmodel.Street, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerSiteDetailmodel.Street) ? Model.CustomerSiteDetailmodel.Street.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailmodel.Suburb, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerSiteDetailmodel.Suburb) ? Model.CustomerSiteDetailmodel.Suburb.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailmodel.State, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerSiteDetailmodel.State) ? Model.CustomerSiteDetailmodel.State.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerSiteDetailmodel.PostalCode, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerSiteDetailmodel.PostalCode.ToString()) ? Model.CustomerSiteDetailmodel.PostalCode.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.CustomerResidenceDetailmodel != null)
+                    {
+                        <div class="general_form">
+                            <h3>Customer Residence Detail</h3>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailmodel.TypeOfResidence, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerResidenceDetailmodel.DisplayResidenceType, new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailmodel.Unit, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerResidenceDetailmodel.Unit) ? Model.CustomerResidenceDetailmodel.Unit.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailmodel.NoBldgs, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerResidenceDetailmodel.NoBldgs) ? Model.CustomerResidenceDetailmodel.NoBldgs.ToString() : "Not Available"), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailmodel.Height, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerResidenceDetailmodel.DisplayResidenceHeight, new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailmodel.Pitch, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerResidenceDetailmodel.DisplayRoofPitch, new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailmodel.RoofType, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerResidenceDetailmodel.DisplayRoofType, new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailmodel.GutterGaurd, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerResidenceDetailmodel.DisplayGutterGaurd, new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerResidenceDetailmodel.SRASinstalled, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerResidenceDetailmodel.SRASinstalled.ToString(), new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="checkbox-inline">
+                                        @Html.CheckBoxFor(model => model.CustomerResidenceDetailmodel.NotWet) Not Wet
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        @Html.CheckBoxFor(model => model.CustomerResidenceDetailmodel.NeedTwoPPL) Need Two PPL
+                                    </label>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.CustomerconditionDetailmodel != null)
+                    {
+                        <div class="general_form">
+                            <h3>Condition Detail</h3>
+
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerconditionDetailmodel.RoofTilesSheets, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerconditionDetailmodel.DisplayRoofTilesSheet, new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerconditionDetailmodel.BargeCappings, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerconditionDetailmodel.BargeCappings) ? Model.CustomerconditionDetailmodel.BargeCappings.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerconditionDetailmodel.RidgeCappings, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label((!String.IsNullOrEmpty(Model.CustomerconditionDetailmodel.RidgeCappings) ? Model.CustomerconditionDetailmodel.RidgeCappings.ToString() : "Not Available"), new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerconditionDetailmodel.Valleys, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerconditionDetailmodel.DisplayValley, new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerconditionDetailmodel.Flashings, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerconditionDetailmodel.DisplayFlashing, new { @class = "control-label form-control" })
+
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerconditionDetailmodel.Gutters, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerconditionDetailmodel.DisplayGutter, new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CustomerconditionDetailmodel.DownPipes, htmlAttributes: new { @class = "control-label" })
+                                        @Html.Label(Model.CustomerconditionDetailmodel.DisplayDownPipe, new { @class = "control-label form-control" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    @if (Model.CustomerSitedocumentviewmodel != null)
+                    {
+                        <div class="general_form">
+                            <h3>Site Documents</h3>
+                            @Html.Grid(Model.CustomerSitedocumentviewmodel).Columns(
+                            columns =>
+                            {
+                                columns.Add(model => model.DocumentName).Titled("Document Name");
+                                columns.Add()
+                                .Encoded(false)
+                                .Sanitized(false)
+                                .SetWidth(30)
+                                .RenderValueAs(model => Html.ActionLink("Download", "", "", new { @documentid = model.DocumentId.ToString(), @SiteId = model.SiteId.ToString() }, new { @class = "btn btn-default btndownloadsitedoc", @documentid = model.DocumentId.ToString() })).Filterable(false).Titled("Download");
+                            })
+                        </div>
+                    }
+                    <div id="divbtndiv">
+                        <a class="btn black-btn" href="@Url.Action("CanecelJob", "job", new { Area = "Employee" })">
+                            Back
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Areas/Employee/Scripts/ViewJobSites.js"></script>
+<style>
+    label {
+        text-align: left;
+        font-weight: normal;
+        margin: 0 0 10px 0;
+        font-size: 15px;
+    }
+</style>

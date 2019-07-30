@@ -1,0 +1,68 @@
+﻿@model  FSM.Web.Areas.Employee.ViewModels.MessageListViewModel
+<div class="modal fade" id="modalContactlog" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" id="btncross" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Send Message</h4>
+            </div>
+            <div class="modal-body" style="overflow:auto;height:200px">
+               
+                    @Html.HiddenFor(model => model.UserMessageViewModel.To_Id, new { @class = "ToId" })
+                    @Html.HiddenFor(model => model.UserMessageViewModel.From_Id, new { @class = "FromId" })
+                    <div class="MessageView">
+                        @if (Model.UserMessageForCoreViewModel.Count()>0)
+                        {
+                        foreach (var item in Model.UserMessageForCoreViewModel)
+                            {
+                             <div>
+                              <b style="color:#93c749"> @item.UserName :</b> @(new HtmlString(item.Message)) 
+                             </div>
+                            }
+                        }
+                    </div>
+            </div>
+           
+            <div class="modal-footer">
+                <div class="form-group">
+                    <div class="msgsend">
+                        @Html.TextAreaFor(model => model.UserMessageViewModel.Message, new { @maxlength = "600",  @class = "MessageBox form-control desc-width textarea_height" } )
+                        <div class="chatBtnsDv">
+                            <img src="~/Images/thumb-up.png" id="thumbsnd" height="36" width="38"> 
+                            <img src="~/Images/thumb-down.png" id="thumbsnddown" height="36" width="38"> 
+                            <input type="button" value="Send" id="messageSent" class="btn btn-success chatBtns" />
+                            <input type="button" value="Delete All" id="DeleteMessage" class="btn btn-default black-btn" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#messageSent").click(function () {
+        var textval = $("#UserMessageViewModel_Message").val().replace(/ /g, '').length;
+        if (textval === 0) {
+            return false;
+        }
+    });
+    $("#UserMessageViewModel_Message").keyup(function () {
+        var textval = $("#UserMessageViewModel_Message").val().replace(/ /g, '').length;
+        if (textval ===0) {
+            $('#messageSent').attr('disabled', true);
+        }
+        else {
+            $('#messageSent').attr('disabled', false);
+        }
+    })
+    $("#DeleteMessage").click(function () {
+        var messagediv = $(".MessageView b").text().length;
+        if (messagediv === 0) {
+            return false;
+        }
+    })
+    $("#btncross").click(function () {
+        location.reload();
+    });
+</script>

@@ -1,0 +1,27 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.ApprovedQuoteListViewModel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(m => m.PageSize)
+   
+        @*<div class="clearfix"></div>*@
+        @*<div class="search_customer_block stock_top_bg">*@
+        <div class="customer_head_tab">
+            <div class="search_customer_block">
+                <div class="form-group col-sm-3">
+                   
+                        @Html.EditorFor(model => model.searchkeyword, new { htmlAttributes = new { @class = "form-control", @style = "display:inline", @placeholder = " Search Keyword" } })
+                 
+                    
+                </div>
+            
+                <input type="submit" value="Search" class="search_btn black-btn search_pad" />
+
+            </div>
+            @*</div>*@
+        </div><!--search_customer-->
+    </div>
+}
+

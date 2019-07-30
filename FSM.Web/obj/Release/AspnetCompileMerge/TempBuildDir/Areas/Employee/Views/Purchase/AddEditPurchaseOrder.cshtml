@@ -1,0 +1,122 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.StockPurChaseViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.OrderId = '@Model.PurchaseOrderByStockViewModel.ID';
+        if (FSM.OrderId == '@Guid.Empty') {
+            FSM.OrderId = "";
+        }
+    </script>
+}
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        <div class="employee_table">
+            <div class="customer_head_tab purchade_order_tab border_top">
+                <h3>Add Purchase Order</h3>
+                <div class="alert alert-success errormsgdiv" style="display:none">
+                    <strong>Success!</strong>
+                </div>
+                <form>
+                    @Html.Hidden("available", new { @id = "available" })
+                    <div class="form-group col-sm-2">
+                        <label>Stock Item</label>
+                        @Html.DropDownListFor(M => M.PurchaseOrderITemByStockViewModel.StockID, new SelectList(Model.PurchaseOrderITemByStockViewModel.Stocklist, "StockId", "StockName"), "(Select)", new { @class = "form-control ddlstockname top_space" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderITemByStockViewModel.StockID, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group col-sm-2">
+                        <label>Unit Measure</label>
+                        @Html.TextBoxFor(M => M.PurchaseOrderITemByStockViewModel.UnitOfMeasure, new { @id = "UnitOfMeasure", @class = "form-control  ", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderITemByStockViewModel.UnitOfMeasure, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label>Quantity</label>
+                        @Html.TextBoxFor(M => M.PurchaseOrderITemByStockViewModel.Quantity, new { @id = "Quantity", @class = "form-control  " })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderITemByStockViewModel.Quantity, "", new { @class = "errordiv", @style = "top: 0px; " })
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <label>Price</label>
+                        @Html.TextBoxFor(m => m.PurchaseOrderITemByStockViewModel.Price, new { @id = "Price", @class = "stockprice form-control", placeholder = " ", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderITemByStockViewModel.Price, "", new { @class = " text-danger" })
+                    </div>
+
+                    <div class="form-group col-sm-2">
+                        <div class="top_space2">
+                            <input type="button" value="Add Item" class="btn btn-default black-btn  btnAddstockitem" id="btnaddstockitems" />
+                            <a class="btn black-btn btn-default btnclear btnAddstockitem">
+                                Clear
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div><!--customer_head_tab-->
+            <div class="clearfix"></div>
+            <div id="divstockItems">
+                <div class="customer_table padding20 puchase_tab">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered tblstock">
+                            <thead>
+                                <tr>
+                                    <th style="display:none">StockID</th>
+                                    <th>Stock Item</th>
+                                    <th>Unit Measure</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                    <th style="display:none">Available</th>
+                                    <th style="width:15%">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div><!--emp_table-->
+            </div>
+            <div class="customer_head_tab purchade_order_tab">
+                <form>
+                    <div class="form-group col-sm-3">
+                        <label>Supplier</label>
+                        @Html.DropDownListFor(M => M.PurchaseOrderByStockViewModel.supplierID, new SelectList(Model.PurchaseOrderByStockViewModel.SupplierList, "ID", "Name"), "(Select)", new { @class = "form-control ddlsupplier top_space" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderByStockViewModel.supplierID, "", new { @class = "text-danger errorsupplier" })
+                    </div>
+
+                    <div class="form-group col-sm-3">
+                        <label>Cost</label>
+                        @Html.TextBoxFor(M => M.PurchaseOrderByStockViewModel.Cost, new { @id = "Cost", @class = "form-control  ", @readonly = "readonly" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderByStockViewModel.Cost, "", new { @class = "text -danger", @style = "top: 0px; " })
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label>Description</label>
+
+                        @Html.TextAreaFor(M => M.PurchaseOrderByStockViewModel.Description, new { @class = "form-control description textarea_height" })
+                        @Html.ValidationMessageFor(model => model.PurchaseOrderByStockViewModel.Description, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-sm-3 col-sm-offset-4">
+                        <div class="top_space3">
+                            <input type="button" value="Add Purchase Order" class="btn btn-default black-btn   btnaddpurchaseorder btnAddstockitem" />
+                            <a class="btn black-btn btn-default btnAddstockitem" type="button" href="@Url.Action("ViewPurchaseOrder","purchase", new { Area = "Employee" })">
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</section>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Areas/Employee/Scripts/AddEditPurchase.js"></script>

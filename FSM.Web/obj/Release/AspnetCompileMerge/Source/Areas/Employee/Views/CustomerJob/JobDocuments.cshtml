@@ -1,0 +1,39 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JobDocViewModel
+@{
+    ViewBag.Title = "Job Documents";
+    Layout = null;
+}
+@using (Html.BeginForm("SaveJobDocument", "CustomerJob", FormMethod.Post, new { enctype = "multipart/form-data", @id = "frmJobDocs" }))
+{
+    <div class="col-md-12 no-pad">
+        <div class="outer_box_doc">
+            <div class="add_doc">
+                <input type="button" value="Add" id="add_btnDoc" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+    <div class="table-responsive" id="divContactPartial">
+        <div class="Jobdocument_collapse important_collpase" style="display:none;">
+            <div class="header">
+                <span>Add document</span>
+            </div>
+            @Html.HiddenFor(m => m.JobId)
+            <div class="col-sm-4">
+                @Html.TextBoxFor(m => m.JobDocs, new { type = "file", accept = "image/x-png,image/gif,image/jpeg,.docx,.xlsx,.txt" })
+            </div>
+            <div class="col-sm-3">
+                <div class="checkbox">
+                    <input id="btnSaveJobDocs" class="btn btn-default search_doc" type="button" value="Save" />
+                </div>
+            </div>
+        </div>
+
+        <div class="jobdocs-list">
+            @Html.Partial("_JobDocumentList", Model)
+        </div>
+        <div class="quickviewdiv"></div>
+    </div>
+}
+
+<script src="~/Areas/Employee/Scripts/JobDocuments.js"></script>
+

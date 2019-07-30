@@ -1,0 +1,97 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.PurchaseOrderjobListviewModel
+@using GridMvc.Html
+@{
+    ViewBag.Title = "ViewjobsPurchaseOrder";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ViewjobsPurchaseOrder", "Job", new { @area = "Employee"})';
+        FSM.JobId= '@ViewBag.JobId';
+        FSM.SelectedVal=@Model.Purchasejobsearchorderviewmodel.PageSize;
+        FSM.HasGridRecords='@Model.PurchaseorderjobViewmodel.Count()'
+        var success='@TempData["Message"]';
+        if (success != "" && success != undefined && success != 0)
+        {
+            FSM.Message=success;
+        }
+        else
+        {
+            FSM.Message="";
+        }
+        if (FSM.Message != "" && FSM.Message != 0) {
+            $(".jobalert").css("display", "block");
+            if (FSM.Message == "1") {
+                $(".jobalert").html("<strong>Purchase order added Successfully!</strong>");
+            }
+            else if (FSM.Message == "2") {
+                $(".jobalert").html("<strong>Purchase order Updated Successfully!</strong>");
+            }
+            else if (FSM.Message == "3") {
+                $(".jobalert").html("<strong>Purchase order Deleted Successfully!</strong>");
+            }
+            $(".jobalert").delay(2000).fadeOut();
+        }
+    </script>
+}
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Job Purchase orders </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="drop_head_tab">
+            <div class="bd-example stock_right">
+                <div class="alert alert-success jobalert" style="display:none">
+                    <strong>Success!</strong> Indicates a successful or positive action.
+                </div>
+                <div class="new_emp_tab outer_box">
+                    <div class="col-md-12 no-pad">
+                        <div class="search_Purchaseorder">
+                            @Html.Partial("_PurchaseOrderJobSearchview", Model.Purchasejobsearchorderviewmodel)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @Html.Grid(Model.PurchaseorderjobViewmodel).Columns(
+ columns =>
+ {
+     columns.Add(model => model.PurchaseOrderNoformated).Titled("Purchase Order No");
+     columns.Add(model => model.JobNo).Titled("Job No");
+     columns.Add(model => model.InvoiceNo).Titled("Invoice No");
+     columns.Add(model => model.Description).Titled("Description");
+     columns.Add(model => model.Cost).Titled("Cost");
+     columns.Add(model => model.SupplierName).Titled("Supplier");
+     columns.Add()
+     .Encoded(false)
+     .Sanitized(false)
+     .SetWidth(30)
+     .RenderValueAs(model => Html.ActionLink("Edit", "AddEditJobPurchaseOrder", new { Purchaseorderid = model.ID.ToString(), JobId = ViewBag.JobId }, new { @class = "btn btn-default" })).Filterable(false).Titled("Edit");
+     columns.Add()
+     .Encoded(false)
+     .Sanitized(false)
+     .SetWidth(30)
+      .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { jobid = model.JobID.ToString(), purchaseId = model.ID.ToString() }, new { @class = "btn btn-default", @type = "button", href = "javascript:void(0)", onclick = "DeleteJobpurchaseOrder('" + model.ID.ToString() + "');" })).Filterable(false).Titled("Delete");
+ }).WithPaging(Model.Purchasejobsearchorderviewmodel.PageSize).Sortable(true)
+            <div style="float: right;">
+                <label>Page Size</label>
+                @Html.DropDownList("ddPageSize", new List<SelectListItem>
+         {
+           new SelectListItem { Text="5",Value="5"},
+           new SelectListItem { Text = "10", Value = "10" },
+           new SelectListItem { Text = "15", Value = "15" },
+           new SelectListItem { Text = "20", Value = "20" },
+           new SelectListItem { Text = "25", Value = "25" },
+           new SelectListItem { Text = "30", Value = "30" }
+         }, new { @class = "form-control" })
+            </div>
+        </div>
+    </div><!--emp_table-->
+    <div class="form-group col-sm-3 col-sm-offset-4">
+        <div class="top_space3">
+            <input id="btnBackGeneralInfoForJob" class="btn black-btn btn-default" type="button" value="Back" />
+        </div>
+    </div>
+</div>
+<script src="~/Areas/Employee/Scripts/ViewjobsPurchaseOrder.js"></script>

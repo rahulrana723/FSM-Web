@@ -1,0 +1,42 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.ManageVacactionViewModel
+
+@using GridMvc.Html
+
+@Html.Grid(Model.listVacations).Columns(
+    columns =>
+    {
+        columns.Add(model => model.StartDate).Format("{0:dd-MMM-yyyy}").Titled("Start Date");
+        columns.Add(model => model.EndDate).Format("{0:dd-MMM-yyyy}").Titled("End Date");
+        columns.Add(model => model.Hours).Titled("Hours");
+        columns.Add(model => model.Reason).Titled("Reason");
+        columns.Add(model => model.DisplayStatus).Titled("Status");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "#", null, new
+        {
+            @class = "btn btn-default editbtngrid updateEmpVacation",
+            @data_id = model.Id.ToString(),
+            @style="visibility:"+model.IsVisible+";"
+        })).Filterable(false).Titled("Edit");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { data_id = model.Id.ToString() },new
+        {
+            @class = "btn btn-default editbtngrid deleteEmpVacation",
+            @type = "button",
+            href = "javascript:void(0)",
+            onclick= "deleteEmpVacation('" + model.Id.ToString() + "')",
+            @style = "visibility:" + model.IsVisible + ";"
+        }
+            )).Filterable(false).Titled("Delete");
+
+    }
+    ).WithPaging(Model.PageSize).Sortable(true)
+
+

@@ -1,0 +1,101 @@
+﻿
+@model FSM.Web.Areas.Employee.ViewModels.ApprovedQuoteListViewModel
+@using GridMvc.Html
+
+<div id="materialsheetDv">
+    @Html.Grid(Model.MaterialInvoiceViewModel).SetRowCssClasses(
+    item => "cssEditMaterial").Columns(
+    columns =>
+    {
+        columns.Add(model => model.Id, true);
+        //columns.Add(model => model.JobId).Titled("Job No").Titled("Job No").SetWidth(10).Sanitized(false).Encoded(false)
+        //                  .RenderValueAs(model => CustomRenderingOfColumn(model.JobId, model.Id)).Filterable(false);
+        columns.Add(model => model.JobId).Titled("job No");
+        columns.Add(model => model.InvoiceNo).Titled("Quote No.");
+        columns.Add(model => model.CustomerLastName).Titled("Customer");
+        columns.Add(model => model.SiteAddress).Titled("Site Filename");
+        columns.Add(model => model.InvoiceDate).Format("{0:dd/MM/yyyy}").Titled("Quote Date");
+        columns.Add(model => model.OtrwAssignedName).Titled("Assigned To");
+        columns.Add(model => model.paidStatus).Titled("Status");
+        columns.Add(model => model.InvoiceType).Titled("Type");
+        columns.Add(model => model.DisplaySentStatus).Titled("Sent Status");
+        columns.Add(model => model.Price).Titled("Amount");
+        columns.Add()
+ .Encoded(false)
+ .Sanitized(false)
+ .SetWidth(30)
+ .RenderValueAs(model => Html.ActionLink("View", "ViewQuoteMaterial", new { Id = model.Id }, new { @class = "btn btn-default " })).Filterable(false).Titled("View");
+    }
+                           ).WithPaging(Model.PageSize, 20).Sortable(true)
+    <div style="float: left">
+        <label class="recordCount">Total Record: @Model.MaterialInvoiceViewModel.Count()</label>
+    </div>
+    <div name="pags" style="float: right">
+        <label>Page Size</label>
+        @Html.DropDownList("ddPageSize", new List<SelectListItem>
+   {
+       new SelectListItem { Text="5",Value="5"},
+       new SelectListItem { Text = "10", Value = "10" },
+       new SelectListItem { Text = "15", Value = "15" },
+       new SelectListItem { Text = "20", Value = "20" },
+       new SelectListItem { Text = "25", Value = "25" },
+       new SelectListItem { Text = "30", Value = "30" }
+   }, new { @class = "form-control" })
+
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.form-control#ddPageSize').val(@Model.PageSize);
+        if ($('.pagination').is(':visible')) {
+            $('#ddPageSize').parent().css('margin-top', '-72px');
+        }
+        else {
+            $('#ddPageSize').parent().css('margin-top', '8px');
+        }
+    });
+
+    $('#ddPageSize').on('change', function () {
+        debugger;
+        FSM.url = '@Url.Action("GetApprovedQuotematerial", "Material", new { area = "Employee" })';
+        var pagesize = $('#ddPageSize').val();
+        var keyword = $('#Keyword').val();
+        var url = FSM.url + '?Keyword=' + keyword + '&PageSize=' + pagesize;
+        $.get(url, function (data) {
+            $('#materialsheetDv').empty();
+            $('#materialsheetDv').append(data);
+        });
+    });
+
+
+    $(document).on('click', '#searchTimeSheet', function () {
+        var pagesize = $('#ddPageSize').val();
+        var keyword = $('#searchkeyword').val();
+        if (keyword != '' && keyword != undefined) {
+
+        }
+        else {
+            keyword = '';
+        }
+        FSM.url = '@Url.Action("GetApprovedQuotematerial", "Material", new { area = "Employee" })';
+        var url = FSM.url + '?Keyword=' + keyword + '&PageSize=' + pagesize;
+        $.get(url, function (data) {
+            $('#materialsheetDv').empty();
+            $('#materialsheetDv').append(data);
+        });
+    });
+
+    $(document).on('dblclick', '.cssEditMaterial', function () {
+        var FSM = {};
+        FSM.EditMaterial = '@Url.Action("ViewQuoteMaterial", "Material", new { @area = "Employee" })';
+        // getting customer id
+        var id = $(this).find('td:eq(0)').text();
+        window.location = FSM.EditMaterial + "/" + id;
+    });
+
+</script>
+
+

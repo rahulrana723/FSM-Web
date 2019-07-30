@@ -1,0 +1,140 @@
+﻿
+@model FSM.Web.Areas.Employee.ViewModels.EmployeeJobListViewModel
+
+@using GridMvc.Html
+@using FSM.Web.Common;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+}
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ViewEmployeeJobs","Job", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.Employeejobsearchmodel.PageSize;
+        FSM.HasGridRecords='@Model.EmployeeJoblist.Count()';
+        FSM.EditJob='@Url.Action("SaveJobInfo", "CustomerJob", new { @area = "Employee" })';
+        FSM.CustomerName='@Model.CustomerName';
+        var success='@TempData["Message"]';
+        if (success != "" && success != undefined)
+        {
+            FSM.Message=success;
+
+        }
+        else
+        {
+            FSM.Message="";
+        }
+        FSM.CustomerListVal = '@Html.Raw(serializer.Serialize(Model.Employeejobsearchmodel.CustomerList))';
+    </script>
+}
+
+
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Jobs </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="alert alert-success jobalert" style="display:none">
+            <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+        
+        <div class="customer_head_tab job-customer-visible">
+            @Html.Partial("_EmployeeJobsSearch", Model.Employeejobsearchmodel)
+        </div>
+        <div class="drop_head_tab">
+            <div class="clearfix"></div>
+
+            @Html.Grid(Model.EmployeeJoblist).SetRowCssClasses(
+           item => item.Id == Guid.Empty ? string.Empty:"cssEditJob").Columns(
+    columns =>
+    {
+        columns.Add(model => model.Id, true);
+        //columns.Add(model => model.JobNo).Titled("Job No");
+        columns.Add(model => model.JobNo).Titled("Job No").SetWidth(100).Sanitized(false).Encoded(false)
+                              .RenderValueAs(model => CustomRenderingOfColumn( model.JobNo, model.Id)).Filterable(false);
+        columns.Add(model => model.DisplayJobType).Titled("Job Type").SetWidth(100);
+        //columns.Add(model => model.CustomerName).Titled("File Name");
+        columns.Add(model => model.SiteFileName).Titled("Site Filename");
+        //columns.Add(model => model.StrataPlan).Titled("Strata Plan");
+        columns.Add(model => model.DateBooked).Format("{0:dd/MM/yyyy}").Titled("Date Booked");
+        //columns.Add(model => model.ContactName).Titled("Contact");
+        columns.Add(model => model.AssignUser).Titled("Assigned To");
+        columns.Add(model => model.DisplayStatus).Titled("Status");
+        columns.Add(model => model.WorkType).Titled("Work Type");
+        //columns.Add(model => model.SiteAddress).Titled("Site Address");
+        //columns.Add(model => model.BookedByName).Titled("Created By");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("View", "InvoiceList", "Invoice", new
+        {
+            @area = "Employee",
+            jid = model.Id.ToString()
+        }, new
+        {
+            @class = "btn btn-default editbtngrid"
+        })).Filterable(false).Titled("Invoice");
+
+        columns.Add()
+       .Encoded(false)
+       .Sanitized(false)
+       .SetWidth(30)
+       .RenderValueAs(model => Html.ActionLink("Edit", "SaveJobInfo", "CustomerJob", new { id = model.Id.ToString(), @area = "Employee" }, new { @class = "btn btn-default editbtngrid" })).Filterable(false).Titled("Edit");
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { id = model.Id.ToString() }, new { @class = "btn btn-default ", @type = "button", href = "javascript:void(0)", onclick = "Deletejob('" + model.Id.ToString() + "');" })).Filterable(false).Titled("Delete");
+    }
+).WithPaging(Model.Employeejobsearchmodel.PageSize).Sortable(true)
+
+            <div style="float: left;">
+                <label class="recordCount">Total Record: @Model.Employeejobsearchmodel.TotalCount</label>
+                </div>
+                <div style="float: right;">
+                    <label>Page Size</label>
+                    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+        {
+              new SelectListItem { Text="5",Value="5"},
+              new SelectListItem { Text = "10", Value = "10" },
+              new SelectListItem { Text = "15", Value = "15" },
+              new SelectListItem { Text = "20", Value = "20" },
+              new SelectListItem { Text = "25", Value = "25" },
+              new SelectListItem { Text = "30", Value = "30" }
+        }, new { @class = "form-control" })
+                </div>
+
+            </div>
+    </div>
+</div>
+       @helper CustomRenderingOfColumn(int? JobNo, Guid Id)
+       {
+               <div Class="Quickbtngrid" JobId="@Id">@JobNo<a class="qucikbtn" style="color:dodgerblue;margin-left:10%">></a></div>
+           //@Html.ActionLink(""+message+"(" + UnReadMsg + ")", "", new { EmployeeId = EmployeeId }, new { @class = "Chatbtngrid @*msgColor*@", href = "javascript:void(0)", @EmployeeId = EmployeeId });
+       }
+@*documents modal for documents related to job*@
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Job Documents</h4>
+            </div>
+            <div class="modal-body modaldoc">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Areas/Employee/Scripts/ViewEmployeeJob.js"></script>

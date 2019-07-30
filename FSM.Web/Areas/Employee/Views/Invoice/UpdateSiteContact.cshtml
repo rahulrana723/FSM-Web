@@ -1,0 +1,134 @@
+﻿@model  FSM.Web.Areas.Customer.ViewModels.CustomerContactsViewModel
+@{
+    Layout = null;
+}
+
+<script src="~/Areas/Employee/Scripts/InvoiceCustomerContacts.js"></script>
+
+@using (Html.BeginForm("UpdateSiteContact", "Invoice", new { @area = "Employee" }, FormMethod.Post, new { @id = "Invoicecontactform" }))
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ContactId)
+        @Html.HiddenFor(model => model.CustomerGeneralInfoId)
+
+        <div class="general_form">
+            <h3>Site Contact</h3>
+            <div id="contactsmsgDv" style="display:none;"></div>
+
+            <div id="contactsmsgDv" style="display:none;"> </div>
+
+            <div class="alert alert-success jobalert" style="display:none">
+                <strong>Success!</strong> Indicates a successful or positive action.
+            </div>
+
+            <div class="form">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SiteId, "Select Site", htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div>
+                                @Html.DropDownListFor(model => model.SiteId, Model.SiteList, new { id = "ddlSite", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SiteId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ContactsType, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.EnumDropDownListFor(m => m.ContactsType, "(Select)", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.ContactsType, "", new { @id = "errortitle", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Title)
+                            @Html.EnumDropDownListFor(m => m.Title, "(Select)", new { @id = "hometitle", @class = "form-control", placeholder = "" })
+                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName)
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "ContactsFirstName", @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @id = "errorfname", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                   
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName)
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @id = "errorlname", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNo1)
+                            @Html.EditorFor(model => model.PhoneNo1, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNo1, "", new { @id = "errorpno1", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNo2)
+                            @Html.EditorFor(model => model.PhoneNo2, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNo2, "", new { @id = "errorpno2", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PhoneNo3)
+                            @Html.EditorFor(model => model.PhoneNo3, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.PhoneNo3, "", new { @id = "errorpno3", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                 </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmailId)
+                            @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.EmailId, "", new { @id = "erroremailId", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Spare1)
+                            @Html.TextAreaFor(model => model.Spare1, new { @id = "spare1", @class = "form-control description cntcs-width cntcsarea_height" })
+                            @Html.ValidationMessageFor(model => model.Spare1, "", new { @id = "errorpsno1", @style = "top:0px;color:red" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="">
+                    <div class="col-sm-4">
+                        <div class="checkbox contactmargintop">
+                            <label>
+                                @Html.CheckBoxFor(m => m.ContactConfirmation,new {@class="cnfrmargin_left" })
+                                Contact For Confirmation
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-6">
+                            <div class="buttons text-center">
+                                <input id="AddInvoiceContacts" type="button" value="Update" class="btn btn-default" />
+                                <a class="btn btn-default black-btn" href="@Url.Action("InvoiceList","Invoice", new { Area = "Employee" })">
+                                    Cancel
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+

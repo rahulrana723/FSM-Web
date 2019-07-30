@@ -1,0 +1,54 @@
+﻿@using FSM.Web.Models
+@model LoginViewModel
+@{
+    ViewBag.Title = "Log in";
+    Layout = null;
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <!-- STYLESHEET FIrLE -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/bootstrap.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/font-awesome.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/style.css")">
+    <link rel="shortcut icon" href="@Url.Content("~/Content/images/fsmfavicon.ico")" />
+    <!--  SCRIPTS -->
+    <script src="@Url.Content("~/Scripts/jquery-1.12.4.js")"></script>
+    <!-- bootstrap script -->
+    <script src="@Url.Content("~/Scripts/js/bootstrap.min.js")" type="text/jscript"> </script>
+</head>
+<body id="login">
+    <section id="loginForm">
+        <div class="login_block">
+            <figure> <img src="~/Content/images/Logo_New_1.png" alt="logo"></figure>
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                @Html.AntiForgeryToken()
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+               <div style="color:red;">@TempData["message"]</div>
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @id = "input_backgroundEmail", @class = "form-control username login-background", placeholder = "Email Address" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                    @Html.PasswordFor(m => m.Password, new { @id = "input_background", @class = "form-control pswd login-background", Value = Model.Password,placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="forgot_pswd">
+                    <p>
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "chk-RememberMe" })
+                        @Html.LabelFor(m => m.RememberMe, new { @class = "lbl-RememberMe" })
+                        <span class="pull-right text-left"> <a href="javascript:;">@Html.ActionLink("Forgot your password ?", "ForgotPassword")</a></span>
+                    </p>
+                        
+                </div>
+                <button type="submit" class="btn btn-default sign_in">Sign In </button>
+            }
+        </div>
+    </section>
+</body>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,51 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerBillingAddressListViewModel
+
+@{
+    Layout = null;
+}
+
+<script>
+        var FSM = {};
+        FSM.SelectedVal=@Html.Raw(Json.Encode(Model.BillingSearchInfo.PageSize));
+        FSM.GeneralInfoId=@Html.Raw(Json.Encode(Model.CustomerGeneralInfoId));
+        FSM.BillingCount=@Html.Raw(Json.Encode(Model.BillingCount));
+       FSM.BillingAddressId=@Html.Raw(Json.Encode(Model.BillingAddressId));
+</script>
+<script src="~/Areas/Customer/Scripts/BillingAddress.js"></script>
+<!DOCTYPE html>
+
+<div id="ContactinfoErrorDiv" style="display:none;">
+</div>
+<div class="alert alert-success jobalert" style="display:none">
+    <strong>Success!</strong> Indicates a successful or positive action.
+</div>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddBillingAddress</title>
+    @*<script src="~/Areas/Customer/Scripts/CustomerSite.js"></script>*@
+</head>
+<body>
+    <div id="dvCustBillForm" style="display:none;">
+        <div id="CustomerBillingErrorDiv" style="display:none;">
+        </div>
+        <div id="dvCustBillFormPartial">
+          @Html.Partial("_CustomerBillingForm", Model)
+       </div>
+    </div>
+    <div id="dvCustBillAddNew" style="display:none;">
+
+        @Html.Partial("_CustomerBillingSearch")
+
+        @*grid panel*@
+        <div id="dvShowCustBillList">
+            <div id="delMsgDiv" style="display:none;color:green,">
+                Record deleted successfully !
+            </div>
+            <div class="drop_head_tab">
+                @Html.Partial("_CustomerBillingAddressList", Model)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

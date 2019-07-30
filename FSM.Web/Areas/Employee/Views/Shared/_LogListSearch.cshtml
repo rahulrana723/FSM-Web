@@ -1,0 +1,28 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.LogSearchViewModel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(m => m.PageSize)
+
+        <div class="customer_head_tab">
+            <div class="search_customer_block">
+                <div class="form-group col-sm-3">
+                    @Html.EditorFor(model => model.searchkeyword, new { htmlAttributes = new { @class = "form-control", @style = "display:inline", @placeholder = " Search Keyword" } })
+                </div>
+                <div class="form-group col-sm-2">
+                    @Html.EditorFor(model => model.StartDate, new { htmlAttributes = new { @class = "form-control mardate", @placeholder = "Start Date" } })
+                </div>
+                <div class="form-group col-sm-2">
+                    @Html.EditorFor(model => model.EndDate, new { htmlAttributes = new { @class = "form-control mardate", @placeholder = "End Date" } })
+                </div>
+
+                <input type="submit" value="Search" class="search_btn black-btn search_pad" />
+
+            </div>
+
+        </div><!--search_customer-->
+    </div>
+}
+

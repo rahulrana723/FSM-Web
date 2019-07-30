@@ -1,0 +1,84 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSiteDocumentsListViewModel
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "AddCustomerInfo";
+}
+    <script>
+        var FSM={
+            CustomerGeneralInfoId:""
+        };
+        FSM.CustomerGeneralInfoId = @Html.Raw(Json.Encode(Model.CustomerSiteDocuments.CustomerGeneralInfoId));
+    </script>
+    <script src="~/Areas/Customer/Scripts/AddDocuments.js"></script>
+
+@using (Html.BeginForm("AddDocuments", "Customer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(m => m.CustomerSiteDocuments.CustomerGeneralInfoId)
+    @Html.HiddenFor(m => m.CustomerSiteDocuments.DocumentId)
+    @Html.HiddenFor(m => m.CustomerSiteDocuments.IsDelete)
+    <div class="alert alert-success jobalert" style="display:none">
+        <strong>Success!</strong> Indicates a successful or positive action.
+    </div>
+    @*@Html.HiddenFor(m=>m.SiteCountviewModel.SiteDetailId)*@
+    <div class="col-md-12 no-pad">
+        <div class="outer_box_doc">
+        @Html.Partial("_CustomerSitesDocumentsInfoSearch", new ViewDataDictionary())
+        <div class="add_doc">
+            <input type="button" value="Add" id="add_btn" class="btn btn-default" />
+        </div>
+            </div>
+    </div>
+    <div class="table-responsive" id="divContactPartial">
+        <div class="document_collapse" style="display:none;">
+        <div class="header">
+            <span>Add documents</span>
+        </div>
+            <div class="content col-md-12">
+
+            <div class="row">
+            <div class="form-group col-md-4">
+                        @Html.DropDownListFor(model => model.SiteCountviewModel.SiteDetailId, new SelectList(Model.SiteCountviewModel.siteDetail, "SiteDetailId", "SiteAddress"), "(Select Site)", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.SiteCountviewModel.SiteDetailId, "", new { @class = "validate_red", @id = "validateSitename" })
+            </div>
+            <div class="form-group col-md-4">
+                <div class="Profile">
+                    @*<div class="browse_pic">*@
+                            @Html.TextBox("filename", "", new { type = "file", accept = "image/x-png,image/gif,image/jpeg,.docx,.xlsx,.txt" , multiple = "multiple", @id = "docName" })
+                    @*</div>*@
+                    <div id="divProfilePic"></div>
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                        <input type="submit" value="Save documents" class="btn btncolor save_custlog" onclick="return ValidateDocs()" />
+            </div>
+                </div>
+            </div>
+        </div>
+        <div id="dvShowCustList">
+            @Html.Partial("_CustomerSiteDocumentList", Model)
+        </div>
+        <div class="quickviewdiv"></div>
+    </div>
+
+    <div id="modalcustdoc" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"> Documents</h4>
+                </div>
+                <div class="modal-body modaldoc">
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Areas/Customer/Scripts/CustomerSiteDocument.js"></script>

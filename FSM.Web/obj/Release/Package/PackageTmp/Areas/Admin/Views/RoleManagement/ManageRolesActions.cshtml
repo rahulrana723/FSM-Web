@@ -1,0 +1,51 @@
+﻿@model FSM.Web.Areas.Admin.ViewModels.ManageRolesViewModel
+@{
+    ViewBag.Title = "Manage Roles";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.GetUserActionsUrl = '@Url.Action("GetUserActions")';
+    </script>
+
+<script src="~/Areas/Admin/Scripts/RoleManagement.js"></script>
+}
+
+<meta name="viewport" content="width=device-width" />
+<title>Manage Roles</title>
+
+<section class="dashboard_section">
+
+    <div class="list_heading mange_outer outer_section4">
+        <h2>Manage Permissions  </h2>
+    </div>
+    <div class="dashboard_right_block border_rolemangment">
+        @using (Html.BeginForm("ManageRolesActions", "RoleManagement", FormMethod.Post, new { @id = "formManageRolesActions" }))
+        {
+
+            <div>
+
+                @Html.HiddenFor(m => m.RoleId)
+                <div id="userModulesDv" class="leftsectiion">
+                    @Html.Partial("_GetUserModules", Model)
+                </div>
+
+                <div id="userActionsDv" class="rightsectiion" >
+                    @Html.Partial("_GetUserActions", Model)
+                </div>
+            </div>
+
+            <div class="submit_role">
+                <input id="Submit1" type="submit" value="Submit" />
+                <a class="btn btn-default black-btn" href="@Url.Action("Index", "RoleManagement", new { Area = "Admin" })">
+                    Cancel
+                </a>
+            </div>
+            
+        }
+    <div style="display:none;" id="loadActionsDv">
+        <img src="~/Content/images/loading_spinner.gif" alt="Alternate Tex" />
+    </div>
+    </div><!--dashboard_right_block-->
+</section>

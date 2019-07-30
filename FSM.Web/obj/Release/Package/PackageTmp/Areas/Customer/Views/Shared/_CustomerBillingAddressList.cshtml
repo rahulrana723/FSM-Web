@@ -1,0 +1,42 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerBillingAddressListViewModel
+@using GridMvc.Html
+
+@Html.Grid(Model.CustomerBillingViewModelList).SetRowCssClasses(
+    item => item.BillingAddressId == Guid.Empty ? string.Empty : "cssEditBilling").Columns(
+    columns =>
+    {
+        columns.Add(model => model.BillingAddressId, true);
+        columns.Add(model => model.Name).Titled("Name");
+        columns.Add(model => model.PhoneNo1).Titled("Mobile");
+        columns.Add(model => model.EmailId).Titled("Email");
+        columns.Add(model => model.BillingAddress).Titled("Address");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "", new { id = model.BillingAddressId.ToString() }, new { @class = "btn btn-default editbtngrid", @id = "EditBillingDetail" })).Filterable(false).Titled("Action");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", new { id = model.BillingAddressId.ToString() }, new { @class = "btn btn-default editbtngrid", @id = "DeleteBillingDetail" })).Filterable(false).Titled("Action");
+    }
+    ).WithPaging(Model.BillingSearchInfo.PageSize).Sortable(true)
+
+<div style="float: right;">
+    <label>Page Size</label>
+    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+            {
+                new SelectListItem { Text="5",Value="5"},
+                new SelectListItem { Text = "10", Value = "10" },
+                new SelectListItem { Text = "15", Value = "15" },
+                new SelectListItem { Text = "20", Value = "20" },
+                new SelectListItem { Text = "25", Value = "25" },
+                new SelectListItem { Text = "30", Value = "30" }
+            }, new { @class = "form-control" })
+</div>
+<script src="~/Areas/Customer/Scripts/CustomerBillingList.js"></script>
+
+

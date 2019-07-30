@@ -1,0 +1,45 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.OTRWStocksearchviewmodel
+@using FSM.Web.Common;
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div>
+        @Html.HiddenFor(m => m.PageSize)
+        @Html.HiddenFor(m => m.Stockid)
+        @Html.HiddenFor(m=>m.StockLabel)
+        <div class="outer_border2">
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.EditorFor(model => model.searchkeyword, new { htmlAttributes = new { @class = "form-control", placeholder = "Search Keyword" } })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+
+                        @Html.DropDownListFor(m => m.Type, new SelectList(
+            new List<SelectListItem>
+                {
+                new SelectListItem { Text = "(Select)", Value = "0"},
+                new SelectListItem { Text = "Jobs", Value = "1"},
+                new SelectListItem { Text = "OTRW", Value = "2"},
+                }, "Value", "Text"), new { @class = "form-control col-sm-4 ddlTypes" })
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <input type="submit" value="Search" class="search_btn black-btn" style="display:inline">
+                    </div>
+                </div>
+
+
+
+                </div>
+        </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+}
+
+

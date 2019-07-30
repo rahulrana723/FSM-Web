@@ -1,0 +1,4 @@
+1. If Admin is placing orders on behalf of client then how admin will know that he need to placed the order for some client.
+2. What is the functionality on the more button in "COMPANY ADMIN > REPORTING > DASHBOARD" ? 
+
+

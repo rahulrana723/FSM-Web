@@ -1,0 +1,227 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.JobsViewModel
+
+@{
+    Layout = null;
+}
+
+<script>
+    var FSM = {};
+    FSM.FillSiteListUrl = '@Url.Action("SiteListByCustomer", "Invoice", new { @area = "Employee" })';
+    FSM.GetCustomerUrl = '@Url.Action("CustomerByJobId", "Invoice", new { @area = "Employee" })';
+    FSM.GetJobDocuments = '@Url.Action("GetJobDocuments", "Invoice", new { @area = "Employee" })';
+    FSM.DownloadDocument = '@Url.Action("DownloadDocuments", "Invoice", new { @area = "Employee" })';
+    FSM.DeletejobDocument = '@Url.Action("DeletejobDocumentByDocId", "Invoice", new { @area = "Employee" })';
+    FSM.JobType = '@Model.JobType';
+    FSM.ShowMsg = '@ViewBag.ShowMsg';
+    FSM.JobStatus = '@Model.Status';
+    FSM.InvoiceId = '@ViewBag.InvoiceId';
+</script>
+<script src="~/Scripts/js/bootstrap-multiselect.js"></script>
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+@*<script src="~/Scripts/jquery-1.12.4.min.js"></script>*@
+<script src="~/Areas/Employee/Scripts/EditInvoiceJob.js"></script>
+<link href="~/Content/css/bootstrap-multiselect.css" rel="stylesheet" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+@using (Html.BeginForm("EditJob", "Invoice", new { @area = "Employee" }, FormMethod.Post, new
+{
+    @id = "frmSaveInvoiceJob"
+}))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="general_form">
+        <h3>Job Details</h3>
+        <div id="jobmsgDv" style="display:none;"></div>
+
+        <div id="jobmsgDv" style="display:none; color:red;">
+        </div>
+        <div class="alert alert-success jobalert" style="display:none">
+            <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+
+
+        <div class="form">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.HiddenFor(m => m.CreatedBy)
+                        @Html.HiddenFor(m => m.CreatedDate)
+                        @Html.HiddenFor(m => m.IsDelete)
+                        <label>Job Id </label>
+                        @Html.HiddenFor(m => m.JobNo)
+                        @Html.TextBoxFor(m => m.JobNo, new { @class = "form-control Create_Customer", placeholder = " ", @disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.JobType)
+                        @Html.EnumDropDownListFor(m => m.JobType, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.Label("Link Job")
+                        @Html.DropDownListFor(m => m.LinkJobId, Model.LinkJobList, "(Select)", new { @class = "form-control Create_Customer" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <div class="ui-widget">
+                            @Html.LabelFor(model => model.CustomerGeneralInfoId)
+                            @Html.DropDownListFor(m => m.CustomerInfoId, Model.CustomerList, "(Select)", new { @class = "form-control Create_Customer" })
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="sitelist col-md-3">
+                    @Html.LabelFor(model => model.SiteId)
+                    <div class="fillsitecombo">
+                        @Html.Partial("_SiteList", Model)
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Status)
+                        @Html.EnumDropDownListFor(m => m.Status, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DateBooked)
+                        @Html.TextBoxFor(m => m.DateBooked, "{0:d}", new { @id = "DateBookedJob", @class = "form-control Create_Customer", placeholder = " " })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.PreferTime)
+                        @Html.EnumDropDownListFor(m => m.PreferTime, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.EstimatedHours)
+                        @Html.EditorFor(m => m.EstimatedHours, new { htmlAttributes = new { @class = "form-control" } })
+                    </div>
+                </div>
+                <div class="col-md-3" style="display:none;">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AssignTo)
+                        @Html.DropDownListFor(m => m.tempAssignTo, Model.OTRWList, "(Select)", new { @class = "ddljobslist form-control Create_Customer", multiple = "multiple" })
+                        @*@Html.ListBoxFor(model => model.tempAssignTo2, Model.OTRWList, new { @title = "Select OTRW User", @id = "tempAssignTo2", @class = "ddljobslist form-control Create_Customer ddlmultiselect", multiple = "multiple" })*@
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AssignTo)
+                        @*@Html.DropDownListFor(m => m.tempAssignTo, Model.OTRWList, "(Select)", new { @class = "ddljobslist form-control Create_Customer", multiple = "multiple" })*@
+                        @Html.ListBoxFor(model => model.tempAssignTo2, Model.OTRWList, new { @title = "Select OTRW User", @id = "tempAssignTo2", @class = "ddljobslist Create_Customer ddlmultiselect", multiple = "multiple" })
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.WorkType)
+                        @Html.EnumDropDownListFor(m => m.WorkType, "(Select)", htmlAttributes: new { @class = "form-control Create_Customer" })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group textarea_align">
+                        @Html.LabelFor(model => model.JobNotes)
+                        @Html.TextAreaFor(m => m.JobNotes, new { @class = "form-control ", placeholder = " " })
+                    </div>
+                </div>
+
+                <div class="col-sm-6">
+                    <div class="form-group textarea_align">
+                        @Html.LabelFor(model => model.OperationNotes)
+                        @Html.TextAreaFor(m => m.OperationNotes, new { @class = "form-control ", placeholder = " " })
+                    </div>
+                </div>
+            </div>
+            @if (Model.ModifiedDate != null)
+            {
+                <div class="row">
+                    <div class="col-sm-4">
+                        <b>Last Updated By: </b>
+                    </div>
+                    <div class="col-sm-4">
+                        <div>
+                            <b>UserName :-</b>
+                            @Html.DisplayFor(model => model.UserName)
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div>
+                            <b>Date & Time :-</b>
+                            @Html.DisplayFor(model => model.ModifiedDate)
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-sm-4">
+                        <b>Created By :- </b>
+                    </div>
+                    <div class="col-sm-4">
+                        <div>
+                            <b>UserName :-</b>
+                            @Html.DisplayFor(model => model.UserName)
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div>
+                            <b>Date & Time :-</b>
+                            @Html.DisplayFor(model => model.CreatedDate)
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="row">
+
+            </div>
+            @*end*@
+        </div>
+        <div class="buttons text-center">
+            <input class="btn btn-default savejob" type="button" value="Save" />
+            @Html.ActionLink("Manage Purchase Order", "ViewJobspurchaseOrder", "Invoice", new { @JobId = Model.Id.ToString(), @InvoiceId = ViewBag.InvoiceId }, new { @class = "btn btn-default editbtngrid", @disable = "disable", Jobid = Model.Id.ToString() })
+            @Html.ActionLink("Manage stock", "stockinfo", "Invoice", new { @Jobid = Model.Id.ToString(), @InvoiceId = ViewBag.InvoiceId }, new { @class = "btn btn-default editbtngrid", Jobid = Model.Id.ToString() })
+            @Html.ActionLink("Print", "JobInvoiceExport", "Invoice", new { @Jobid = Model.Id.ToString(), @InvoiceId = ViewBag.InvoiceId }, new { @class = "btn btn-default editbtngrid", Jobid = Model.Id.ToString() })
+            <a class="btn btn-default" href="@Url.Action("InvoiceList", "Invoice", new { Area = "Employee" })">
+                Cancel
+            </a>
+        </div>
+    </div>
+}
+
+<div id="invoiceModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Job Documents</h4>
+            </div>
+            <div class="modal-body modaldoc">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

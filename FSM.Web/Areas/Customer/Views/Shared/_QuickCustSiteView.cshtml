@@ -1,0 +1,88 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerSiteDocumentsListViewModel
+
+<div class="modal fade" id="modalQuickCustSiteView" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Quick Site View !</h4>
+            </div>
+            <div class="modal-body Quick_Line">
+                <ul>
+                    @foreach (var item in Model.CustomerSiteDocumentsViewModelList)
+                    {
+                        if (item.DocType == "Pdf")
+                        {
+
+                            <li>
+                                <a href='@Url.Content("~/Images/CustomerDocs/" +item.DocumentId + "/" + item.DocumentName)' target="_blank">
+                                    <img src='@Url.Content("~/Images/pdf.png")' title="@item.DocumentName" alt="No Image" width="200" height="170" />
+                                </a>
+                                <span>@(item.DocumentName.Length > 15 ? item.DocumentName.Substring(0, 15) + "..." : item.DocumentName)</span>
+                            </li>
+
+                        }
+                        else if (item.DocType == "Image")
+                        {
+                            <li>
+                                <a href='@Url.Content("~/Images/CustomerDocs/" + item.DocumentId + "/" + item.DocumentName)' target="_blank">
+                                    <img src='@Url.Content("~/Images/CustomerDocs/" + item.DocumentId + "/" + item.DocumentName)' title="@item.DocumentName" alt="No Image" width="200" height="170" />
+                                </a>
+                                <span> @(item.DocumentName.Length > 15 ? item.DocumentName.Substring(0, 15) + "..." : item.DocumentName)</span>
+                            </li>
+                        }
+                        else if (item.DocType == "Word Excel")
+                        {
+
+                            <li>
+                                <a href='@Url.Content("~/Images/CustomerDocs/" +item.DocumentId + "/" + item.DocumentName)' target="_blank">
+                                    <img src='@Url.Content("~/Images/Excel.png")' title="@item.DocumentName" alt="No Image" width="200" height="170" />
+                                </a>
+                                <span>@(item.DocumentName.Length > 15 ? item.DocumentName.Substring(0, 15) + "..." : item.DocumentName)</span>
+                            </li>
+
+                        }
+                        else if (item.DocType == "Word Document")
+                        {
+
+                            <li>
+                                <a href='@Url.Content("~/Images/CustomerDocs/" +item.DocumentId + "/" + item.DocumentName)' target="_blank">
+                                    <img src='@Url.Content("~/Images/WordDoc.png")' title="@item.DocumentName" alt="No Image" width="200" height="170" />
+                                </a>
+                                <span>@(item.DocumentName.Length > 15 ? item.DocumentName.Substring(0, 15) + "..." : item.DocumentName)</span>
+                            </li>
+
+                        }
+                        else if (item.DocType == "Text File")
+                        {
+
+                            <li>
+                                <a href='@Url.Content("~/Images/CustomerDocs/" +item.DocumentId + "/" + item.DocumentName)' target="_blank">
+                                    <img src='@Url.Content("~/Images/Text.png")' title="@item.DocumentName" alt="No Image" width="200" height="170" />
+                                </a>
+                                <span>@(item.DocumentName.Length > 15 ? item.DocumentName.Substring(0, 15) + "..." : item.DocumentName)</span>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li>
+                                <a href='@Url.Content("~/Images/CustomerDocs/" +item.DocumentId + "/" + item.DocumentName)' target="_blank">
+                                    <img src='@Url.Content("~/Images/imgdoc1.png")' title="@item.DocumentName" alt="No Image" width="200" height="170" />
+                                </a>
+                                <span>@(item.DocumentName.Length > 15 ? item.DocumentName.Substring(0, 15) + "..." : item.DocumentName)</span>
+                            </li>
+                        }
+
+                    }
+                </ul>
+
+            </div>
+            <div class="modal-footer footerLine_Rmv">
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,81 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.PublicHoidaysListViewModel
+@using GridMvc.Html
+@{
+    ViewBag.Title = "AddEditHoliday";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("GetPublicHoliday", "Employee", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.HolidaySearchViewModel.PageSize;
+        FSM.HasGridRecords='@Model.PublicHolidayViewModel.Count()'
+        var success='@TempData["Message"]';
+        if (success != "" && success != undefined)
+        {
+            FSM.Message=success;
+        }
+        else
+        {
+            FSM.Message="";
+        }
+    </script>
+
+}
+
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Public Holidays </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="alert alert-success jobalert" style="display:none">
+            <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+        <div class="customer_head_tab">
+            @Html.Partial("_HolidaySearch", Model.HolidaySearchViewModel)
+            </div>
+        <div class="drop_head_tab">
+            <div class="clearfix"></div>
+            <div class="table-responsive">
+                @Html.Grid(Model.PublicHolidayViewModel).SetRowCssClasses(
+    item => item.Id == Guid.Empty ? string.Empty : "cssEditPublic").Columns(
+                           columns =>
+                           {
+                               columns.Add(model => model.Id, true);
+                               columns.Add(model => model.Date).Format("{0:dd-MM-yyyy}").Titled("Date");
+                               columns.Add(model => model.Reason).Titled("Holiday Description");
+                               columns.Add()
+                               .Encoded(false)
+                               .Sanitized(false)
+                               .SetWidth(30)
+                               .RenderValueAs(model => Html.ActionLink("Edit", "", "", new { @class = "btn btn-default btnedit", @href = "#", @id = model.Id })).Filterable(false).Titled("Edit");
+                               columns.Add()
+                               .Encoded(false)
+                               .Sanitized(false)
+                               .SetWidth(30)
+                               .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { Id = model.Id.ToString() }, new { @class = "btn btn-default", @type = "button", href = "javascript:void(0)", onclick = "DeletePublicHoliday('" + model.Id.ToString() + "');" })).Filterable(false).Titled("Delete");
+                           }
+                           ).WithPaging(Model.HolidaySearchViewModel.PageSize).Sortable(true)
+                <div style="float: left;">
+                    <label class="recordCount">Total Record: @Model.PublicHolidayViewModel.Count()</label>
+                </div>
+                <div style="float: right;">
+                    <label>Page Size</label>
+                    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+                           {
+                             new SelectListItem { Text="5",Value="5"},
+                             new SelectListItem { Text = "10", Value = "10" },
+                             new SelectListItem { Text = "15", Value = "15" },
+                             new SelectListItem { Text = "20", Value = "20" },
+                             new SelectListItem { Text = "25", Value = "25" },
+                             new SelectListItem { Text = "30", Value = "30" }
+                           }, new { @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divShowPublicHolidayPopup"></div>
+<script src="~/Areas/Employee/Scripts/HolidayListing.js"></script>

@@ -1,0 +1,166 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.Quote_MaterialViewmodel
+@{
+    ViewBag.Title = "View Quote Material";
+    // Layout = null;
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<section class="dashboard_section">
+    <div class="dashboard_right_block">
+        @using (Html.BeginForm("ViewQuoteMaterial", "Material", FormMethod.Post, new { enctype = "multipart/form-data", @id = "contactform" }))
+        {
+            <div class="employee_table">
+                <div class="emp_table padding20">
+                    <div class="Create_invoice_form invoice_form_padding">
+                        <h3 class="add_data"> Quote Material</h3>
+                        <div class="general_form">
+                            <h3 class="line_header">Quote Detail</h3>
+                            <div class="form text_normal">
+                                <div class="">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.QuotematerialViewModel.QuoteAcceptedDate, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.QuotematerialViewModel.QuoteAcceptedDate, new { htmlAttributes = new { @id = "InvoiceDate", @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.QuotematerialViewModel.QuoteAcceptedDate, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.QuotematerialViewModel.QuotedBy, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.QuotematerialViewModel.QuotedBy, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.QuotematerialViewModel.QuotedBy, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.QuotematerialViewModel.CustomerName, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.QuotematerialViewModel.CustomerName, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.QuotematerialViewModel.CustomerName, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.QuotematerialViewModel.SiteAddress, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.QuotematerialViewModel.SiteAddress, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.QuotematerialViewModel.SiteAddress, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="grid-wrap table-responsive" style="margin-top:18px;">
+                                    <table width="100%" border="1" class="table table-striped grid-table table-bordered InvoiceJCL_table">
+                                        <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Items</th>
+                                                <th style="width: 25%;">Description</th>
+                                                <th>Colour</th>
+                                                <th>Size</th>
+                                                <th>Products</th>
+                                                <th>Qty</th>
+                                                <th style="width: 9%;">Unit Price</th>
+                                                <th>Amount</th>
+                                            </tr>
+
+                                        </thead>
+                                        <tbody>
+
+                                            @if (Model.QuotematerialViewModel.JCLInfo.Count() > 0)
+                                            {
+                                                for (int i = 0; i < Model.QuotematerialViewModel.JCLInfo.Count; i++)
+                                                {
+                                                    int counter = i + 1;
+                                                    <tr>
+
+                                                        <td>@counter</td>
+                                                        <td> @Model.QuotematerialViewModel.JCLInfo[i].ItemName</td>
+                                                        <td>@Model.QuotematerialViewModel.JCLInfo[i].Description</td>
+                                                        <td>@Model.QuotematerialViewModel.JCLInfo[i].ColorName</td>
+                                                        <td>@Model.QuotematerialViewModel.JCLInfo[i].Sizename</td>
+                                                        <td>@Model.QuotematerialViewModel.JCLInfo[i].productname</td>
+                                                        <td>@Model.QuotematerialViewModel.JCLInfo[i].DefaultQty</td>
+                                                        <td>@Model.QuotematerialViewModel.JCLInfo[i].Price</td>
+                                                        <td>@Model.QuotematerialViewModel.JCLInfo[i].TotalPrice</td>
+                                                    </tr>
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="AmountTotalDv">
+                                    @if (Model.QuotematerialViewModel.JCLInfo.Count() > 0)
+                                    {
+                                        <b>SubTotal:</b><a>$</a><label class="subTotalLbl"> @Model.QuotematerialViewModel.JCLInfo[0].SubTotal</label><br />
+                                        <b>GST(10%):</b><a>$</a><label class="lblGst">  @Model.QuotematerialViewModel.JCLInfo[0].GST</label><br />
+                                        <b>Total:</b><a>$</a><label class="TotalWithGSTLbl"> @Model.QuotematerialViewModel.JCLInfo[0].GrandTotal</label><br />
+                                    }
+                                </div>
+                            </div>
+
+
+
+                        </div><!--general_form-->
+
+
+
+
+
+
+                        <div class="general_form">
+                            <h3 class="line_header">Job Detail</h3>
+                            <div class="form text_normal">
+                                <div class="">
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.QuotematerialViewModel.DateDepositPaid, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.QuotematerialViewModel.DateDepositPaid, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.QuotematerialViewModel.DateDepositPaid, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.QuotematerialViewModel.JobDateBooked, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.QuotematerialViewModel.JobDateBooked, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.QuotematerialViewModel.JobDateBooked, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.QuotematerialViewModel.JobDateBooked, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.QuotematerialViewModel.JobDateBooked, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.QuotematerialViewModel.JobDateBooked, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.QuotematerialViewModel.JobAssignedto, htmlAttributes: new { @class = "control-label col-md-12" })
+                                            @Html.EditorFor(model => model.QuotematerialViewModel.JobAssignedto, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                            @Html.ValidationMessageFor(model => model.QuotematerialViewModel.JobAssignedto, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="buttons text-center">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="buttons">
+                            @Html.ActionLink("Add Purchase Order", "AddEditJobPurchaseOrder", "Purchase", new { Area = "Employee" }, new { @class = "btn btn-default editbtngrid" })
+                            @*@Html.ActionLink("Add Purchase Order", "GetApprovedQuotematerial", "Material", new { @JobId = Model.createInvoiceViewModel.EmployeeJobId.ToString(), @InvoiceId = Model.createInvoiceViewModel.Id.ToString() }, new { @class = "btn btn-default editbtngrid", Jobid = Model.createInvoiceViewModel.EmployeeJobId.ToString(), InvoiceId = Model.createInvoiceViewModel.Id.ToString() })*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="divSupportjobpurchaseorder"></div>*@
+        }
+    </div>
+</section>
+@*<script src="~/Scripts/jquery-1.12.4.min.js"></script>*@
+@section scripts{
+
+
+
+}

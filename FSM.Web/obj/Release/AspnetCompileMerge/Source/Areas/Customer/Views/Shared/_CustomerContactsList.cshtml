@@ -1,0 +1,203 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerContactsListViewModel
+@using GridMvc.Html
+@Html.Grid(Model.CustomerContactsViewModelList).SetRowCssClasses(
+    item => item.ContactId == Guid.Empty ? string.Empty:"cssEditContacts").Columns(
+    columns =>
+    {
+        columns.Add(model => model.ContactId, true);
+        columns.Add(model => model.FirstName).Titled("First Name");
+        columns.Add(model => model.LastName).Titled("Last Name");
+        columns.Add(model => model.PhoneNo1).Titled("Mobile No.");
+        columns.Add(model => model.EmailId).Titled("Email");
+        columns.Add(model => model.SiteAddress).Titled("Site Address");
+        columns.Add(model => model.DisplayContactsType).Titled("Contacts Type");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "", "", null, new { @class = "edtcontactslog btn btn-default editbtngrid", href = "javascript:void(0)", customerGeneralinfoid = model.CustomerGeneralInfoId, customercontactid = model.ContactId })).Filterable(false).Titled("Edit");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Delete", "", "", new { jobid = model.ContactId.ToString() }, new { @class = "btn btn-default", @type = "button", href = "javascript:void(0)", onclick = "DeleteContacts('" + model.ContactId.ToString() + "');" })).Filterable(false).Titled("Delete");
+    }
+    ).WithPaging((Model.ContactsDetailInfo.PageSize)).Sortable(true)
+<div style="float: right;">
+    <label>Page Size</label>
+    @Html.DropDownList("ddPageSize", new List<SelectListItem>
+            {
+                new SelectListItem { Text="5",Value="5"},
+                new SelectListItem { Text = "10", Value = "10" },
+                new SelectListItem { Text = "15", Value = "15" },
+                new SelectListItem { Text = "20", Value = "20" },
+                new SelectListItem { Text = "25", Value = "25" },
+                new SelectListItem { Text = "30", Value = "30" }
+            }, new { @class = "form-control" })
+</div>
+
+<script>
+    $(document).ready(function(){
+        $('.form-control#ddPageSize').val(@Model.ContactsDetailInfo.PageSize);
+
+            if ($(".pagination").length > 0) {
+                $('#ddPageSize').parent().css('margin-top', '-72px');
+            }
+            else {
+                $('#ddPageSize').parent().css('margin-top', '8px');
+            }
+    });
+    $('#ddPageSize').on('change', function () {
+        var page_size = $('#ddPageSize').val();
+        var keyword=$("#FirstName").val();
+        var siteId = $("#srchSite").val();
+        var contactType = $("#srchType").val();
+        if (page_size==undefined) {
+            page_size=@Model.ContactsDetailInfo.PageSize;
+        }
+        $.get(common.SitePath + "/Customer/Customer/ViewCustomerContactsPartial?page_size=" + page_size+"&SiteId="+siteId+"&ContactType="+contactType+"&Keyword="+keyword+"&CustomerGeneralInfoId=@Model.CustomerContacts.CustomerGeneralInfoId", function (data) {
+            $('#divContactsPartial').empty();
+            $('#divContactsPartial').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+
+    });
+
+    $(document).off('click', '.grid-pager .pagination a').on('click', '.grid-pager .pagination a', function (event) {
+        event.preventDefault();
+        var querystring = $(this).prop('href').split("?")[1];
+        var values = querystring.split("&");
+        var pagenumparam = '';
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.ContactsDetailInfo.PageSize;
+        }
+
+        var name = $('#Name').val();
+        var contactType = $("#srchType").val();
+        var siteId = $("#srchSite").val();
+
+        $.each(values, function (i, item) {
+            if (item.indexOf("grid-page") > -1) {
+                pagenumparam = item;
+            }
+        })
+
+        $.get(common.SitePath + "/Customer/Customer/ViewCustomerContactsPartial?" + pagenumparam + "&page_size=" + page_size + "&SiteId=" + siteId +"&ContactType=" + contactType +"&Name=" + name + "&CustomerGeneralInfoId=@Model.CustomerContacts.CustomerGeneralInfoId", function (data) {
+            $('#divContactsPartial').empty();
+            $('#divContactsPartial').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+
+    });
+
+
+    $(".edtcontactslog").click(function () {
+
+        var customerGeneralinfoid = $(this).attr("customerGeneralinfoid");
+        var customercontactid = $(this).attr("customercontactid");
+
+        var pagenum = $('.active span').text();
+
+        $.ajax({
+            url: common.SitePath + "/customer/customer/_CustomercontactsAddEdit",
+            data: { CustomerGeneralinfoid: customerGeneralinfoid, customercontactid: customercontactid, PageNum: pagenum },
+            type: 'Get',
+            async: false,
+            success: function (data) {
+                $("#divContactsForm").show();
+                $("#divContactsForm").empty();
+                $("#divContactsForm").html(data);
+                $("#divContactsPartial").hide();
+                $(".new_emp_tab").hide();
+            },
+            error: function () {
+                alert("something seems wrong");
+            }
+        });
+        function SuccessLog(data) {
+
+        }
+    })
+    $(document).on("click", ".closebtncontacts", function () {
+        $("#modalContactslog").modal("hide");
+    });
+
+
+    $(document).off('click', '.grid-header-title a').on('click', '.grid-header-title a', function (event) {
+        event.preventDefault();
+        var pagenum = $('li.active span').text();
+        var Name = $("#FirstName").val();
+        var contactType = $("#srchType").val();
+        var siteId = $("#srchSite").val();
+        var page_size = $('#ddPageSize').val();
+        if (page_size==undefined) {
+            page_size=@Model.ContactsDetailInfo.PageSize;
+        }
+
+        var elementparam = $(this).attr('href');
+
+        if (pagenum != undefined && pagenum != "") {
+            elementparam = elementparam + "&grid-page=" + pagenum;
+        }
+
+        if (page_size != undefined && page_size != "" && elementparam.indexOf("page_size") < 0) {
+            elementparam = elementparam + "&page_size=" + page_size;
+        }
+
+        if (elementparam.indexOf("CustomerGeneralInfoId")<0) {
+            elementparam=elementparam+"&CustomerGeneralInfoId=@Model.CustomerContacts.CustomerGeneralInfoId";
+        }
+        elementparam=elementparam+"&SiteId="+siteId+"&ContactType="+contactType+"&Keyword="+Name;
+        var url = common.SitePath + "/Customer/Customer/ViewCustomerContactsPartial" + elementparam;
+        $.get(url, function (data) {
+            $('#divContactsPartial').empty();
+            $('#divContactsPartial').append(data);
+            $('#ddPageSize').val(page_size);
+        });
+    });
+    function DeleteContacts(id) {
+        $(".commonpopup").modal('show');
+        $(".alertmsg").text("Are you sure to delete Contact?");
+        $(".btnconfirm").attr("id", id);
+        $(".modal-title").html("Delete Customer contact !");
+    }
+
+    $(document).off('click',  ".btnconfirm").on('click', ".btnconfirm", function () {
+        var id = $(this).attr("id");
+        $.ajax({
+            type: 'GET',
+            url: common.SitePath + "/Customer/Customer/DeleteCustomerContacts",
+            data: { Customercontactid: id },
+            async: false,
+            success: function (result) {
+
+                $(".commonpopup").modal('hide');
+                $(".jobalert").css("display", "block");
+                $(".jobalert").html("<strong>Record Deleted Successfully!</strong>");
+                    window.location.href = common.SitePath + "/Customer/Customer/AddCustomerInfo/?id=" + result + "&activetab=Contacts&success=delete";
+            },
+            error: function () {
+                $(".commonpopup").modal('hide');
+            }
+        });
+    })
+
+    $(document).on('dblclick', '.cssEditContacts', function () {
+        // getting customer id
+       
+        var id = $(this).find('td:eq(0)').text();
+        var generalinfoId="@Model.CustomerContacts.CustomerGeneralInfoId";
+        $.get(common.SitePath + "/Customer/Customer/_CustomercontactsAddEdit?CustomerGeneralinfoid="+generalinfoId+"&customercontactid=" + id, function (data) {
+            $("#divContactsForm").show();
+            $("#divContactsForm").empty();
+            $("#divContactsForm").html(data);
+            $("#divContactsPartial").hide();
+            $(".new_emp_tab").hide();
+        });
+    });
+
+</script>
+

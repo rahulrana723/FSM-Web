@@ -1,0 +1,98 @@
+﻿@model  FSM.Web.Areas.Customer.ViewModels.CustomerContactLogViewModel
+<script src="~/Areas/Customer/Scripts/CustomerContactLog.js"></script>
+<div class="modal fade" id="modalContactlog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button"  class="close closebtncontact" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Add/Edit Contact Log</h4>
+            </div>
+            <div id="ContactLogErrorDv" style="display:none;padding: 5px 0px 0px 18px;"></div>
+                <div class="modal-body">
+                    @using (Ajax.BeginForm("_CustomercontactAddEdit", "Customer", new AjaxOptions() { HttpMethod = "POST", OnSuccess = "SuccessLog" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-horizontal popUp_width">
+
+
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            @Html.HiddenFor(model => model.CustomerContactId)
+                            @Html.HiddenFor(model => model.CustomerGeneralInfoId)
+                            @Html.HiddenFor(model => model.PageNum)
+                            @Html.HiddenFor(model => model.IsDelete)
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CustomerId, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.JobId, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-8">
+                                    @Html.DropDownListFor(m => m.JobId, new SelectList(Model.Customerjobs, "CustJobId", "Jobtext"), "(Select)", new { @class = "ddljob form-control text-box single-line" })
+                                    @*@Html.DropDownListFor(model => model.CustomerId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })*@
+                                    @Html.ValidationMessageFor(model => model.JobId, "", new { @class = "errorjob", @style = "top:0px;color:red" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SiteName, htmlAttributes: new { @class = "control-label col-md-3 " })
+                                @Html.HiddenFor(model => model.SiteId, new { @id = "custsiteid" })
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.SiteName, new { htmlAttributes = new { @class = "form-control custsitename", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.SiteId, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LogDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.LogDate, new { htmlAttributes = new { @class = "form-control", @readonly = "" } })
+                                    @Html.ValidationMessageFor(model => model.LogDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ReContactDate, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-8">
+                                    @Html.EditorFor(model => model.ReContactDate, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.ReContactDate, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Note, htmlAttributes: new { @class = "control-label col-md-3" })
+                                <div class="col-md-8">
+                                    @Html.TextAreaFor(model => model.Note, new {@id="note", @class = "form-control", @rows = 6, @cols = 20, @style = " resize:none; " })
+                                    @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            @Html.HiddenFor(m => m.CreatedBy)
+
+                            @Html.HiddenFor(m => m.CreatedDate)
+                            <div class="form-group">
+                                <div class="col-md-offset-6 col-md-6">
+                                    @if (Model.CustomerContactId == Guid.Empty)
+                                    {
+                                        <input type="submit" value="Save Log" class="btn btn-success save_log logSubmit" />
+                                    }
+                                    else
+                                    {
+                                        <input type="submit" value="Update Log" class="btn btn-default update_log logSubmit" />
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+    </div>
+</div>
+

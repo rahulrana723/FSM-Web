@@ -1,0 +1,419 @@
+q1. Handover successrate dependent of relation files
+2. Provide csv files for NDR and design files 
+3.Creation of FTP server for each customer.
+4.Band filters
+4.Get files accroding to date from FTP server.
+5.Update table of fifth file in the databse
+6.City focus issue.
+7.New design info file needs to be inserted.
+8.Static data needs to be inserted for movable devices
+
+	city name duplicte.
+new devieces merges existed group.
+we have to create groups at city level.
+
+Edit the group
+Create group at country level
+Areas 120
+120 * 6 = 720 movable devices 
+
+
+Bands should be there on graphs and reports. -- done
+USID need to be implemented.
+Bands not working on live server.
+
+
+Dev Express:
+client want
+Filtering
+trending
+Graphing
+Sorting
+Pivot table
+
+
+Industry name should change to from test to cellular -- done 
+
+File data view button issue. -- done
+
+Data inserted to the schema table by
+After decording the data
+After WCF server
+After FTP server
+
+
+Traffic layer need to be implemented -- done
+bulk rename utility	
+
+Bulk add device is in progress -- Done
+USID implenmentation is in progress -- Done
+
+
+Group needs to be created.
+Movable devices concept
+Tnol KPI should be removed at cell level, We need to calculted TNOL kpi's at USID LEVEL. we have calculated values for this.
+New KPI's Retainabiliy and Accessibility need to be implemented in the project.
+We need to aggregated KPI's values at city level,country level,state level and country level.
+
+Update To Amir : 
+USID functionality on map is uploaded on the Live server.
+
+UDSP_tblMovableFtpFiles_insertAndCheckIfExists
+
+tblMovableFtpFiles
+
+
+30-4-2015
+1. Amir want customized icon for the movable pin.
+2. color assignmed to the Kpi selected on the movable screen.
+
+
+Issues: 
+1. Admin created users
+2. Group not showing on the color assignment. -- resolved
+3. Device assignment filters issue.
+4. payment section filters.
+5. keypad issue on mobile end.
+6. Band issue of stationary devices on map -- resolved
+7. movable pins not showing on the map correctly
+
+
+1.	Customized filters
+2.	Payment Gateway integration 
+3.	Tax setting
+4.	Notifications
+5.	Real time movable data integration of movable devices.
+6.	Test plan Assignment, how it will work dynamically.
+7.	Work on KPI's , Currently we using 7 KPI's which are verified.
+8.      Pivot grid bisects and dissects.
+9.      Google fusion table limitations
+10.     Dashboard
+11      charts which is not implemented yet
+
+
+DSR : 
+16 Requirment gathering(R & D on heat maps)
+17 R & D on new requirements(Chase API and google fustion table) and WBS created
+20 R & D on the documents provided by the client and updated WBS
+21 Worked on omnivore API
+22 Working on Windows phone band app(QR Code scan and make connection with device via bluetooth)
+
+monday -- 
+tuesday --
+wednesday--green
+thursday--yellow
+friday--black 
+
+
+Warning	39	'System.Net.GlobalProxySelection' is obsolete: '"This class has been deprecated. Please use WebRequest.DefaultWebProxy instead to access and set the global default proxy. Use 'null' instead of GetEmptyWebProxy. http://go.microsoft.com/fwlink/?linkid=14202"'	D:\projects\MatincSvn\Utilities\GetFtpServerFiles.cs	71	52	Utilities
+
+DataBase issues
+1. Payment modeId is not included in credit card info table Or Bank infotable.
+2. Table tblPaymentCreditCard, tblPaymentBank,tblMapData deleted,tblRoleTypeMaster.
+3. We have fill Bankid and creditcard id in tblpayment table.
+4. AssignTo removed from tblColorAssignment
+5.tblColorAssignment subindustryname to SubindustryId 
+
+
+
+Database changes
+1. All missed primary forign key relationships are created.
+2. DB diagrams created module wise.
+3. Extra tables removed
+3. Columns removed
+
+tblColorAssignment
+AssignTo removed 
+
+tblDeviceTypeDetail 
+SubIndustryTypeId removed
+
+tbloperator and tblcustomer
+AuthorizationId
+PaymentMethodId
+creditcardInformat
+Bank informationId
+
+tblsymbol
+symbolPath
+
+
+Store Procedures removed
+BindDeviceTypebyUser
+UDSP_BindDeviceId
+UDSP_Check_Existing_DeviceType
+UDSP_DeleteDeviceAssignment
+UDSP_getDeviceIdByDeviceType
+UDSP_GetReportUserDetails
+
+
+update : 
+
+1. We have 90% completed with the whole process of upgration server.
+We are doing testing on new server wheather all the functionalities which we have on 
+the old working fine on the new server.
+When we make sure that new server is working fine and we got complete backup then we remove the old server.
+Our IT guys working on this whole process.
+As per discussion with our IT Guys we definity remove the old server today.
+
+2. We need to discuss regarding the Page access functionality and FTP.
+Whenever you have time please ping on skype. 
+
+
+
+1.We can assign same devicetype to different customer but data will be large in future
+because table is one.
+2.
+
+Update : 
+1. Working on sql Jobs for getting data from the the FTP server according to customers.
+2. Working on Page access management.    
+
+
+Monday : 
+DSR: Worked on creation on sql jobs created by userid on runtime.
+Worked on creation of proc get data on map.
+
+
+Following functionalities are completed :
+FTP
+Add/Edit/update/Delete FTP
+Create connection with different FTP's through sql job 
+Get data from different FTP's and store into the raw tables
+
+Responsive Designs
+Users Page access management screen
+
+User Management
+Active Deactive functionality of customers and users
+Add/Edit/update/Delete default pages aceess for customer and users according to their industry and subindustry
+Assign default pages acess to customers or users according to industry or subindustry
+Assign customized page access to customer or users from the default pages
+
+Map
+Search functionality on map 
+
+
+We are working on the following functionalites :
+
+Map
+Multiselect pulldown menu for selecting KPI's of stationary devices
+Add color legend panel for stationary devices
+Multiselect pulldown menu for selecting Multiple movable devices
+Add color legend panel for Movable devices
+Get movable data according to the year and show on the map
+
+
+
+
+1. sql job on button.
+2. DateTime : Solution got ...
+3. design data work for the single data.
+4. Action on the map : compare, aggre, previous data today date
+
+
+FTP
+Add/Edit/update/Delete FTP
+Create connection with different FTP's through sql job 
+Get data from different FTP's and store into the raw tables
+
+Responsive Designs
+Users Page access management screen
+
+User Management
+Active Deactive functionality of customers and users
+Add/Edit/update/Delete default pages aceess for customer and users according to their industry and subindustry
+Assign default pages acess to customers or users according to industry or subindustry
+Assign customized page access to customer or users from the default pages
+
+
+Map
+Multiselect pulldown menu for selecting KPI's of stationary devices
+Search functionality on map
+Add color legend panel for stationary devices
+Multiselect pulldown menu for selecting Multiple movable devices
+Add color legend panel for Movable devices
+Get movable data according to the year and show on the map
+
+
+update : 
+1. Working on Getting Devices from FTP according to different customers.
+2. Working on Color legends.
+3. Working on the impacts occured by removing subindustry id's.
+
+
+
+Update : 
+1. In database we have concern of dynamic created tables and for this we are planning to arrange a group call.
+2. In current milestone(2nd) only movable device functionality on map is pending, which is inculded in the milestone and we are working on that. We 
+are planning to give QA release of rest of the functionality. So please approve it, So that we provide QA release and you can start testing with our testers.
+
+
+DataSource
+
+FTP
+Streaming
+Database
+
+DeviceTypes
+according to customer,user
+
+Cupon code MMT200
+
+Hi Amir 
+TJ2 this side.
+
+Due some urgent work Ritesh is late today. He will come to office near about 11:00 AM.
+I will update on skype when we will available for call.
+
+And team is working on mantis isues.
+
+
+Hi Amir.
+
+As we are doing work on dynamic staionary device type and calculated values on FTP.
+Due to which Analysis and Reports section will not work now, But we will make these modules dynamic 
+in next milestones.
+
+We will provide you final build of second milestone on the Rackspace staging link.
+And you can use Rackspace Live link for demo purpose with working Map, Reports and Analysis modules
+with Raw data.
+
+
+Update : 
+
+TJ1: Working on google fusion table.
+
+Retesh: Working on performance of application with huge tables with huge data.
+
+Kiran and TJ2: Working on Known issues of mantis of 2nd milestone.
+
+From tommorow we will start work on third milestone.
+
+
+UDSP_tblMessages_Insert
+UDSP_tblMessages_Get
+
+tblMessages
+
+
+color Setting pulldown menu show on movable device.
+
+Color range of selected movable device will be shown on the color lagend panel.
+
+
+
+As per discusstion with Rajiv you were not able to upload bulk groups.
+Reason : Sheet name should be Sheet1. Sheet name was "Bulk_Group_Add_CQI", we have to change this name to sheet1.
+We will show some error of sheet name or we are looking for some code which automatically upload data of first sheet.
+
+
+UDSP_BindGroupname_ColorAssignment--done
+UDSP_SavecolorAssignment--done
+UDSP_tblDeviceAssignment_GET
+UDSP_tblDeviceAlertAssignment_Add_Update
+
+
+Update :
+Team is working on the manits issues.
+We will provide you the document of next milestone on tomorrow EOD IST.
+
+
+
+*************************script to be added
+1. tblPageName_Master Entry  added
+
+2. tblGmailAccounts
+
+3. UDSP_tblGmailAccountsAddUpdate
+4. UDSP_tblGmailAccounts_GET
+5. UDSP_tblGmailAccounts_Delete
+6. UDSP_tblGmailAccounts_GetById
+
+
+
+
+Forward option should be there to forward the messages received in the inbox
+No time and date of the message is given along with the message and also not the senders email address
+There is some way to make sorting in the inbox
+Multi select option should be there to select multiple message for delete purpose
+
+
+tbldeviceMap 
+Col Added uniqueDeviceId
+
+tblMessage
+Col Added messageUserId
+
+
+Hi Amir,
+
+We are working on the documents of Milestone 4 and milestone 5. We will discuss the same on thursday morning. 
+
+Hi Amir,
+
+We need to discuss regarding the functionalities of milestoneplan 4 and 5.
+We have sent you mails of updated milestone plan but delivery fails due to some network issue. 
+
+76966655596
+
+On the dashboard we will show six wi
+
+
+Okay Amir we will do. It will take some time to implement. Also it may hit the performance.
+Meanwhile you can test the dashboard with one map.
+
+
+
+Hi Pratik,
+
+We understood the problems facing by the developer who wrote code of the project.
+So please provide credentials of Team viewer so that we start work on the Live project from tommorow morning.
+And also we need to talk with the developer who wrote this code.So that we know the exact problem and what he want on the output screen exactly.
+We want to know the purpose of the project.
+
+As we are seeing in code, Developer converting Ansi text file to color codes and showing on the output screen with horizontal and vertical scroll bar.
+Converted Color codes are going out side the horizontal scroll bar on the output screen.
+And also developer facing some performance issue. 
+
+Update : 
+1. Designers working on the UI Issues.
+2. We are working on the labels show on the X-axis and hover issue on the chart screen.
+3. Unit testing of Mantis issues we have fixed so far.
+
+CurrentMap.setCenter(new google.maps.LatLng(locations[1].Latitude, locations[1].Longitude));
+                    CurrentMap.setZoom(12);
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

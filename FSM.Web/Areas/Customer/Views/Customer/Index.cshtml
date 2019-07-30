@@ -1,0 +1,187 @@
+﻿@model FSM.Web.Areas.Customer.ViewModels.CustomerListViewModel
+
+@using GridMvc.Html
+@using FSM.Web.Common;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("Index", new { @area = "Customer"})';
+        FSM.SelectedVal=@Model.CustomerGeneralInfo.PageSize;
+        FSM.HasGridRecords='@Model.CustomerGeneralInfoList.Count()';
+        FSM.EditCustomer='@Url.Action("AddCustomerInfo", "Customer", new { @area = "Customer" })';
+        FSM.SiteAddressURL='@Url.Action("GetSiteAddress", "Customer", new { @area = "Customer" })';
+    </script>
+    <script src="~/Areas/Customer/Scripts/Index.js"></script>
+    <script src="~/Areas/Customer/Scripts/_AddCustomerWizard.js"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC2-yRUpPgZfGT4yhS1kPSwqyVrWLCnvhY&sensor=false&amp;libraries=places"></script>
+    <script src="~/Scripts/jquery.geocomplete.min.js"></script>
+}
+<div class="dashboard_right_block outer_padding">
+    <div class="list_heading">
+        <h2>Customers </h2>
+    </div>
+    <div class="employee_table paper-wrap bevel tlbr">
+        <div class="alert alert-success jobalert" style="display:none">
+            <strong>Success!</strong> Indicates a successful or positive action.
+        </div>
+        <div class="customer_head_tab">
+            @Html.Partial("_CustomerGeneralInfoSearch", Model.CustomerGeneralInfo)
+        </div>
+        <div class="drop_head_tab">
+            <div class="clearfix"></div>
+            @Html.Grid(Model.CustomerGeneralInfoList).SetRowCssClasses(
+    item => item.CustomerGeneralInfoId == Guid.Empty ? string.Empty : "cssEditCustomer").Columns(
+    columns =>
+    {
+        columns.Add(model => model.CustomerGeneralInfoId, true);
+        columns.Add(model => model.CTId).Titled("CTID");
+        columns.Add(model => model.CustomerLastName).Titled("Customer Filename");
+        if ((int)Model.CustomerGeneralInfo.CustomerType == 8)
+        {
+            columns.Add(model => model.BlackListed).Titled("Black Listed");
+        }
+        columns.Add(model => model.DisplayCustomerType).Titled("Customer Type");
+        if (Model.CustomerGeneralInfo.CustomerLastName == "" || Model.CustomerGeneralInfo.CustomerLastName==null)
+        {
+            columns.Add(model => model.CustomerSiteCount).Titled("Customer Sites").Css("customer-sites customer-sites-align");
+        }
+        if (Model.CustomerGeneralInfo.CustomerLastName != "" && !String.IsNullOrEmpty(Model.CustomerGeneralInfo.CustomerLastName))
+        {
+            columns.Add(model => model.SiteDetailId, true);
+            columns.Add(model => model.SiteFileName).Titled("Site Filename").Css("customer-siteName customer-sites-align");
+        }
+
+        //columns.Add()
+        //.Encoded(false)
+        //.Sanitized(false)
+        //.SetWidth(30)
+        //.RenderValueAs(model => Html.ActionLink("View Address", "GetSiteAddress", "Customer", new
+        //{
+        //    @area = "Customer"
+        //}, new
+        //{
+        //    @data_id = model.CustomerGeneralInfoId.ToString(),
+        //    @class = "btn btn-default getsiteaddress " + model.ViewAddressClass
+        //})).Filterable(false).Titled("Site Address");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("View Jobs", "ViewEmployeejobs", "Job", new
+        {
+            @area = "Employee",
+            id = model.CustomerGeneralInfoId.ToString(),
+            Module = "Jobs"
+        }, new
+        {
+            @class = "btn btn-default editbtngrid"
+        })).Filterable(false).Titled("Job List");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("Edit", "AddCustomerInfo", new { id = model.CustomerGeneralInfoId.ToString() }, new { @class = "btn btn-default editbtngrid" })).Filterable(false).Titled("Edit");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+       .RenderValueAs(model => Html.ActionLink("Delete", "", "", null, new
+       {
+           @type = "button",
+           @class = "deletedocuments btn btn-default",
+           href = "javascript:void(0)"
+        ,
+           onclick = "DeleteCustomer('" + model.CustomerGeneralInfoId + "');",
+           @CustomergeneralInfoId = model.CustomerGeneralInfoId
+       })).Filterable(false).Titled("Delete");
+
+        columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(model => Html.ActionLink("View", "ExportCustomerContact", new { CustomerGeneralInfoId = model.CustomerGeneralInfoId.ToString() }, new { @class = "btn btn-default editbtngrid" })).Filterable(false).Titled("Log");
+
+    }
+    ).WithPaging(Model.CustomerGeneralInfo.PageSize).Sortable(true)
+
+            <div style="float: left;">
+                <label class="recordCount">Total Record: @Model.CustomerGeneralInfoList.Count()</label>
+            </div>
+            <div style="float: right;">
+                <label>Page Size</label>
+                @Html.DropDownList("ddPageSize", new List<SelectListItem>
+   {
+       new SelectListItem { Text="5",Value="5"},
+       new SelectListItem { Text = "10", Value = "10" },
+       new SelectListItem { Text = "15", Value = "15" },
+       new SelectListItem { Text = "20", Value = "20" },
+       new SelectListItem { Text = "25", Value = "25" },
+       new SelectListItem { Text = "30", Value = "30" }
+   }, new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.Partial("_AddCustomerWizard", Model.Customerwithsites);
+@Html.Partial("_AddSiteWizard", Model.customerSitesViewModelWizard);
+@*@Html.Partial("_AddContactWizard", Model.CustomerContactsViewModelWizard);*@
+
+<div id="divCustomercontactwizard"></div>
+<div class="address-popup"></div>
+
+<script>
+    $(function () {
+  
+
+        defaultBounds = new google.maps.LatLngBounds(
+           new google.maps.LatLng(-33.807690, 150.987274),
+           new google.maps.LatLng(-33.807690, 150.987274));
+  
+        $("#geocomplete").geocomplete({
+            bounds: defaultBounds,
+          // types: ["geocode", "establishment"],
+           //country: 'AU',
+            //type: ["2000", "neighborhood"]
+          //  types: ['administrative_area_level_1','NSW'], //
+            componentRestrictions: {country: "au"}
+            //types: ["geocode"],
+            
+           // types: ['establishment'],
+           // componentRestrictions:   {country: "AU"}
+           
+        }).bind("geocode:result", function (event, result) {
+            for (var i = 0; i < result.address_components.length; i++)
+            {
+                if (result.address_components[i].types[0] == "administrative_area_level_1")
+                    $("#State").val(result.address_components[i].long_name);
+                else if (result.address_components[i].types[0] == "locality")
+                    $("#Suburb").val(result.address_components[i].long_name);
+                else if (result.address_components[i].types[0] == "route")
+                    $("#StreetName").val(result.address_components[i].long_name);
+                else if (result.address_components[i].types[0] == "street_number")
+                    $("#Street").val(result.address_components[i].long_name);
+                else if (result.address_components[i].types[0] == "postal_code")
+                    $("#PostalCode").val(result.address_components[i].long_name);
+            }
+            var startaplan = $("#StrataPlan").val();
+            if (startaplan != null && startaplan != 'undefined' && startaplan != '') {
+                $("#SiteFileName").val(startaplan);
+            }
+            else
+            {
+                $("#SiteFileName").val($("#Street").val() + " " + $("#StreetName").val() + " " + $("#Suburb").val() + " " + $("#State").val() + " " + $("#PostalCode").val())
+            }
+        });
+
+    });
+</script>

@@ -1,0 +1,100 @@
+﻿@model FSM.Web.Areas.Employee.ViewModels.ViewEmployeeRatesListViewModel
+@using GridMvc.Html
+@using FSM.Web.Common;
+
+
+@{
+    ViewBag.Title = "ViewEmployeesRates";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    System.Web.Script.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
+    serializer.MaxJsonLength = Int32.MaxValue;
+}
+@section scripts{
+    <script>
+        var FSM = {};
+        FSM.URL = '@Url.Action("ViewEmployeesRates", "Employee", new { @area = "Employee"})';
+        FSM.SelectedVal=@Model.RatesListsearchmodel.PageSize;
+        FSM.HasGridRecords='@Model.Rateslist.Count()';
+        var success = '@TempData["Message"]';
+        if (success != "" && success != undefined) {
+            FSM.Message = success;
+        }
+        else 
+        {
+            FSM.Message = "";
+        }
+
+    </script>
+}
+
+<meta name="viewport" content="width=device-width" />
+<title>ViewEmployeesRates</title>
+
+<section class="dashboard_right_block outer_padding">
+        <div class="employee_table paper-wrap bevel tlbr outer_section4">
+            <div class="alert alert-success jobalert" style="display:none">
+                <strong>Success!</strong> Indicates a successful or positive action.
+            </div>
+            <div class="new_emp_tab new_emp">
+                <h3>Rates</h3>
+            </div><!--new_emp_tab-->
+            <div class="form-group outer_customer col-sm-12">
+                @Html.Partial("_RatesListSearch", Model.RatesListsearchmodel)
+                
+            </div>
+            <div class="emp_table">
+                <div class="drop_head_tab">
+                    <div class="table-responsive">
+                        @Html.Grid(Model.Rateslist).SetRowCssClasses(
+    item => item.SubCategoryId == Guid.Empty ? string.Empty : "cssEditRates").Columns(
+                                     columns =>
+                                     {
+                                         columns.Add(model => model.SubCategoryId, true);
+                                         columns.Add(model => model.SubCategoryName).Titled("SubCategory Name");
+                                         columns.Add(model => model.ActualRate).Titled("Actual Rate");
+                                         columns.Add(model => model.BaseRate).Titled("Base Rate");
+                                         columns.Add(model => model.Gross_Labour_Cost).Titled("Gross Labour Cost");
+                                         columns.Add(model => model.PERF_B_PAR).Titled("PERF B PAR");
+                                         columns.Add(model => model.GP_Hour_PAR).Titled("GP Hour PAR");
+                                         columns.Add()
+                                         .Encoded(false)
+                                         .Sanitized(false)
+                                         .SetWidth(30)
+                                         .RenderValueAs(model => Html.ActionLink("Edit", "EditEmployeeRates", "Employee", new { @SubcategoryId = model.SubCategoryId }, new { @class = "btn btn-default" })).Filterable(false).Titled("Edit");
+                                          columns.Add()
+                                         .Encoded(false)
+                                         .Sanitized(false)
+                                         .SetWidth(30)
+                                         .RenderValueAs(model => Html.ActionLink("Delete", "", "", new
+                                         {
+                                             @class = "btn btn-default",
+                                             href = "javascript:void(0)",
+                                             onclick = "DeleteRates('" + model.SubCategoryId + "');",
+                                             @SubcategoryId = model.SubCategoryId
+                                         })).Filterable(false).Titled("Delete");
+                                     }
+                                     ).WithPaging(Model.RatesListsearchmodel.PageSize).Sortable(true)
+
+                        <div style="float: right;">
+                            <label>Page Size</label>
+                            @Html.DropDownList("ddPageSize", new List<SelectListItem>
+                           {
+                             new SelectListItem { Text="5",Value="5"},
+                             new SelectListItem { Text = "10", Value = "10" },
+                             new SelectListItem { Text = "15", Value = "15" },
+                             new SelectListItem { Text = "20", Value = "20" },
+                             new SelectListItem { Text = "25", Value = "25" },
+                             new SelectListItem { Text = "30", Value = "30" }
+                           }, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div><!--emp_table-->
+        </div>
+<!--dashboard_right_block-->
+</section>
+
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Areas/Employee/Scripts/ViewEmployeerate.Js"></script>

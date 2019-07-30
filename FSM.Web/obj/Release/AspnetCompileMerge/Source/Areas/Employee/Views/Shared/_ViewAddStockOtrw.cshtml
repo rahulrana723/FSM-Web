@@ -1,0 +1,17 @@
+﻿
+@model List<FSM.Web.Areas.Employee.ViewModels.StockViewModel>
+@using GridMvc.Html
+
+@Html.Grid(Model).Columns(
+    columns =>
+    {
+        columns.Add(model => model.Label).Titled("Label");
+        columns.Add(model => model.Description).Titled("Description");
+        columns.Add(model => model.UnitMeasure).Titled("UnitMeasure");
+        columns.Add(model => model.Price).Titled("Price");
+        columns.Add(model => model.Date).Format("{0:dd-MMM-yyyy}").Titled("Price Date");
+        columns.Add(model => model.EmpId).Titled("ID");
+        columns.Add(model => model.Available).Titled("Available");
+        columns.Add(model => model.OTRW).Titled("OTRW");
+    }
+    )

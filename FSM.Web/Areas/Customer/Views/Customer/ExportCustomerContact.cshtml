@@ -1,0 +1,68 @@
+﻿@model List<FSM.Web.Areas.Customer.ViewModels.CustomerContactExport>
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <script src="~/Scripts/jquery-1.12.4.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <title>ExportCustomerContact</title>
+    <link rel="stylesheet" href="@Url.Content("~/Content/fonts/font-awesome.min.css")">
+    <link rel="stylesheet" href="@Url.Content("~/Content/css/style.css")">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link rel="shortcut icon" href="@Url.Content("~/Content/images/fsmfavicon.ico")" />
+</head>
+<body>
+    <header class="container-fluid">
+        <!-- LOGO SECTION -->
+        <div class="head_tab">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3 col-md-3">
+                        <div class="head_logo" style="float:left">
+                            <a href="@Url.Action("Dashboard","Dashboard", new {@area="Admin" })"> <img alt="" src="~/Content/images/srg_logo.png"></a>
+                        </div><!-- head_logo -->
+                    </div>
+
+                </div>
+            </div><!--head_btm-->
+        </div><!--head_tab-->
+    </header>
+    <div>
+        @if (Model.Count>0)
+            {
+            <table class="table">
+                <thead class="success">
+                    <tr>
+                        <th>Customer Id</th>
+                        <th>Job Id</th>
+                        <th>Log Date</th>
+                        <th>Recontact Date</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="success" style="page-break-inside: avoid;">
+                            <td>@item.CustomerId</td>
+                            <td>@item.JobId</td>
+                            <td>@item.LogDate</td>
+                            <td>@item.ReContactDate</td>
+                            <td>@item.Note</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-danger">
+                <strong>!</strong>No Record found for customer contact log!
+            </div>
+        }
+    </div>
+</body>
+</html>

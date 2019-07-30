@@ -1,0 +1,279 @@
+﻿@model  FSM.Web.Areas.Customer.ViewModels.CustomerContactsViewModel
+
+<div class="modal" id="AddContactWizard" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-wizard">
+        <!-- Modal content-->
+        <div class="modal-content" style="width:74%;margin-left:18%;">
+            <div class="modal-header">
+                <button type="button" class="close closebtn" data-dismiss="modal">close</button>
+                <h4 class="modal-title">Add Contact</h4>
+            </div>
+            <div id="contactsmsgDv" style="display:none;"> </div>
+            <div class="modal-body Quick_Line">
+
+                @using (Html.BeginForm("_CustomercontactsAddWizard", "Customer", new { @area = "Customer" }, FormMethod.Post, new { @id = "contactform" }))
+                {
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.CustomerGeneralInfoId, new { @class = "customerGeneralInfoId" })
+                    //   @Html.HiddenFor(model => model.SiteId, new { @class = "wizardSiteid" })
+                    <div class="general_form">
+                        @*<h3>Add new Contact</h3>*@
+                        <div class="form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.SiteId, "File name", htmlAttributes: new { @class = "control-label col-md-3" })
+                                        <div>
+                                            @Html.DropDownListFor(model => model.SiteId, Model.SiteList, new { id = "ddlSite", @class = "form-control" })
+                                            @*@Html.ValidationMessageFor(model => model.SiteId, "", new { @id = "errorsitename", @style = "top:0px;color:red" })*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ContactsType, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.EnumDropDownListFor(m => m.ContactsType, "(Select)", new { id = "ddlContactType", @class = "form-control" })
+                                        @*@Html.ValidationMessageFor(model => model.ContactsType, "", new { @id = "errorcontcttype", @style = "top:0px;color:red" })*@
+                                    </div>
+                                </div>
+                                @*<div class="col-md-3">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-3" })
+                                            @Html.EnumDropDownListFor(m => m.Title, "(Select)", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.Title, "", new { @id = "errortitle", @style = "top:0px;color:red" })
+                                        </div>
+                                    </div>*@
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @id = "ContactsFirstName", @class = "form-control" } })
+                                        @*@Html.ValidationMessageFor(model => model.FirstName, "", new { @id = "errorfname", @style = "top:0px;color:red" })*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @*@Html.ValidationMessageFor(model => model.LastName, "", new { @id = "errorlname", @style = "top:0px;color:red" })*@
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PhoneNo1, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.EditorFor(model => model.PhoneNo1, new { htmlAttributes = new { @class = "form-control" } })
+                                        @*@Html.ValidationMessageFor(model => model.PhoneNo1, "", new { @id = "errorpno1", @style = "top:0px;color:red" })*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PhoneNo2, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.EditorFor(model => model.PhoneNo2, new { htmlAttributes = new { @class = "form-control" } })
+                                        @*@Html.ValidationMessageFor(model => model.PhoneNo2, "", new { @id = "errorpno2", @style = "top:0px;color:red" })*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.PhoneNo3, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.EditorFor(model => model.PhoneNo3, new { htmlAttributes = new { @class = "form-control" } })
+                                        @*@Html.ValidationMessageFor(model => model.PhoneNo3, "", new { @id = "errorpno3", @style = "top:0px;color:red" })*@
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.EditorFor(model => model.EmailId, new { htmlAttributes = new { @class = "form-control" } })
+                                        @*@Html.ValidationMessageFor(model => model.EmailId, "", new { @id = "erroremailId", @style = "top:0px;color:red" })*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Spare1, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.TextAreaFor(model => model.Spare1, new { @id = "spare1", @class = "form-control description desc-width textarea_height contact-txtarea" })
+                                        @*@Html.ValidationMessageFor(model => model.Spare1, "", new { @id = "errorpsno1", @style = "top:0px;color:red" })*@
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group gap2">
+                                        <div class="checkbox gap">
+                                            @Html.LabelFor(model => model.DefaultContact)
+                                            @Html.EditorFor(model => model.DefaultContact)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="buttons  text-center">
+                                <div class="">
+                                    <input id="AddMoreContact" value="Add Another Contact" type="button" class="btn btn-default" style="margin-top:8px !important;" />
+                                    <input id="AddContacts" value="Finish" type="button" class="btn btn-default" style="margin-top:8px;" />
+                                    <input id="AddContactsJob" value="Finish & Create Job" type="button" class="btn btn-default" style="margin-top:8px;" />
+                                    <input id="BackAddContacts" value="Back" type="button" class="btn btn-default" style="margin-top:8px;" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="modal-footer footerLine_Rmv">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //Create Contacts With Redirection Create Job
+
+    $("#AddContactsJob").click(function () {
+
+        var formdata = new FormData($('#contactform').get(0));
+        var custGeneralInfoId = $(".customerGeneralInfoId").val();
+
+        var ContactsFirstName, PhoneNo1, ddlContactType, ddlContactTypeText;
+
+        ContactsFirstName = $("#ContactsFirstName").val();
+
+        PhoneNo1 = $("#PhoneNo1").val();
+        ddlContactType = $("#ddlContactType").val();
+        ddlContactTypeText = $("#ddlContactType :selected").text();
+        var ErrorList = "<ul style='list-style:none;'>"
+        if (ContactsFirstName == '' || ContactsFirstName == null || ContactsFirstName == 'undefined') {
+            ErrorList = ErrorList + "<li>" + "*Please Enter First Name" + "</li>";
+            $('#contactsmsgDv').html(ErrorList);
+            $('#contactsmsgDv').css('color', 'red');
+            $("#contactsmsgDv").css("display", "block");
+            return;
+        }
+
+        if (ddlContactType == '' || ddlContactType == null || ddlContactType == 'undefined') {
+            ErrorList = ErrorList + "<li>" + "*Please select  Contact Type" + "</li>";
+            $('#contactsmsgDv').html(ErrorList);
+            $('#contactsmsgDv').css('color', 'red');
+            $("#contactsmsgDv").css("display", "block");
+            return;
+        }
+        //if (PhoneNo1 == '' || PhoneNo1 == null || PhoneNo1 == 'undefined') {
+        //    if (ddlContactTypeText != '' && ddlContactTypeText != 'Real Estate') {
+        //        ErrorList = ErrorList + "<li>" + "*Please Enter Contact Number" + "</li>";
+        //        $('#contactsmsgDv').html(ErrorList);
+        //        $('#contactsmsgDv').css('color', 'red');
+        //        $("#contactsmsgDv").css("display", "block");
+        //        return;
+        //    }
+        //}
+
+        $('#contactsmsgDv').css('color', 'red');
+        $("#contactsmsgDv").css("display", "none");
+
+        $.ajax({
+            url: $('#contactform').attr("action"),
+            type: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                if (result.success == "1") {
+                    window.location = common.SitePath + '/Employee/CustomerJob/SaveJobInfo?CustomerId=' + custGeneralInfoId + '&Module=Jobs';
+                }
+            },
+            error: function () {
+                alert('something went wrong !');
+            }
+        });
+    });
+
+    var IsMore = false;
+
+    //Create Job And Without Page Redirection In Job
+    $("#AddContacts").click(function () {
+        var confirmation = confirm("Do you want to finish?");
+        if (confirmation) {
+            IsMore = false;
+            commonsave();
+        }
+    });
+
+
+
+    function commonsave() {
+        var formdata = new FormData($('#contactform').get(0));
+        var ContactsFirstName, PhoneNo1, ddlContactType, ddlContactTypeText;
+        ContactsFirstName = $("#ContactsFirstName").val();
+        PhoneNo1 = $("#PhoneNo1").val();
+        ddlContactType = $("#ddlContactType").val();
+        ddlContactTypeText = $("#ddlContactType :selected").text();
+        var ErrorList = "<ul style='list-style:none;'>"
+        if (ContactsFirstName == '' || ContactsFirstName == null || ContactsFirstName == 'undefined') {
+            ErrorList = ErrorList + "<li>" + "*Please Enter First Name" + "</li>";
+            $('#contactsmsgDv').html(ErrorList);
+            $('#contactsmsgDv').css('color', 'red');
+            $("#contactsmsgDv").css("display", "block");
+            IsMore = false;
+            return;
+        }
+
+        if (ddlContactType == '' || ddlContactType == null || ddlContactType == 'undefined') {
+            ErrorList = ErrorList + "<li>" + "*Please select  Contact Type" + "</li>";
+            $('#contactsmsgDv').html(ErrorList);
+            $('#contactsmsgDv').css('color', 'red');
+            $("#contactsmsgDv").css("display", "block");
+            IsMore = false;
+            return;
+        }
+        //if (PhoneNo1 == '' || PhoneNo1 == null || PhoneNo1 == 'undefined') {
+        //    if (ddlContactTypeText != '' && ddlContactTypeText != 'Real Estate') {
+        //        ErrorList = ErrorList + "<li>" + "*Please Enter Contact Number" + "</li>";
+        //        $('#contactsmsgDv').html(ErrorList);
+        //        $('#contactsmsgDv').css('color', 'red');
+        //        $("#contactsmsgDv").css("display", "block");
+        //        return;
+        //    }
+        //}
+
+        $('#contactsmsgDv').css('color', 'red');
+        $("#contactsmsgDv").css("display", "none");
+
+        $.ajax({
+            url: $('#contactform').attr("action"),
+            type: 'POST',
+            data: formdata,
+            processData: false,
+            contentType: false,
+            success: function (result) {
+                if (result.success == "1" && IsMore == false) {
+                    location.reload();
+                }
+            },
+            error: function () {
+                alert('something went wrong !');
+            }
+        });
+
+
+    }
+    $("#BackAddContacts").click(function (i, e) {
+        $("#addCustomerWizard").modal("show");
+        $("#AddContactWizard").modal("hide");
+        return false;
+    });
+
+    //Add More Contact
+
+    $("#AddMoreContact").click(function () {
+        IsMore = true;
+        commonsave();
+        if (IsMore == true) {
+            $('#contactform')[0].reset();
+        }
+    })
+</script>
